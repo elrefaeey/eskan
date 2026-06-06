@@ -1,0 +1,103 @@
+# =============================================================================
+# docker-compose.yml — Production deployment, security-hardened
+# =============================================================================
+# Run with:  docker compose up -d --build
+# Stop with: docker compose down
+# =============================================================================
+
+services:
+  eskanelmansoura:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: eskanelmansoura
+    restart: unless-stopped
+
+    # ---- Port mapping ----
+    # Map host port 3007 → container port 3007
+    # Bind to 127.0.0.1 so ONLY localhost/reverse proxy can reach it
+    # External traffic should go through Nginx/Caddy reverse proxy
+    ports:
+      - "127.0.0.1:3007:3007"
+
+    # ---- Environment ----
+    environment:
+      - NODE_ENV=production
+      - PORT=3007
+      - HOSTNAME=0.0.0.0
+      - NEXT_TELEMETRY_DISABLED=1
+
+    # ---- Load secrets from .env.production (if it exists) ----
+    env_file:
+      - path: .env.production
+        required: false
+
+    # ---- Resource limits — prevent DoS / resource exhaustion ----
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0" # Max 2 CPU cores
+          memory: 1024M # Max 1 GB RAM
+          pids: 100 # Prevent fork bombs
+        reservations:
+          cpus: "0.5" # Guarantee 0.5 CPU cores
+          memory: 256M # Guarantee 256 MB RAM
+
+    # ---- Security options ----
+    security_opt:
+      # Prevent container from gaining new privileges via setuid/setgid
+      - no-new-privileges:true
+
+    # ---- Drop ALL Linux capabilities, add back only what's needed ----
+    cap_drop:
+      - ALL
+    # cap_add: none needed — Node.js doesn't require special capabilities
+
+    # ---- Read-only filesystem — prevent runtime file tampering ----
+    read_only: true
+
+    # ---- Tmpfs mounts for directories that need write access ----
+    tmpfs:
+      # Next.js cache needs write access (ISR, image optimization cache)
+      - /app/.next/cache:noexec,nosuid,nodev,size=512m,uid=1001,gid=1001
+
+    # ---- Logging — prevent log files from filling disk ----
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m" # Max 10 MB per log file
+        max-file: "3" # Keep 3 rotated files
+
+    # ---- Networking — use bridge (default), never host mode ----
+    networks:
+      - app-network
+
+    # ---- Health check — auto-restart unhealthy containers ----
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "const http = require('http'); const req = http.get('http://localhost:3007/', (res) => { process.exit(res.statusCode === 200 ? 0 : 1); }); req.on('error', () => process.exit(1)); req.setTimeout(5000, () => { req.destroy(); process.exit(1); });",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+    # ---- No host volumes mounted — no access to host filesystem ----
+    # (all data is inside the read-only image layers + tmpfs)
+
+    # ---- DNS — use public DNS to prevent internal network sniffing ----
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+
+networks:
+  app-network:
+    driver: bridge
+    # Internal network — containers can talk to each other but not external
+    # Remove 'internal: true' if your app needs to make outbound HTTP requests
+    # (e.g., API calls to back.mansoura-eco-build.com)
+    internal: false

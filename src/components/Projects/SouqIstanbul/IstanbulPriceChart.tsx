@@ -1,0 +1,143 @@
+"use client";
+
+import {
+  ComposedChart,
+  Bar,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Cell,
+  LabelList,
+  Area,
+} from "recharts";
+import { motion } from "framer-motion";
+import { TrendingUp, ArrowUpRight } from "lucide-react";
+
+const data = [
+  { period: "1/1", price: 50000, growth: null },
+  { period: "4/1", price: 55000, growth: "+10%" },
+  { period: "7/1", price: 60000, growth: "+20%" },
+  { period: "9/1", price: 65000, growth: "+30%" },
+];
+
+const COLORS = ["#f9a8a8", "#f97316", "#ec4899", "#c026d3"];
+
+const CustomTooltip = ({ active, payload }: any) => {
+  if (active && payload?.length) {
+    const d = payload[0].payload;
+    return (
+      <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-xl text-right" dir="rtl">
+        <p className="text-primary font-extrabold text-lg">2024 — {d.period}</p>
+        <p className="text-primary font-extrabold text-2xl mt-1">
+          {d.price.toLocaleString()} <span className="text-sm font-normal text-gray-400">جنيه / م²</span>
+        </p>
+        {d.growth && (
+          <p className="text-green-600 font-bold text-sm mt-1 flex items-center gap-1 justify-end">
+            <ArrowUpRight className="w-3 h-3" />
+            {d.growth} نمو
+          </p>
+        )}
+      </div>
+    );
+  }
+  return null;
+};
+
+const CustomLabel = ({ x, y, width, value }: any) => (
+  <text x={x + width / 2} y={y - 8} fill="#1F503B" textAnchor="middle" fontSize={13} fontWeight={700}>
+    {value.toLocaleString()}
+  </text>
+);
+
+export default function IstanbulPriceChart() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="bg-white rounded-2xl border border-gray-200 shadow-md overflow-hidden"
+      dir="rtl"
+    >
+      {/* Header */}
+      <div className="bg-gradient-to-l from-primary to-[#2d8a57] px-5 md:px-8 py-5">
+        <div className="flex items-center justify-between gap-3 flex-wrap">
+          <div className="flex items-center gap-2">
+            <TrendingUp className="w-5 h-5 text-white shrink-0" />
+            <h3 className="text-white font-extrabold text-lg md:text-xl">
+              تطور سعر المتر — 2024
+            </h3>
+          </div>
+          <div className="flex items-center gap-1.5 bg-white/15 rounded-xl px-3 py-1.5 border border-white/20">
+            <ArrowUpRight className="w-4 h-4 text-white" />
+            <span className="text-white font-extrabold text-sm">+30%</span>
+            <span className="text-white/70 text-xs">نمو خلال 2024</span>
+          </div>
+        </div>
+        <p className="text-white/60 text-xs md:text-sm mt-1">
+          رسم بياني يوضح ارتفاع سعر المتر في الوحدات التجارية في مشروع أبراج البدري
+        </p>
+      </div>
+
+      {/* Chart */}
+      <div className="px-2 md:px-6 pt-6 pb-2">
+        <ResponsiveContainer width="100%" height={260}>
+          <ComposedChart data={data} margin={{ top: 28, right: 10, left: 20, bottom: 0 }}>
+            <defs>
+              <linearGradient id="areaGradIstanbul" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#c026d3" stopOpacity={0.15} />
+                <stop offset="100%" stopColor="#c026d3" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />
+            <XAxis dataKey="period" tick={{ fill: "#888", fontSize: 13, fontWeight: 600 }} axisLine={false} tickLine={false} />
+            <YAxis
+              domain={[45000, 70000]}
+              tick={{ fill: "#aaa", fontSize: 11 }}
+              axisLine={false}
+              tickLine={false}
+              tickFormatter={(v) => v.toLocaleString()}
+              width={70}
+            />
+            <Tooltip content={<CustomTooltip />} cursor={{ fill: "#fdf4ff", radius: 8 }} />
+            <Area type="monotone" dataKey="price" fill="url(#areaGradIstanbul)" stroke="none" />
+            <Bar dataKey="price" radius={[10, 10, 0, 0]} maxBarSize={52}>
+              {data.map((_, i) => (
+                <Cell key={i} fill={COLORS[i]} />
+              ))}
+              <LabelList content={<CustomLabel />} />
+            </Bar>
+            <Line
+              type="monotone"
+              dataKey="price"
+              stroke="#c026d3"
+              strokeWidth={2.5}
+              dot={{ fill: "#fff", stroke: "#c026d3", strokeWidth: 2.5, r: 5 }}
+              activeDot={{ r: 7, fill: "#c026d3" }}
+            />
+          </ComposedChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Cards */}
+      <div className="grid grid-cols-4 border-t border-gray-100">
+        {[...data].reverse().map((row, i) => (
+          <div
+            key={row.period}
+            className={`flex flex-col items-center text-center py-4 px-1 gap-1 border-r border-gray-100 last:border-0 ${i === 0 ? "bg-primary/5" : ""}`}
+          >
+            <span className={`font-extrabold text-base md:text-lg ${i === 0 ? "text-primary" : "text-gray-700"}`}>
+              {row.price.toLocaleString()}
+            </span>
+            {row.growth && (
+              <span className="text-green-600 text-[10px] md:text-xs font-bold">{row.growth}</span>
+            )}
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
