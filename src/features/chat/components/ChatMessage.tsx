@@ -108,7 +108,7 @@ export const ChatMessage = ({
             </div>
           )}
 
-          <p className="text-start text-lg leading-relaxed">{message.text}</p>
+          <p className="text-start text-[22px] leading-relaxed">{message.text}</p>
 
           {message.show_contact && (
             <div className="mt-2.5 flex flex-col gap-1">
