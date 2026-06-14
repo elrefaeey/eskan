@@ -2,6 +2,11 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  overlayVariant,
+  scaleInModal,
+} from "@/lib/animations";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
 import { X, GraduationCap, Clock, FileText, Stethoscope, BookOpen, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 
@@ -62,14 +67,7 @@ export default function InvestmentUnits() {
   };
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-      className="mb-12"
-      dir="rtl"
-    >
+    <AnimatedSection as="section" duration={0.5} className="mb-12 [direction:rtl]">
       <h2 className="text-primary text-2xl md:text-3xl font-extrabold mb-6 border-r-4 border-primary pr-4">
         احجز حصتك الاستثمارية
       </h2>
@@ -172,17 +170,18 @@ export default function InvestmentUnits() {
       <AnimatePresence>
         {showModal && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            variants={overlayVariant}
+            initial="initial"
+            animate="animate"
+            exit="exit"
             className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
             onClick={(e) => e.target === e.currentTarget && resetModal()}
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.25 }}
+              variants={scaleInModal}
+              initial="initial"
+              animate="animate"
+              exit="exit"
               className="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden"
               dir="rtl"
             >
@@ -246,6 +245,6 @@ export default function InvestmentUnits() {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.section>
+    </AnimatedSection>
   );
 }

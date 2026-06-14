@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
 import { Building2, Store } from "lucide-react";
 import ElbadryPriceChart from "@/components/Projects/ElbadryTowers/ElbadryPriceChart";
 import { useLenis } from "@/hooks/useLenis";
@@ -81,41 +81,32 @@ export default function AbragElBadry() {
         />
 
         {/* ── الشارت ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-12"
-        >
+        <AnimatedSection duration={0.5} className="mb-12">
           <h2 className="text-[#1a1a1a] text-2xl md:text-3xl font-extrabold mb-6 border-r-4 border-primary pr-4">
             مخطط المشروع
           </h2>
           <ElbadryPriceChart />
-        </motion.div>
+        </AnimatedSection>
 
         {/* ── الكروت ── */}
         <section className="mb-12">
-          <motion.h2
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
+          <AnimatedSection
+            as="h2"
+            y={15}
+            duration={0.5}
             className="text-[#1a1a1a] text-2xl md:text-3xl font-extrabold mb-6 border-b-2 border-primary/30 pb-3"
           >
             اختر ما يناسبك
-          </motion.h2>
+          </AnimatedSection>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {cards.map((card, i) => (
-              <motion.div
-                key={card.title}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-                className={`${card.cardBg} border-2 ${card.border} rounded-2xl p-6 flex flex-col gap-5 shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-200`}
-                onClick={() => router.push(card.href)}
+              <div key={card.title} onClick={() => router.push(card.href)} className="cursor-pointer">
+              <AnimatedSection
+                y={25}
+                duration={0.5}
+                delay={i * 0.1}
+                className={`${card.cardBg} border-2 ${card.border} rounded-2xl p-6 flex flex-col gap-5 shadow-md hover:shadow-lg transition-shadow duration-200`}
               >
                 <div className="flex items-center justify-between">
                   <div className={`${card.iconBg} w-14 h-14 rounded-xl flex items-center justify-center shadow`}>
@@ -135,7 +126,8 @@ export default function AbragElBadry() {
                 >
                   {card.btn}
                 </button>
-              </motion.div>
+              </AnimatedSection>
+              </div>
             ))}
           </div>
         </section>

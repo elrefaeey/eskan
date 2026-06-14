@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
 import { Loader2, Store, TrendingUp, Calendar, MoveDown } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { MdExpandMore } from "react-icons/md";
@@ -67,11 +68,8 @@ const BazarLevel = () => {
       <FeaturesHighlights highlights={highlights} cols={3} className="mb-10" />
 
       {/* ── ليه تستثمر + صورة المخطط ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+      <AnimatedSection
+        duration={0.5}
         className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 bg-[#f8f8f8] rounded-2xl p-6 md:p-8 border border-gray-100 items-center"
       >
         <div className="flex flex-col gap-3">
@@ -91,17 +89,11 @@ const BazarLevel = () => {
             <img src={"/assets/projects/city-center/دور البازارات.png"} alt="مخطط دور البازار" className="w-full h-auto max-h-[280px] object-contain rounded-xl" />
           </div>
         )}
-      </motion.div>
+      </AnimatedSection>
 
       {/* ── الفلاتر + الوحدات ── */}
-      <motion.div
-        id="units-section"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="mb-10"
-      >
+      <div id="units-section">
+        <AnimatedSection duration={0.5} className="mb-10">
         {/* header الفلاتر */}
         <div className="bg-[#364138] rounded-2xl p-5 mb-6">
           <h3 className="text-white font-extrabold text-xl text-center mb-5 flex items-center justify-center gap-2">
@@ -152,7 +144,8 @@ const BazarLevel = () => {
             {!isLoadingUnits && <MdExpandMore className="text-primary font-bold" size={28} />}
           </motion.button>
         )}
-      </motion.div>
+      </AnimatedSection>
+      </div>
 
     </div>
   );

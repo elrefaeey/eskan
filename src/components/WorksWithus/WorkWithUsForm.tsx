@@ -9,6 +9,7 @@ import FormRadioGroup from "../ui/Form/FormRadioGroup";
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { staggerContainer, fadeUp } from "@/lib/animations";
 
 const WorkWithUsForm = () => {
   const methods = useForm<WorkWithUsSchema>({
@@ -27,20 +28,6 @@ const WorkWithUsForm = () => {
     }
   };
 
-  const formVariant = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { staggerChildren: 0.1, duration: 0.5 },
-    },
-  };
-
-  const itemVariant = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
-  };
-
   const formRef = useRef<HTMLFormElement>(null);
   const isInView = useInView(formRef, { once: true, margin: "-100px" });
 
@@ -48,21 +35,23 @@ const WorkWithUsForm = () => {
     <FormProvider {...methods}>
       <motion.form
         ref={formRef}
-        variants={formVariant}
+        variants={staggerContainer}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
         className="bg-[#EFEFEF] md:px-8 p-4 lg:px-16 lg:py-8 rounded-lg"
         onSubmit={handleSubmit(onSubmit)}
       >
         <motion.h2
-          variants={itemVariant}
+          variants={fadeUp}
+          transition={{ duration: 0.3 }}
           className="text-primary mt-4 mb-4 md:mb-8 text-center text-xl md:text-3xl lg:text-[1.9em] font-bold"
         >
           للانضمام معنا سجل بياناتك
         </motion.h2>
 
         <motion.div
-          variants={itemVariant}
+          variants={fadeUp}
+          transition={{ duration: 0.3 }}
           className="grid grid-cols-1 lg:grid-cols-2 gap-10"
         >
           <FormInput
@@ -100,7 +89,8 @@ const WorkWithUsForm = () => {
         </motion.div>
 
         <motion.button
-          variants={itemVariant}
+          variants={fadeUp}
+          transition={{ duration: 0.3 }}
           type="submit"
           disabled={isLoading}
           className="bg-[#5fac23] cursor-pointer text-white rounded-xl hover:opacity-70 transition-all duration-300

@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import z from "zod";
 import { motion, useInView } from "framer-motion";
+import { staggerContainer, fadeUp } from "@/lib/animations";
 import FormFileUpload from "@/components/ui/Form/FormFileUploadInput";
 import SubmitButton from "@/components/ui/Form/SubmitFormButton";
 import FormInput from "@/components/ui/Form/FormInput";
@@ -103,36 +104,21 @@ const JobForm = ({ jobTitle }: JobFormProps) => {
     });
   };
 
-  // -------------------- ANIMATION VARIANTS --------------------
-
-  const formVariant = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { staggerChildren: 0.1, duration: 0.5 },
-    },
-  };
-
-  const itemVariant = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
-  };
-
   // -------------------- RENDER --------------------
 
   return (
     <FormProvider {...methods}>
       <motion.form
         ref={formRef}
-        variants={formVariant}
+        variants={staggerContainer}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
         className="bg-[#EFEFEF] px-4 pb-4 rounded-lg"
         onSubmit={handleSubmit(submitHandler)}
       >
         <motion.div
-          variants={itemVariant}
+          variants={fadeUp}
+          transition={{ duration: 0.3 }}
           className="grid grid-cols-1 lg:grid-cols-2 gap-6"
         >
           <FormInput

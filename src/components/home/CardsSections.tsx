@@ -7,6 +7,7 @@ import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
 
 function CardsSections() {
   const cards = [
@@ -36,12 +37,11 @@ function CardsSections() {
     <section className="container sec-padding leading-[1.7]!">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {cards.map((card, index) => (
-          <motion.div
+          <AnimatedSection
             key={index}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: index * 0.15, ease: "easeOut" }}
-            viewport={{ once: true }}
+            y={40}
+            duration={0.7}
+            delay={index * 0.15}
           >
             <motion.div
               whileHover={{ scale: 1.02 }}
@@ -62,15 +62,15 @@ function CardsSections() {
                 <CardContent
                   className={`relative z-10 p-4 lg:p-6 flex flex-col gap-3 lg:gap-0 h-full ${card.textColor}`}
                 >
-                  <motion.h3
+                  <AnimatedSection
+                    as="h3"
+                    y={10}
+                    delay={0.3}
                     className="text-2xl  lg:text-4xl font-extrabold
           tracking-tight"
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
                   >
                     {card.title}
-                  </motion.h3>
+                  </AnimatedSection>
 
                   <p className="text-xl md:text-[30px] leading-relaxed opacity-90">
                     {card.description}
@@ -90,11 +90,10 @@ function CardsSections() {
                   </div>
                 </CardContent>
 
-                {/* subtle overlay for aesthetic depth */}
                 <div className="absolute inset-0 bg-linear-to-b from-black/5 to-transparent z-0"></div>
               </Card>
             </motion.div>
-          </motion.div>
+          </AnimatedSection>
         ))}
       </div>
     </section>

@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { collapseVariant } from "@/lib/animations";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
 import { CheckCircle2, Clock, Circle, ChevronDown } from "lucide-react";
 
 type Status = "done" | "active" | "pending";
@@ -59,13 +61,9 @@ export default function ProjectProgress() {
   const [activePhase, setActivePhase] = useState<number | null>(1);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      dir="rtl"
-      className="rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm"
+    <AnimatedSection
+      y={24}
+      className="rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm [direction:rtl]"
     >
       {/* ── Section Header ── */}
       <div className="text-center px-6 pt-8 pb-6 border-b border-gray-100">
@@ -198,10 +196,10 @@ export default function ProjectProgress() {
       <AnimatePresence>
         {activePhase !== null && phases[activePhase]?.sub && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
+            variants={collapseVariant}
+            initial="initial"
+            animate="animate"
+            exit="exit"
             className="overflow-hidden"
           >
             <div className="mx-4 md:mx-8 mb-6 bg-gray-50 rounded-2xl border border-gray-100 p-4">
@@ -240,6 +238,6 @@ export default function ProjectProgress() {
         )}
       </AnimatePresence>
 
-    </motion.div>
+    </AnimatedSection>
   );
 }

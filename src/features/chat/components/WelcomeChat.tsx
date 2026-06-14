@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { fadeUp } from "@/lib/animations";
 import { ChatWindow } from "./ChatWindow";
 import { useChatConnection, useChatId, useWelcomeMessages } from "../hooks";
 
@@ -125,10 +126,11 @@ export const WelcomeChat = ({
               <motion.div
                 key={index}
                 className="bg-white rounded-xl px-3.5 py-2.5 shadow-lg border border-gray-200 "
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
+                variants={fadeUp}
                 transition={{ duration: 0.3 }}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
               >
                 <p className="text-sm text-gray-800 font-medium">
                   {stackedMessages[index]}

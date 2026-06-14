@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
 import { Loader2, Store, TrendingUp, Users, MoveDown } from "lucide-react";
 import { useLenis } from "@/hooks/useLenis";
 import { useMallImages } from "@/features/mall/hooks/useMallImages";
@@ -61,11 +61,8 @@ const SouqIstanbul = () => {
 
       {/* ── ما يتميز به المشروع + المراحل التنفيذية ── */}
       {(constructionImages.length > 0) && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <AnimatedSection
+          duration={0.5}
           className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 bg-[#f8f8f8] rounded-2xl p-6 md:p-8 border border-gray-100 items-stretch"
         >
           {/* الكلام — يمين */}
@@ -93,24 +90,19 @@ const SouqIstanbul = () => {
           <div className="relative w-full rounded-xl overflow-hidden order-2 min-h-[280px]">
             <ProjectImgsSlider rounded={true} height="h-full" images={constructionImages} />
           </div>
-        </motion.div>
+        </AnimatedSection>
       )}
 
       {/* ── الوحدات ── */}
-      <motion.div
-        id="units-section"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="mb-10"
-      >
+      <div id="units-section">
+        <AnimatedSection duration={0.5} className="mb-10">
         <h2 className="text-primary text-2xl md:text-3xl font-extrabold mb-6 border-r-4 border-primary pr-4 flex items-center gap-2">
           <MoveDown className="w-5 h-5" />
           الوحدات المتاحة
         </h2>
         <SouqIstanbulUnits />
-      </motion.div>
+      </AnimatedSection>
+      </div>
 
     </div>
   );

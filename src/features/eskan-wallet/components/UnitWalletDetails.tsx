@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
+import { fadeInLeft, fadeInRight } from "@/lib/animations";
 import { useUnitDetails } from "../hooks/useUnitDetails";
 import ReserveWallet from "./ReserveWallet";
 import { LoadingPage } from "@/components/ui/LoadingPage";
@@ -85,12 +87,7 @@ const UnitWalletDetails = ({ unitId }: UnitWalletDetailsProps) => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="container page py-4 sm:py-6"
-    >
+    <AnimatedSection duration={0.5} className="container page py-4 sm:py-6">
       <div className="p-4 rounded-lg bg-gradient-to-b from-[#FBFBFB] to-[#F6F6F6] shadow-md">
         <h3 className="flex justify-center items-center text-lg sm:text-xl lg:text-2xl w-fit mx-auto border-b border-gray-700 mb-6">
           {data.num}
@@ -99,9 +96,9 @@ const UnitWalletDetails = ({ unitId }: UnitWalletDetailsProps) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 place-items-center">
           <motion.div
             className="max-w-full"
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            variants={fadeInLeft}
+            initial="hidden"
+            animate="visible"
           >
             {/* Shares Boxes */}
             <div className="flex flex-wrap justify-center gap-1 mb-3">
@@ -192,9 +189,9 @@ const UnitWalletDetails = ({ unitId }: UnitWalletDetailsProps) => {
 
           <motion.div
             className="w-full max-w-xs sm:max-w-md mx-auto"
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            variants={fadeInRight}
+            initial="hidden"
+            animate="visible"
           >
             <div className="unit-img w-full mx-auto mt-4">
               <Image
@@ -209,7 +206,7 @@ const UnitWalletDetails = ({ unitId }: UnitWalletDetailsProps) => {
           </motion.div>
         </div>
       </div>
-    </motion.div>
+    </AnimatedSection>
   );
 };
 

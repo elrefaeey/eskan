@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { TiLockClosed } from "react-icons/ti";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatedImageSwitcher } from "@/components/common/animations";
 import ReserveUnitForm from "./ReserveUnit";
 
 interface UnitImages {
@@ -104,15 +104,7 @@ const DisplayUnitImgs = ({
   return (
     <>
       <div className="relative w-full h-[400px] md:h-[500px] overflow-hidden rounded-lg bg-gray-100">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={imgIndex}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.2 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="absolute inset-0"
-          >
+        <AnimatedImageSwitcher imageKey={imgIndex} className="absolute inset-0">
             <Image
               src={imagesList[imgIndex] || unitImg}
               alt="unit image صورة الوحدة"
@@ -121,8 +113,7 @@ const DisplayUnitImgs = ({
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               priority={imgIndex === 0}
             />
-          </motion.div>
-        </AnimatePresence>
+        </AnimatedImageSwitcher>
       </div>
       {imagesList.length > 1 && (
         <div className="change-image-btn mt-2">

@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -148,11 +148,9 @@ export default function MapSection({
   const containerClass = containerVariantMap[containerVariant];
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
+    <AnimatedSection
+      as="section"
+      duration={0.5}
       className={cn(containerClass, className)}
     >
       <div className={cn("grid grid-cols-1 md:grid-cols-2 items-stretch", gridClassName)}>
@@ -233,6 +231,6 @@ export default function MapSection({
           {extraContent}
         </div>
       </div>
-    </motion.section>
+    </AnimatedSection>
   );
 }

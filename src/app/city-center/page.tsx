@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
 import { Store, CheckCircle2, Loader2, ShieldCheck, Building2, TrendingUp, BarChart3, Maximize2 } from "lucide-react";
 import ProjectImgsSlider from "@/components/Projects/ProjectImagesSlider";
 import Levels from "@/components/Projects/CityCenter/Levels";
@@ -89,11 +89,8 @@ const CityCenterPage = () => {
         <StatsGrid stats={stats} colorScheme="primary" className="mb-12" />
 
         {/* الاستثمار + ما يميز المشروع */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <AnimatedSection
+          duration={0.5}
           className="mb-12 bg-[#f8f8f8] rounded-2xl p-6 md:p-8 border border-gray-100"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -126,7 +123,7 @@ const CityCenterPage = () => {
               <ProjectImgsSlider rounded={true} images={imagesSlider} height="h-64 md:!h-full" />
             </div>
           </div>
-        </motion.div>
+        </AnimatedSection>
 
         {/* Construction Progress */}
         <div className="mb-12">
@@ -134,11 +131,8 @@ const CityCenterPage = () => {
         </div>
 
         {/* أسلوب التعاقد + نظام الإدارة */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <AnimatedSection
+          duration={0.5}
           className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"
         >
           <div className="bg-[#f8f8f8] border border-gray-100 rounded-2xl p-6 flex flex-col gap-4">
@@ -179,7 +173,7 @@ const CityCenterPage = () => {
               </p>
             </div>
           </div>
-        </motion.div>
+        </AnimatedSection>
 
         {/* الوحدات */}
         <div ref={levelsRef}>

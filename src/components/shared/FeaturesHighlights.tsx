@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import type { LucideIcon } from "lucide-react";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -59,11 +59,8 @@ export default function FeaturesHighlights({
   className,
 }: FeaturesHighlightsProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4 }}
+    <AnimatedSection
+      duration={0.4}
       className={cn(
         "grid gap-4 mb-10",
         cols === 2 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1 sm:grid-cols-3",
@@ -87,6 +84,6 @@ export default function FeaturesHighlights({
           </div>
         </div>
       ))}
-    </motion.div>
+    </AnimatedSection>
   );
 }

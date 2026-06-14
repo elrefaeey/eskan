@@ -4,27 +4,7 @@ import { motion } from "framer-motion";
 import InvestProjectCard from "./InvestProjectCard";
 import ShareCard from "./ShareCard";
 import { InvestmentResponseData } from "@/services/investment";
-
-/* ================= Animations ================= */
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 },
-};
-
-const fadeIn = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-};
-
-const staggerContainer = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-/* ================================================= */
+import { staggerContainer, fadeUp, fadeIn } from "@/lib/animations";
 
 interface InvestmentUnitProps {
   investmentData: InvestmentResponseData | null;

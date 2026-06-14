@@ -1,8 +1,27 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import type { Variants } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
 import { X } from "lucide-react";
+
+const menuSlide: Variants = {
+  hidden: { x: 1000, transition: { duration: 0.3 } },
+  visible: { x: 0, transition: { duration: 0.4 } },
+};
+
+const menuItemStagger: Variants = {
+  hidden: { opacity: 0, x: 20, transition: { duration: 0.2 } },
+  visible: (custom: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.4,
+      delay: custom * 0.08,
+      ease: [0.25, 0.46, 0.45, 0.94] as const,
+    },
+  }),
+};
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -18,45 +37,6 @@ export default function MobileMenu({
   const pathname = usePathname();
   const router = useRouter();
 
-  const overlayVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-  };
-
-  const menuVariants = {
-    hidden: {
-      x: 1000,
-      transition: {
-        duration: 0.3,
-      },
-    },
-    visible: {
-      x: 0,
-      transition: {
-        duration: 0.4,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: {
-      opacity: 0,
-      x: 20,
-      transition: {
-        duration: 0.2,
-      },
-    },
-    visible: (custom: number) => ({
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.4,
-        delay: custom * 0.08,
-        ease: [0.25, 0.46, 0.45, 0.94] as const,
-      },
-    }),
-  };
-
   const handleLinkClick = (path: string) => {
     router.push(path);
     onClose();
@@ -67,25 +47,22 @@ export default function MobileMenu({
       {isOpen && (
         <>
           <motion.div
-            variants={overlayVariants}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             className="fixed inset-0 bg-black/50 z-12227 lg:hidden"
             onClick={onClose}
           />
 
-          {/* Sidebar Menu */}
           <motion.div
-            variants={menuVariants}
+            variants={menuSlide}
             initial="hidden"
             animate="visible"
             exit="hidden"
             className="fixed top-0 right-0 h-full w-[280px] bg-white shadow-2xl z-1222222 lg:hidden"
           >
             <div className="flex flex-col h-full">
-              {/* Header */}
               <div className="flex items-center justify-between p-4 border-b border-gray-200">
                 <h2 className="text-xl font-bold text-[#285240]">القائمة</h2>
                 <button
@@ -96,7 +73,6 @@ export default function MobileMenu({
                 </button>
               </div>
 
-              {/* Links */}
               <nav className="flex-1 overflow-y-auto p-4">
                 <motion.div
                   initial="hidden"
@@ -109,7 +85,7 @@ export default function MobileMenu({
                       <motion.div
                         key={link.path}
                         custom={index}
-                        variants={itemVariants}
+                        variants={menuItemStagger}
                       >
                         <button
                           onClick={() => handleLinkClick(link.path)}

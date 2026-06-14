@@ -7,8 +7,9 @@ import { Button } from "../ui/button";
 import { FormInput } from "../ui/ReusableComponents/FormInput";
 import { FormTextarea } from "../ui/ReusableComponents/FormTextarea";
 import { FormSelect } from "../ui/ReusableComponents/FormSelect";
-import { motion } from "framer-motion";
 import { Phone, MapPin, MessageCircle } from "lucide-react";
+import { fadeInLeft, fadeInRight } from "@/lib/animations";
+import { motion } from "framer-motion";
 
 const formSchema = z.object({
   type: z.string().min(1, "نوع العقار مطلوب"),
@@ -40,10 +41,10 @@ export default function ContactForm() {
 
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          variants={fadeInLeft}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
           <span className="inline-block bg-primary/10 text-primary font-bold text-sm px-4 py-1.5 rounded-full mb-3">
@@ -59,10 +60,10 @@ export default function ContactForm() {
 
           {/* Left - contact info */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            variants={fadeInRight}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
             className="flex flex-col gap-5"
           >
             <div className="bg-primary rounded-2xl p-8 text-white">
@@ -102,10 +103,10 @@ export default function ContactForm() {
 
           {/* Right - form */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            variants={fadeInLeft}
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
             className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-8"
           >
             <FormProvider {...methods}>

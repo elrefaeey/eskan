@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, HTMLMotionProps } from "framer-motion";
+import { springButtonTransition } from "@/lib/animations";
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 
@@ -25,10 +26,10 @@ export function ActionButton({
 
   return (
     <motion.button
-      {...props} // أي prop مدعوم من HTMLMotionProps
+      {...props}
       className={cn(baseStyle, variantStyle, className)}
       whileHover={{ y: -2 }}
-      transition={{ type: "spring", stiffness: 120, damping: 10 }}
+      transition={springButtonTransition}
       suppressHydrationWarning
     >
       <span className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500 rounded-md" />

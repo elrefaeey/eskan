@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
+import { progressBarTransition } from "@/lib/animations";
 import {
   Hammer,
   Building2,
@@ -146,13 +148,10 @@ export default function ConstructionProgress() {
   const progressWidth = `${(doneCount / (phases.length - 1)) * 100}%`;
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      className="mb-12 bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden"
-      dir="rtl"
+    <AnimatedSection
+      as="section"
+      y={24}
+      className="mb-12 bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden [direction:rtl]"
     >
       {/* Header */}
       <div className="bg-primary px-6 py-5 flex items-center justify-between flex-wrap gap-3">
@@ -176,7 +175,7 @@ export default function ConstructionProgress() {
                 initial={{ width: 0 }}
                 whileInView={{ width: `${OVERALL}%` }}
                 viewport={{ once: true }}
-                transition={{ duration: 1.2, ease: "easeOut" }}
+                transition={progressBarTransition}
                 className="h-full rounded-full bg-gradient-to-l from-green-400 to-primary"
               />
             </div>
@@ -332,6 +331,6 @@ export default function ConstructionProgress() {
           })}
         </div>
       </div>
-    </motion.section>
+    </AnimatedSection>
   );
 }

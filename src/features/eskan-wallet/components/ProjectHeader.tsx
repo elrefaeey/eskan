@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
+import { fadeInRight } from "@/lib/animations";
 import Image from "next/image";
 import { IoLocationSharp } from "react-icons/io5";
 import Link from "next/link";
@@ -54,11 +56,7 @@ export default function ProjectHeader({ data }: Props) {
 
       <div className="details sec-padding">
         {!showDetails && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mx-auto flex items-center flex-col gap-2"
-          >
+          <AnimatedSection duration={0.5} className="mx-auto flex items-center flex-col gap-2">
             <ActionButton
               onClick={() => setShowDetails(true)}
               className="w-fit gap-2 px-4 sm:px-6 py-2 sm:py-3"
@@ -81,7 +79,7 @@ export default function ProjectHeader({ data }: Props) {
                 اضغط لمعرفة تفاصيل المشروع
               </span>
             </ActionButton>
-          </motion.div>
+          </AnimatedSection>
         )}
 
         {showDetails && (
@@ -108,10 +106,10 @@ export default function ProjectHeader({ data }: Props) {
             {/* GRID */}
             <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
               {/* ===== Details Box ===== */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
+              <AnimatedSection
+                variant={fadeInRight}
+                x={20}
+                delay={0.2}
                 className="p-3 rounded-xl bg-gray-50 border border-gray-200 shadow-sm"
               >
                 <h3 className="text-lg sm:text-xl md:text-xl font-semibold mb-2">
@@ -121,7 +119,7 @@ export default function ProjectHeader({ data }: Props) {
                   className="prose max-w-none text-gray-700 leading-6 sm:leading-6 md:leading-7 text-sm sm:text-sm md:text-base"
                   dangerouslySetInnerHTML={{ __html: data?.detalis }}
                 />
-              </motion.div>
+              </AnimatedSection>
 
               {/* ===== Features Box ===== */}
               <motion.div

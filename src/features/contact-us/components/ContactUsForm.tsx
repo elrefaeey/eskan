@@ -6,8 +6,8 @@ import { z } from "zod";
 import { useForm, FormProvider } from "react-hook-form";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { showErrorToast } from "@/lib/toast";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
 import { Button } from "@/components/ui/button";
 import { FormInput } from "@/components/ui/ReusableComponents/FormInput";
 import { FormTextarea } from "@/components/ui/ReusableComponents/FormTextarea";
@@ -64,25 +64,17 @@ const ContactUsForm = () => {
 
       <div className="relative z-10 max-w-2xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-8"
-        >
+        <AnimatedSection duration={0.5} className="text-center mb-8">
           <h2 className="text-white text-3xl md:text-4xl font-extrabold mb-3">تواصل معنا</h2>
           <p className="text-white/70 text-base md:text-lg leading-relaxed">
             سجل بياناتك وخلي فريقنا يساعدك تختار العقار اللي يناسب احتياجك وميزانيتك
           </p>
-        </motion.div>
+        </AnimatedSection>
 
         {/* Form */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+        <AnimatedSection
+          delay={0.1}
+          duration={0.6}
           className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 md:p-8"
         >
           <FormProvider {...methods}>
@@ -117,7 +109,7 @@ const ContactUsForm = () => {
               </Button>
             </form>
           </FormProvider>
-        </motion.div>
+        </AnimatedSection>
       </div>
 
       <SuccessModal

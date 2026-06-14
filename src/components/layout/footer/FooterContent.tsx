@@ -3,8 +3,8 @@
 import { AiFillTikTok, AiFillLinkedin, AiFillFacebook, AiFillInstagram } from "react-icons/ai";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { Phone } from "lucide-react";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
 
 const SOCIAL_LINKS = [
   { href: "https://www.instagram.com/eskanelmansoura/",                          icon: <AiFillInstagram />, label: "Instagram" },
@@ -13,18 +13,11 @@ const SOCIAL_LINKS = [
   { href: "http://linkedin.com/company/eskan-elmansoura/",                       icon: <AiFillLinkedin />,  label: "LinkedIn"  },
 ];
 
-const fadeUp = (delay = 0) => ({
-  initial:    { opacity: 0, y: 15 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport:   { once: true },
-  transition: { duration: 0.6, delay },
-});
-
 export default function FooterContent() {
   return (
     <div className="relative z-10 max-w-3xl mx-auto px-6 py-6 flex flex-col items-center text-center gap-3">
 
-      <motion.div {...fadeUp()} initial={{ opacity: 0, y: 20 }}>
+      <AnimatedSection duration={0.6}>
         <Image
           src="/assets/layout/whitelogo.png"
           alt="إسكان المنصورة"
@@ -33,24 +26,26 @@ export default function FooterContent() {
           quality={60}
           className="h-auto mx-auto"
         />
-      </motion.div>
+      </AnimatedSection>
 
       <div className="w-12 h-px bg-white/20" />
 
-      <motion.p {...fadeUp(0.1)} className="text-white text-sm leading-relaxed max-w-md">
+      <AnimatedSection as="p" delay={0.1} duration={0.6} className="text-white text-sm leading-relaxed max-w-md">
         نبني ثقتك قبل أن نبني عقارك — شريكك الموثوق في الاستثمار العقاري بالمنصورة والدلتا منذ أكثر من 17 عاماً
-      </motion.p>
+      </AnimatedSection>
 
-      <motion.a
-        href="tel:01095665809"
-        {...fadeUp(0.2)}
+      <AnimatedSection
+        delay={0.2}
+        duration={0.6}
         className="group flex items-center gap-2 border border-white/30 hover:border-white/70 hover:bg-white/10 text-white font-bold px-6 py-2 rounded-full transition-all duration-300 text-sm"
       >
-        <Phone className="w-3.5 h-3.5 group-hover:scale-110 transition-transform duration-300" />
-        اتصل بنا
-      </motion.a>
+        <a href="tel:01095665809" className="flex items-center gap-2">
+          <Phone className="w-3.5 h-3.5 group-hover:scale-110 transition-transform duration-300" />
+          اتصل بنا
+        </a>
+      </AnimatedSection>
 
-      <motion.div {...fadeUp(0.3)} className="flex gap-4 justify-center">
+      <AnimatedSection delay={0.3} duration={0.6} className="flex gap-4 justify-center">
         {SOCIAL_LINKS.map(({ href, icon, label }) => (
           <Link
             key={label}
@@ -63,7 +58,7 @@ export default function FooterContent() {
             <span className="text-3xl">{icon}</span>
           </Link>
         ))}
-      </motion.div>
+      </AnimatedSection>
 
     </div>
   );

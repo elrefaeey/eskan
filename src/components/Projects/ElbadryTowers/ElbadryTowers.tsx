@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
 import { MapPin, Building2 } from "lucide-react";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
 import ProjectImgsSlider from "@/components/Projects/ProjectImagesSlider";
 import CardsInfo from "@/components/Projects/ElbadryTowers/CardsInfo";
 import ElbadryToursUnits from "@/components/Projects/ElbadryTowers/ElbadryToursUnits";
@@ -107,22 +107,13 @@ function ElbadryTowers() {
       <div className="container mx-auto px-4">
 
         {/* ── مميزات المشروع ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-12"
-        >
+        <AnimatedSection duration={0.5} className="mb-12">
           <CardsInfo />
-        </motion.div>
+        </AnimatedSection>
 
         {/* ── ما يتميز به المشروع ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <AnimatedSection
+          duration={0.5}
           className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 bg-[#f8f8f8] rounded-2xl p-6 md:p-8 border border-gray-100 items-stretch"
         >
           {/* الكلام — يمين */}
@@ -150,16 +141,10 @@ function ElbadryTowers() {
           <div className="relative w-full rounded-xl overflow-hidden order-2 min-h-[300px]">
             <ProjectImgsSlider rounded={true} height="h-full" images={phaseImages} />
           </div>
-        </motion.div>
+        </AnimatedSection>
 
         {/* ── جولة 3D ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-12"
-        >
+        <AnimatedSection duration={0.5} className="mb-12">
           <h2 className="text-primary text-2xl md:text-3xl font-extrabold border-r-4 border-primary pr-4 mb-4">
             جولة 3D للمشروع
           </h2>
@@ -169,7 +154,7 @@ function ElbadryTowers() {
             src="https://momento360.com/e/u/36a8763404934b80a8f94f1ea11c3e65?utm_campaign=embed&utm_source=other&heading=0&pitch=0&field-of-view=75&size=medium&display-plan=true"
             title="جولة 3D أبراج البدري"
           />
-        </motion.div>
+        </AnimatedSection>
 
         {/* ── الوحدات ── */}
         <div>

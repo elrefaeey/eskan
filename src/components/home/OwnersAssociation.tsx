@@ -1,25 +1,24 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import { motion } from "framer-motion";
+import { fadeInLeft, fadeInRight } from "@/lib/animations";
 import { ActionButton } from "../ui/ReusableComponents/ActionButton";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
 
 function OwnersAssociation() {
   return (
     <section className="sec-padding container">
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        viewport={{ once: true, amount: 0.3 }}
+      <AnimatedSection
+        y={40}
+        duration={0.6}
+        amount={0.3}
         className="bg-gradient-to-br from-[#F5F5F5] to-[#E9E9E9] shadow-[0_8px_24px_rgba(0,0,0,0.1)] rounded-2xl
          p-4 lg:p-8 flex flex-col lg:flex-row items-center gap-6 lg:gap-12"
       >
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          viewport={{ once: true }}
+        <AnimatedSection
+          variant={fadeInLeft}
+          x={-50}
+          delay={0.1}
           className="flex-1 space-y-2"
         >
           <h3
@@ -44,13 +43,12 @@ function OwnersAssociation() {
           >
             عرض المزاد{" "}
           </ActionButton>
-        </motion.div>
+        </AnimatedSection>
 
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          viewport={{ once: true }}
+        <AnimatedSection
+          variant={fadeInRight}
+          x={50}
+          delay={0.2}
           className="relative w-full lg:w-[400px]  xl:w-[600px] h-[280px] lg:h-[300px] xl:h-[400px] rounded-2xl overflow-hidden shadow-lg"
         >
           <Image
@@ -74,8 +72,8 @@ function OwnersAssociation() {
           </div>
 
           <div className="absolute inset-0 bg-black/10 hover:bg-black/0 transition-all duration-500" />
-        </motion.div>
-      </motion.div>
+        </AnimatedSection>
+      </AnimatedSection>
     </section>
   );
 }

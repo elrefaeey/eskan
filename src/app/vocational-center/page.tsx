@@ -1,10 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { GraduationCap, CheckCircle2, TrendingUp, Users, BookOpen, X } from "lucide-react";
 import { useState } from "react";
 import { useLenis } from "@/hooks/useLenis";
 import { ProjectHero, StatsGrid } from "@/components/shared";
+import { AnimateInView } from "@/components/common/animations";
 import type { StatItem } from "@/components/shared";
 
 const whyItqan = [
@@ -16,17 +16,17 @@ const whyItqan = [
 ];
 
 const investmentFeatures = [
-  { icon: TrendingUp, title: "عائد شهري مستقر", desc: "كل برنامج تدريبي مصدر دخل متكرر يتضاعف مع زيادة المتدربين" },
-  { icon: Users, title: "سوق ضخم", desc: "أكثر من مليون خريج جامعي خلال آخر 5 سنوات في الدقهلية وكفر الشيخ والغربية" },
-  { icon: BookOpen, title: "احتياج حقيقي", desc: "الفجوة بين التعليم الأكاديمي ومتطلبات الشركات تخلق طلباً متزايداً على التدريب" },
-  { icon: GraduationCap, title: "أثر مجتمعي", desc: "تحويل الخريجين من باحثين عن وظيفة إلى أشخاص مؤهلين للعمل والإنتاج" },
+  { icon: TrendingUp, title: "عائد شهري مستقر",  desc: "كل برنامج تدريبي مصدر دخل متكرر يتضاعف مع زيادة المتدربين" },
+  { icon: Users,      title: "سوق ضخم",           desc: "أكثر من مليون خريج جامعي خلال آخر 5 سنوات في الدقهلية وكفر الشيخ والغربية" },
+  { icon: BookOpen,   title: "احتياج حقيقي",      desc: "الفجوة بين التعليم الأكاديمي ومتطلبات الشركات تخلق طلباً متزايداً على التدريب" },
+  { icon: GraduationCap, title: "أثر مجتمعي",    desc: "تحويل الخريجين من باحثين عن وظيفة إلى أشخاص مؤهلين للعمل والإنتاج" },
 ];
 
 const stats: StatItem[] = [
-  { label: "مسطحات بنائية",         value: "6156م"  },
-  { label: "متدرب سنوياً",           value: "4000"   },
-  { label: "أدوار",                  value: "4"      },
-  { label: "قطاع تدريب غير مشبع",   value: "فرصة"   },
+  { label: "مسطحات بنائية",       value: "6156م" },
+  { label: "متدرب سنوياً",         value: "4000"  },
+  { label: "أدوار",                value: "4"     },
+  { label: "قطاع تدريب غير مشبع", value: "فرصة"  },
 ];
 
 const forWho = [
@@ -80,13 +80,7 @@ export default function VocationalCenterPage() {
         <StatsGrid stats={stats} colorScheme="teal" className="mb-10" />
 
         {/* ── لماذا مركز إتقان ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-10 bg-[#f8f8f8] rounded-2xl p-6 md:p-8 border border-gray-100"
-        >
+        <AnimateInView className="mb-10 bg-[#f8f8f8] rounded-2xl p-6 md:p-8 border border-gray-100">
           <h2 className="text-primary text-2xl md:text-3xl font-extrabold mb-2">لماذا مركز إتقان؟</h2>
           <p className="text-[#555] text-base md:text-lg mb-6">لأن السوق لا يحتاج إلى شهادات فقط... بل يحتاج إلى مهارات حقيقية.</p>
           <ul className="flex flex-col gap-3">
@@ -97,27 +91,19 @@ export default function VocationalCenterPage() {
               </li>
             ))}
           </ul>
-        </motion.div>
+        </AnimateInView>
 
         {/* ── فرصة استثمارية ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-10"
-        >
+        <AnimateInView className="mb-10">
           <h2 className="text-primary text-2xl md:text-3xl font-extrabold mb-6 border-r-4 border-primary pr-4">
             فرصة استثمارية قوية
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {investmentFeatures.map((f, i) => (
-              <motion.div
+              <AnimateInView
                 key={f.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
+                delay={i * 0.1}
+                duration={0.4}
                 className="bg-white border-2 border-primary/20 rounded-2xl p-5 flex gap-4 shadow-sm hover:border-primary/50 transition-colors"
               >
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
@@ -127,19 +113,13 @@ export default function VocationalCenterPage() {
                   <h3 className="font-extrabold text-lg text-primary mb-1">{f.title}</h3>
                   <p className="text-[#555] text-sm leading-relaxed">{f.desc}</p>
                 </div>
-              </motion.div>
+              </AnimateInView>
             ))}
           </div>
-        </motion.div>
+        </AnimateInView>
 
         {/* ── لمن هذه الفرصة ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-10 grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#f8f8f8] rounded-2xl p-6 md:p-8 border border-gray-100"
-        >
+        <AnimateInView className="mb-10 grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#f8f8f8] rounded-2xl p-6 md:p-8 border border-gray-100">
           <div className="flex flex-col gap-4">
             <h2 className="text-primary text-2xl md:text-3xl font-extrabold">لمن هذه الفرصة؟</h2>
             <p className="text-[#555] text-base md:text-lg">هذه الفرصة مناسبة لكل مستثمر يبحث عن:</p>
@@ -172,9 +152,7 @@ export default function VocationalCenterPage() {
               </a>
             </div>
           </div>
-        </motion.div>
-
-
+        </AnimateInView>
 
       </div>
 
@@ -185,45 +163,25 @@ export default function VocationalCenterPage() {
             <button onClick={() => setOpen(false)} className="absolute top-4 left-4 text-gray-400 hover:text-gray-700 transition-colors">
               <X className="w-5 h-5" />
             </button>
-
             <h2 className="text-[#1a1a1a] text-2xl font-extrabold text-center mb-1">حجز وحدة</h2>
             <hr className="mb-6 border-gray-200" />
-
             <div className="flex flex-col gap-5">
               <div className="flex flex-col gap-1.5">
                 <label className="text-sm font-semibold text-[#333] text-right">الاسم الكامل</label>
-                <input
-                  type="text"
-                  placeholder="أدخل اسمك الكامل"
-                  className="border border-primary rounded-lg px-4 py-2.5 text-right text-sm outline-none focus:border-primary transition-colors w-full"
-                />
+                <input type="text" placeholder="أدخل اسمك الكامل" className="border border-primary rounded-lg px-4 py-2.5 text-right text-sm outline-none focus:border-primary transition-colors w-full" />
               </div>
-
               <div className="flex flex-col gap-1.5">
                 <label className="text-sm font-semibold text-[#333] text-right">رقم الهاتف</label>
-                <input
-                  type="tel"
-                  placeholder="01XXXXXXXXX"
-                  className="border border-gray-300 rounded-lg px-4 py-2.5 text-right text-sm outline-none focus:border-primary transition-colors w-full"
-                />
+                <input type="tel" placeholder="01XXXXXXXXX" className="border border-gray-300 rounded-lg px-4 py-2.5 text-right text-sm outline-none focus:border-primary transition-colors w-full" />
               </div>
-
               <div className="flex flex-col gap-1.5">
                 <label className="text-sm font-semibold text-[#333] text-right">المهنة</label>
-                <input
-                  type="text"
-                  placeholder="أدخل مهنتك"
-                  className="border border-gray-300 rounded-lg px-4 py-2.5 text-right text-sm outline-none focus:border-primary transition-colors w-full"
-                />
+                <input type="text" placeholder="أدخل مهنتك" className="border border-gray-300 rounded-lg px-4 py-2.5 text-right text-sm outline-none focus:border-primary transition-colors w-full" />
               </div>
-
               <div className="flex flex-col gap-1.5">
                 <label className="text-sm font-semibold text-[#333] text-right">وقت التواصل المفضل</label>
                 <div className="relative">
-                  <select
-                    defaultValue=""
-                    className="border border-gray-300 rounded-lg px-4 py-2.5 text-right text-sm outline-none focus:border-primary transition-colors w-full appearance-none bg-white text-gray-400"
-                  >
+                  <select defaultValue="" className="border border-gray-300 rounded-lg px-4 py-2.5 text-right text-sm outline-none focus:border-primary transition-colors w-full appearance-none bg-white text-gray-400">
                     <option value="" disabled>اختر الوقت المناسب</option>
                     <option value="morning">الصباح (9 ص - 12 م)</option>
                     <option value="afternoon">الظهر (12 م - 4 م)</option>
@@ -232,7 +190,6 @@ export default function VocationalCenterPage() {
                   <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">▾</span>
                 </div>
               </div>
-
               <button className="bg-primary text-white font-extrabold rounded-xl py-3.5 text-base hover:bg-primary/90 transition-colors w-full mt-1">
                 تأكيد الحجز
               </button>

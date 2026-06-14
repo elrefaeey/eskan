@@ -1,4 +1,11 @@
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
+import {
+  fadeInLeft,
+  fadeInRight,
+  scaleIn,
+  springButtonTransition,
+} from "@/lib/animations";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
 
 import useCityCenterUnits from "@/hooks/projects/city-center/useCityCenterUnits";
 import useCityCenterSpaces from "@/hooks/projects/city-center/useCityCenterSpaces";
@@ -9,9 +16,7 @@ import CityCenterCard from "@/components/Projects/CityCenter/CityCenterUnitCard"
 import { IoCaretDownSharp } from "react-icons/io5";
 import React from "react";
 import { MdExpandMore } from "react-icons/md";
-// -----------------------------
-// Select + Arrow Wrapper
-// -----------------------------
+
 interface SelectInputProps {
   labelClass?: string;
   className?: string;
@@ -23,12 +28,7 @@ const SelectWithArrow = ({
   children: React.ReactElement<SelectInputProps>;
 }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="flex flex-col items-center gap-1 lg:gap-2"
-    >
+    <AnimatedSection duration={0.5} className="flex flex-col items-center gap-1 lg:gap-2">
       <div className="flex items-center flex-col">
         <div className="w-1 h-6 bg-[#364138]" />
         <IoCaretDownSharp size={22} className="text-[#364138] -mt-2" />
@@ -39,7 +39,7 @@ const SelectWithArrow = ({
         className:
           "sm:!text-base !text-xs !p-1 sm:p-2 lg:!text-sm 2xl:!text-xl",
       })}
-    </motion.div>
+    </AnimatedSection>
   );
 };
 
@@ -54,13 +54,8 @@ function ElectronicsUnits() {
   const { data: numbers } = useCityCenterNumbers();
   return (
     <>
-      {/* WHY SECTION */}
       <div className="grid lg:grid-cols-2 gap-4 lg:gap-14 sec-padding items-center">
-        <motion.div
-          initial={{ opacity: 0, x: -25 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-        >
+        <AnimatedSection variant={fadeInLeft} x={-25}>
           <h2 className="flex items-center gap-3 text-primary h2 text-xl md:text-2xl lg:text-3xl xl:text-[38px] font-bold mb-0 lg:mb-3">
             <img src={"/assets/icons/glass-icon.svg"} alt="search icon" />
             <span>لية تشتري في الالكترونيات؟</span>
@@ -73,16 +68,14 @@ function ElectronicsUnits() {
             شيء يخص التكنولوجيا.
           </p>
 
-          {/* FILTERS – DESKTOP */}
           <div className="hidden lg:block mt-8">
-            <motion.h3
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
+            <AnimatedSection
+              as="h3"
+              variant={scaleIn}
               className="bg-[#364138] text-white font-bold text-xl lg:text-2xl text-center py-3 rounded-lg shadow-md"
             >
               حدد مواصفات محلك
-            </motion.h3>
+            </AnimatedSection>
 
             <div className="unit-filters flex justify-between gap-10 p-6 pt-0 rounded-xl">
               <SelectWithArrow>
@@ -110,13 +103,11 @@ function ElectronicsUnits() {
               </SelectWithArrow>
             </div>
           </div>
-        </motion.div>
+        </AnimatedSection>
 
-        {/* SECOND IMAGE */}
-        <motion.div
-          initial={{ opacity: 0, x: 25 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
+        <AnimatedSection
+          variant={fadeInRight}
+          x={25}
           className="level-image w-full shadow-lg rounded-xl"
         >
           <img
@@ -127,12 +118,10 @@ function ElectronicsUnits() {
             className="w-full rounded-xl"
             loading="lazy"
           />
-        </motion.div>
+        </AnimatedSection>
       </div>
 
-      {/* SHOW MORE BUTTON */}
       <div className="sec-padding ">
-        {/* FILTERS – MOBILE */}
         <div className=" lg:hidden">
           <h3 className="bg-[#364138] text-white font-bold text-xl text-center py-3 rounded-lg shadow-sm">
             حدد مواصفات محلك
@@ -177,7 +166,7 @@ function ElectronicsUnits() {
         <motion.button
           whileTap={{ scale: 0.92 }}
           whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 120 }}
+          transition={springButtonTransition}
           disabled={isLoading}
           onClick={handlePaginate}
           className="flex items-center mx-auto mt-4 gap-2 text-black font-bold text-lg

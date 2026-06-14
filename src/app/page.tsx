@@ -8,7 +8,6 @@ import PartenerSection from "@/components/home/PartenerSection";
 const Page = () => {
   return (
     <>
-      {/* <SplashScreen /> */}
       <main className="min-h-screen page">
         <Hero />
         <OurProjects />

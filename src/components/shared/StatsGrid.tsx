@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import type { LucideIcon } from "lucide-react";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -85,13 +85,9 @@ export default function StatsGrid({
   const colors = colorMap[colorScheme];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4 }}
+    <AnimatedSection
+      duration={0.4}
       className={cn(
-        // عدد الأعمدة يتكيف تلقائياً مع عدد العناصر
         "grid gap-4 mb-12",
         stats.length <= 2
           ? "grid-cols-2"
@@ -113,6 +109,6 @@ export default function StatsGrid({
           <p className="text-[#555] text-sm">{stat.label}</p>
         </div>
       ))}
-    </motion.div>
+    </AnimatedSection>
   );
 }

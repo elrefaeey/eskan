@@ -13,8 +13,8 @@ import {
   LabelList,
   Area,
 } from "recharts";
-import { motion } from "framer-motion";
 import { TrendingUp, ArrowUpRight } from "lucide-react";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
 
 const data = [
   { year: "2022", price: 50000, label: "50k", growth: null },
@@ -62,13 +62,9 @@ const CustomLabel = ({ x, y, width, value }: any) => (
 
 export default function ElbadryTradePriceChart() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
+    <AnimatedSection
+      duration={0.6}
       className="bg-white rounded-2xl border border-gray-200 shadow-md overflow-hidden"
-      dir="rtl"
     >
       {/* Header */}
       <div className="bg-gradient-to-l from-primary to-[#2d8a57] px-5 md:px-8 py-5">
@@ -148,6 +144,6 @@ export default function ElbadryTradePriceChart() {
           </div>
         ))}
       </div>
-    </motion.div>
+    </AnimatedSection>
   );
 }

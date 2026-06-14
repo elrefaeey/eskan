@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
 import { Loader2, Shirt, TrendingUp, Users, MoveDown } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { MdExpandMore } from "react-icons/md";
@@ -65,14 +66,8 @@ const ClothesLevel = () => {
       <FeaturesHighlights highlights={highlights} cols={3} className="mb-10" />
 
       {/* ── الفلاتر + الوحدات ── */}
-      <motion.div
-        id="units-section"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="mb-10"
-      >
+      <div id="units-section">
+        <AnimatedSection duration={0.5} className="mb-10">
         <div className="bg-[#364138] rounded-2xl p-5 mb-6">
           <h3 className="text-white font-extrabold text-xl text-center mb-5 flex items-center justify-center gap-2">
             <MoveDown className="w-5 h-5" />
@@ -108,7 +103,8 @@ const ClothesLevel = () => {
             {!isLoadingUnits && <MdExpandMore className="text-primary font-bold" size={28} />}
           </motion.button>
         )}
-      </motion.div>
+      </AnimatedSection>
+      </div>
 
     </div>
   );

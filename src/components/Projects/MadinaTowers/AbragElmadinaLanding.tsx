@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
 import { Building2, Store, GraduationCap } from "lucide-react";
 import PriceChart from "@/components/Projects/MadinaTowers/PriceChart";
 import { ProjectHero } from "@/components/shared";
@@ -93,26 +93,27 @@ export default function AbragElmadinaLanding({
 
       {/* ── 3 كروت ── */}
       <section className="mb-6">
-        <motion.h2
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
+        <AnimatedSection
+          as="h2"
+          y={15}
+          duration={0.5}
           className="text-[#1a1a1a] text-2xl md:text-3xl font-extrabold mb-6 border-b-2 border-primary/30 pb-3"
         >
           أقسام المشروع
-        </motion.h2>
+        </AnimatedSection>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {cards(onViewUnits).map((card, i) => (
-            <motion.div
+            <div
               key={card.title}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              className={`${card.cardBg} border-2 ${card.border} rounded-2xl p-6 flex flex-col gap-5 shadow-md cursor-pointer hover:shadow-lg transition-shadow duration-200`}
               onClick={() => "href" in card && card.href ? router.push(card.href as string) : undefined}
+              className="cursor-pointer"
+            >
+            <AnimatedSection
+              y={25}
+              duration={0.5}
+              delay={i * 0.1}
+              className={`${card.cardBg} border-2 ${card.border} rounded-2xl p-6 flex flex-col gap-5 shadow-md hover:shadow-lg transition-shadow duration-200`}
             >
               {/* أيقونة + tag */}
               <div className="flex items-center justify-between">
@@ -142,7 +143,8 @@ export default function AbragElmadinaLanding({
               >
                 {card.btn}
               </button>
-            </motion.div>
+            </AnimatedSection>
+            </div>
           ))}
         </div>
       </section>

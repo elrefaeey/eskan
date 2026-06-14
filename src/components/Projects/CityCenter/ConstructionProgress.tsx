@@ -1,6 +1,8 @@
 ﻿"use client";
 
 import { motion, useInView, animate } from "framer-motion";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
+import { progressBarTransition } from "@/lib/animations";
 import { Building2, HardHat, Layers, PaintBucket, DoorOpen, Wrench } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
@@ -72,14 +74,7 @@ function CircularProgress() {
 
 export default function ConstructionProgress() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm"
-      dir="rtl"
-    >
+    <AnimatedSection duration={0.6} className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm [direction:rtl]">
       {/* Header */}
       <div className="px-6 md:px-8 py-5 flex items-start justify-between gap-4 flex-wrap">
         <div>
@@ -105,7 +100,7 @@ export default function ConstructionProgress() {
                 initial={{ width: 0 }}
                 whileInView={{ width: `${TOTAL_PROGRESS}%` }}
                 viewport={{ once: true }}
-                transition={{ duration: 1.2, ease: "easeOut" }}
+                transition={progressBarTransition}
                 className="absolute right-0 top-0 h-full bg-gradient-to-l from-[#4a9e6e] to-primary rounded-full"
               />
             </div>
@@ -148,6 +143,6 @@ export default function ConstructionProgress() {
           })}
         </div>
       </div>
-    </motion.div>
+    </AnimatedSection>
   );
 }

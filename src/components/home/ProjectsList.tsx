@@ -1,14 +1,10 @@
 import ProjectCard from "./ProjectCard";
-import type { Project } from "@/features/projects/types";
-
-const projectLinks: Record<number, string> = {
-  1: "/abrag-elbadry",
-  3: "/city-center",
-  4: "/elbadry-trade",
-  5: "/abrag-elmadina",
-  7: "/gallery-ground",
-  12: "/medical-city-center",
-};
+import type { Project } from "@/features/projects/types/index";
+import {
+  PROJECT_LINKS,
+  PROJECT_OVERRIDES,
+  EXCLUDED_PROJECT_IDS,
+} from "@/constants/projectOverrides";
 
 function shuffleArray<T>(array: T[]): T[] {
   const shuffled = [...array];
@@ -27,51 +23,20 @@ async function getProjects(): Promise<Project[]> {
 
     const res = await fetch(`${apiUrl}/api/projects`, {
       next: { revalidate: 3600 },
-      headers: {
-        Accept: "application/json",
-      },
+      headers: { Accept: "application/json" },
     });
 
-    if (!res.ok) {
-      console.error(
-        `Failed to fetch projects: ${res.status} ${res.statusText}`,
-      );
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
 
     const data = await res.json();
-
-    if (!data || !data.data) {
-      console.error("Invalid data structure:", data);
-      throw new Error("Invalid data structure");
-    }
+    if (!data?.data) throw new Error("Invalid data structure");
 
     return data.data;
   } catch (error) {
     console.error("Error fetching projects:", error);
-    return []; // Return empty array instead of throwing
+    return [];
   }
 }
-
-const cityCenterDescription =
-  "سيتي سنتر المنصورة أكبر مول ومركز تجاري بواجهة كبيرة تتخطى الـ100 متر لخدمة سكان الدقهلية والدلتا. موقع مميز واستراتيجي يربط بين اهم مدن الدلتا (دمياط - المنصورة - طنطا - المحلة) ومراكزها (نبروه - طلخا - شرين - بلقاس - راس البر). يوفر لك الفرصة للاستثمار بعوائد ايجارية شهرية او لتملك مساحة تجارية للبدء في مشروع بأقل إمكانيات مع تحقيق أعلى معدل مبيعات لأنه يستهدف 10 مليون مواطن.";
-
-const elbadryDescription =
-  "يعتبر مول البدري طفرة واضافة كبيرة للاسواق التجارية بالمنصورة. تنشئه حاليا مجموعة البدري للتجارة والمقاولات بالتعاون مع اسكان المنصورة المطور العقاري للمشروع. اكبر مركز تجاري متعدد الاسواق بالمنصورة وعلي مسطحات بنائية تتجاوز ٢١ الف متر ليكون المقصد الرئيسي لأكتر من ١٠ مليون من ابناء الدقهلية للشراء والتسوق.";
-
-const elbadrySegments = [
-  { label: "أبراج البدري", tag: "سكني", href: "/abrag-elbadry" },
-  { label: "مول البدري", tag: "تجاري", href: "/elbadry-trade" },
-];
-
-const madinaSegments = [
-  { label: "أبراج المدينة", tag: "سكني", href: "/abrag-elmadina/residential" },
-  { label: "أرض المعارض", tag: "تجاري", href: "/gallery-ground" },
-  { label: "المركز التعليمي", tag: "إداري", href: "/vocational-center" },
-];
-
-const madinaDescription =
-  "مجتمع عمراني متكامل على مساحة 15 ألف متر (سكني - تجاري - عيادات طبية - مجمع تعليمي - إداري). يتكون من عدد 14 عمارة مقسمة على 4 مراحل وعدد يزيد عن 200 وحدة سكنية تتميز بمساحات تناسب الأسرة المصرية تبدأ من 58 متر حتى 159 متر. يحقق المشروع المعادلة الصعبة التي تعطى مساحة وحدة سكنية صغيرة ومتوسطة بمقدم يبدأ من 25% وبالتقسيط على 6 سنوات وبدون فوايد.";
 
 export async function ProjectsList() {
   const projects = await getProjects();
@@ -84,26 +49,26 @@ export async function ProjectsList() {
     );
   }
 
-  const shuffledProjects = shuffleArray(projects).filter((p) => p.id !== 7 && p.id !== 4);
+  const visibleProjects = shuffleArray(projects).filter(
+    (p) => !EXCLUDED_PROJECT_IDS.includes(p.id),
+  );
 
   return (
     <div className="mt-4 w-full md:mt-8 space-y-16">
-      {shuffledProjects.map((project, index) => {
-        const projectImage = project.imgs?.[0]?.img || "";
-
+      {visibleProjects.map((project, index) => {
+        const override = PROJECT_OVERRIDES[project.id];
         return (
           <ProjectCard
             key={project.id}
             title={project.name}
-            description={project.id === 5 ? madinaDescription : project.id === 1 ? elbadryDescription : project.id === 3 ? cityCenterDescription : project.description}
+            description={override?.description ?? project.description}
             location={project.location}
-            type={project.id === 1 ? "سكني تجاري" : project.type}
-            image={projectImage}
-            buttonText="تفاصيل أكثر"
-            link={projectLinks[project.id] || "#"}
+            type={override?.type ?? project.type}
+            image={project.imgs?.[0]?.img || ""}
+            link={PROJECT_LINKS[project.id] || "#"}
             reverse={index % 2 !== 0}
             priority={index === 0}
-            segments={project.id === 5 ? madinaSegments : project.id === 1 ? elbadrySegments : undefined}
+            segments={override?.segments}
           />
         );
       })}

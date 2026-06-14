@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
+import { fadeInRight } from "@/lib/animations";
 import { MapPin } from "lucide-react";
 import ElbadryTowersUnitsSection from "@/features/elbadry-towers/components/ElbadryTowersUnitsSection";
 import useProjectMapImage from "@/features/elbadry-towers/hooks/useProjectMapImage";
@@ -36,14 +37,7 @@ const ElbadryToursUnits = () => {
   return (
     <>
       {/* ── موقع المشروع + البلوكات ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="mb-12"
-        dir="rtl"
-      >
+      <AnimatedSection duration={0.5} className="mb-12 [direction:rtl]">
         <h2 className="text-primary text-2xl md:text-3xl font-extrabold mb-6 border-r-4 border-primary pr-4">
           موقع المشروع السكني
         </h2>
@@ -73,12 +67,11 @@ const ElbadryToursUnits = () => {
             </p>
             <div className="flex flex-col gap-3">
               {blocks.map((block, i) => (
-                <motion.div
+                <AnimatedSection
                   key={block.id}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.1 }}
+                  variant={fadeInRight}
+                  x={20}
+                  delay={i * 0.1}
                   className="flex items-start gap-4 bg-white border border-gray-100 rounded-2xl p-4 shadow-sm"
                 >
                   <div className={`${block.color} w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow`}>
@@ -88,12 +81,12 @@ const ElbadryToursUnits = () => {
                     <p className="font-bold text-primary text-sm mb-0.5">بلوك {block.id}</p>
                     <p className="text-[#555] text-sm leading-relaxed">{block.text}</p>
                   </div>
-                </motion.div>
+                </AnimatedSection>
               ))}
             </div>
           </div>
         </div>
-      </motion.div>
+      </AnimatedSection>
 
       {/* ── الوحدات ── */}
       <div id="units-section">

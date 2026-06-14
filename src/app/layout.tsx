@@ -7,7 +7,6 @@ import Footer from "@/components/layout/footer/Footer";
 import ReactQueryProvider from "@/providers/react-queryprovider";
 import { Toaster } from "react-hot-toast";
 import { WelcomeChat } from "@/features/chat";
-// import PageTransition from "@/components/PageTransition";
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],

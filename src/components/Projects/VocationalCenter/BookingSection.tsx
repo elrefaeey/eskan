@@ -2,6 +2,11 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import {
+  collapseVariant,
+  overlayVariant,
+  scaleInModal,
+} from "@/lib/animations";
 import { X, GraduationCap, Clock, FileText } from "lucide-react";
 
 const contractTypes = [
@@ -73,10 +78,11 @@ export default function BookingSection() {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
+            variants={collapseVariant}
             transition={{ duration: 0.4 }}
+            initial="initial"
+            animate="animate"
+            exit="exit"
             className="overflow-hidden mt-6"
           >
             {/* نوع العقد */}
@@ -142,17 +148,18 @@ export default function BookingSection() {
       <AnimatePresence>
         {showModal && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            variants={overlayVariant}
+            initial="initial"
+            animate="animate"
+            exit="exit"
             className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
             onClick={(e) => e.target === e.currentTarget && resetModal()}
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.25 }}
+              variants={scaleInModal}
+              initial="initial"
+              animate="animate"
+              exit="exit"
               className="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden"
               dir="rtl"
             >

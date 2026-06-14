@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { useSearchParams } from "next/navigation";
-import { motion } from "framer-motion";
+import AnimatedSection from "@/components/common/animations/AnimatedSection";
 import { Store, CheckCircle2, Loader2, TrendingUp, Layers, Award } from "lucide-react";
 import SelectInput from "@/components/SelectInput";
 import GalleryGroundList from "@/features/gallery-ground/components/GalleryGroundList";
@@ -91,11 +91,8 @@ function GalleryGroundPage() {
       <StatsGrid stats={stats} colorScheme="purple" className="mb-10" />
 
       {/* ── ما يميز الاستثمار ── */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+      <AnimatedSection
+        duration={0.5}
         className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 bg-[#f8f8f8] rounded-2xl p-6 md:p-8 border border-gray-100"
       >
         {/* صور المراحل */}
@@ -118,7 +115,7 @@ function GalleryGroundPage() {
             ))}
           </ul>
         </div>
-      </motion.div>
+      </AnimatedSection>
 
       {/* ── موقع المشروع ── */}
       <MapSection
@@ -139,14 +136,8 @@ function GalleryGroundPage() {
       />
 
       {/* ── الوحدات ── */}
-      <motion.div
-        ref={unitsRef}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="mb-10"
-      >
+      <div ref={unitsRef}>
+        <AnimatedSection duration={0.5} className="mb-10">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-r-4 border-primary pr-4">
           <h2 className="text-primary text-2xl md:text-3xl font-extrabold">احجز الآن</h2>
           <div className="flex gap-2 flex-wrap">
@@ -163,7 +154,8 @@ function GalleryGroundPage() {
             <GalleryGroundList />
           </>
         )}
-      </motion.div>
+      </AnimatedSection>
+      </div>
 
       </div>{/* end container */}
     </main>
