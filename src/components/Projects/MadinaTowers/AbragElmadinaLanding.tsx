@@ -3,8 +3,15 @@ import { useRouter } from "next/navigation";
 import AnimatedSection from "@/components/common/animations/AnimatedSection";
 import { Building2, Store, GraduationCap } from "lucide-react";
 import PriceChart from "@/components/Projects/MadinaTowers/PriceChart";
-import { ProjectHero } from "@/components/shared";
-import MapSection from "@/components/shared/MapSection";
+import {
+  ProjectHero,
+  LocationSection,
+  ProjectMap,
+  SectionContent,
+  ExternalMapLink,
+  GRAY_MAP_LOCATION_DEFAULTS,
+  MAP_LOCATION_DESCRIPTION_CLASS,
+} from "@/components/shared";
 
 const cards = (onViewUnits?: () => void) => [
   {
@@ -75,18 +82,18 @@ export default function AbragElmadinaLanding({
       <div className="container mx-auto px-4">
 
       {/* ── موقع المشروع ── */}
-      <MapSection
-        embedUrl="https://www.google.com/maps?q=أبراج+المدينة،+طريق+المنصورة+دمياط،+المنصورة،+الدقهلية،+مصر&output=embed&t=k"
-        iframeTitle="موقع أبراج المدينة"
-        iframeClassName="rounded-xl"
-        visualClassName="h-64 md:h-auto shadow-md rounded-xl overflow-hidden"
-        description="يتمتع مشروع أبراج المدينة بموقع عبقري واستراتيجي، دقيقة واحدة فقط من شارع قناة السويس، و10 دقائق من جامعة المنصورة، و5 دقائق من شارع الجيش، مع قرب مباشر من جميع الخدمات والمرافق الحيوية. حيث يقع المشروع في الاتجاه المقابل لـ كوبري جديلة، مما يمنحه سهولة وصول استثنائية من مختلف أنحاء المنصورة كذلك الدلتا."
-        descriptionClassName="text-lg md:text-xl leading-[2]"
-        externalMapUrl="https://maps.app.goo.gl/vwqecvwAo2n7ZtP77"
-        mapPosition="map-right"
-        containerVariant="gray"
-        className="mb-12"
-      />
+      <LocationSection {...GRAY_MAP_LOCATION_DEFAULTS}>
+        <ProjectMap
+          embedUrl="https://www.google.com/maps?q=أبراج+المدينة،+طريق+المنصورة+دمياط،+المنصورة،+الدقهلية،+مصر&output=embed&t=k"
+          title="موقع أبراج المدينة"
+        />
+        <SectionContent
+          description="يتمتع مشروع أبراج المدينة بموقع عبقري واستراتيجي، دقيقة واحدة فقط من شارع قناة السويس، و10 دقائق من جامعة المنصورة، و5 دقائق من شارع الجيش، مع قرب مباشر من جميع الخدمات والمرافق الحيوية. حيث يقع المشروع في الاتجاه المقابل لـ كوبري جديلة، مما يمنحه سهولة وصول استثنائية من مختلف أنحاء المنصورة كذلك الدلتا."
+          descriptionClassName={MAP_LOCATION_DESCRIPTION_CLASS}
+        >
+          <ExternalMapLink href="https://maps.app.goo.gl/vwqecvwAo2n7ZtP77" />
+        </SectionContent>
+      </LocationSection>
 
       {/* ── تشارت تطور السعر ── */}
       <PriceChart />

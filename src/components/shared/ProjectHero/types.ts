@@ -28,61 +28,48 @@ export interface HeroCtaButton {
   variant?: "primary" | "outline";
 }
 
-/** Props الكاملة لـ ProjectHero */
-export interface ProjectHeroProps {
-  // ─── Loading State ───────────────────────────────
+/** حقول مشتركة بين جميع أنواع الـ Hero */
+type ProjectHeroBase = {
   /** حالة التحميل — يعرض skeleton loader داخلياً */
   isLoading?: boolean;
-
-  // ─── Visual ──────────────────────────────────────
-  /** نوع العنصر المرئي */
-  visualType?: HeroVisualType;
-  /** مصفوفة الصور — مطلوبة عند visualType === 'slider' */
-  images?: string[];
-  /** مسار صورة ثابتة — مطلوبة عند visualType === 'static' */
-  staticImage?: string;
-  /** نص alt للصورة الثابتة */
-  staticImageAlt?: string;
-  /** كلاس CSS للـ gradient — يُستخدم عند visualType === 'gradient' */
-  gradientClassName?: string;
-  /** محتوى مخصص يُعرض فوق الـ gradient */
-  gradientContent?: React.ReactNode;
-
-  // ─── Badge ───────────────────────────────────────
   badge?: {
     text: string;
-    /** لون محدد مسبقاً */
     color?: HeroBadgeColor;
-    /** كلاس CSS مخصص يتجاوز color (للألوان غير القياسية مثل #4A36A2) */
     className?: string;
   };
-
-  // ─── Content ─────────────────────────────────────
   title: string;
-  /** نص فرعي أسفل العنوان (اسم المشروع الأصلي) */
   subtitle?: string;
   location?: string;
   description: string | React.ReactNode;
-  /** نص مميّز يُعرض أسفل الوصف (مثل "امتلك الآن…") */
   highlightText?: string;
-
-  // ─── Video ───────────────────────────────────────
-  /** معرف فيديو YouTube — إذا مُرر يظهر زر الفيديو تلقائياً */
   videoId?: string;
-  /** نص زر الفيديو */
   videoButtonText?: string;
-
-  // ─── CTA Buttons ─────────────────────────────────
-  /** أزرار CTA تحت الوصف — يمكن تمرير زر أو أكثر */
   ctaButtons?: HeroCtaButton[];
-
-  // ─── Layout ──────────────────────────────────────
-  /** اتجاه RTL (افتراضي: true) */
   dir?: "rtl" | "ltr";
-  /** كلاس CSS إضافي على الـ section الكاملة */
   className?: string;
-  /** كلاس CSS على حاوية النص */
   contentClassName?: string;
-  /** كلاس CSS على wrapper الجانب المرئي — يُستخدم لتخصيص الارتفاع */
   mediaClassName?: string;
-}
+};
+
+export type ProjectHeroSliderProps = ProjectHeroBase & {
+  visualType: "slider";
+  images: string[];
+};
+
+export type ProjectHeroStaticProps = ProjectHeroBase & {
+  visualType: "static";
+  staticImage: string;
+  staticImageAlt: string;
+};
+
+export type ProjectHeroGradientProps = ProjectHeroBase & {
+  visualType: "gradient";
+  gradientClassName?: string;
+  gradientContent?: React.ReactNode;
+};
+
+/** Props الكاملة لـ ProjectHero — Discriminated Union على visualType */
+export type ProjectHeroProps =
+  | ProjectHeroSliderProps
+  | ProjectHeroStaticProps
+  | ProjectHeroGradientProps;

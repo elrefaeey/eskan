@@ -8,7 +8,14 @@ import { useLenis } from "@/hooks/useLenis";
 import useProjectDetails from "@/features/elbadry-towers/hooks/useProjectDetails";
 import { LoadingPage } from "@/components/ui/LoadingPage";
 import { ProjectHero } from "@/components/shared";
-import MapSection from "@/components/shared/MapSection";
+import {
+  LocationSection,
+  ProjectMap,
+  SectionContent,
+  ExternalMapLink,
+  GRAY_MAP_LOCATION_DEFAULTS,
+  MAP_LOCATION_DESCRIPTION_CLASS,
+} from "@/components/shared";
 
 const cards = [
   {
@@ -67,18 +74,18 @@ export default function AbragElBadry() {
       <div className="container mx-auto px-4">
 
         {/* ── موقع المشروع ── */}
-        <MapSection
-          embedUrl="https://www.google.com/maps?q=أبراج+البدري،+المنصورة،+الدقهلية،+مصر&output=embed&t=k"
-          iframeTitle="موقع أبراج البدري"
-          iframeClassName="rounded-xl"
-          visualClassName="h-64 md:h-auto shadow-md rounded-xl overflow-hidden"
-          description="يقع مشروع أبراج البدري في موقع استراتيجي متميز بالمنصورة، آخر شارع الأتوبيس الجديد من اتجاه البحر الصغير، مما يمنحه سهولة وصول استثنائية من مختلف أنحاء المنصورة والدقهلية."
-          descriptionClassName="text-lg md:text-xl leading-[2]"
-          externalMapUrl="https://maps.app.goo.gl/vW6CVHK8YDKEyaKV9"
-          mapPosition="map-right"
-          containerVariant="gray"
-          className="mb-12"
-        />
+        <LocationSection {...GRAY_MAP_LOCATION_DEFAULTS}>
+          <ProjectMap
+            embedUrl="https://www.google.com/maps?q=أبراج+البدري،+المنصورة،+الدقهلية،+مصر&output=embed&t=k"
+            title="موقع أبراج البدري"
+          />
+          <SectionContent
+            description="يقع مشروع أبراج البدري في موقع استراتيجي متميز بالمنصورة، آخر شارع الأتوبيس الجديد من اتجاه البحر الصغير، مما يمنحه سهولة وصول استثنائية من مختلف أنحاء المنصورة والدقهلية."
+            descriptionClassName={MAP_LOCATION_DESCRIPTION_CLASS}
+          >
+            <ExternalMapLink href="https://maps.app.goo.gl/vW6CVHK8YDKEyaKV9" />
+          </SectionContent>
+        </LocationSection>
 
         {/* ── الشارت ── */}
         <AnimatedSection duration={0.5} className="mb-12">

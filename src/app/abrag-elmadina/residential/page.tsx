@@ -8,7 +8,11 @@ import MadinaTowersUnits from "@/components/Projects/MadinaTowers/MadinaTowersUn
 import { useLenis } from "@/hooks/useLenis";
 import useMadinaProjectDetails from "@/features/abrag-elmadina/hooks/useMadinaProjectDetails";
 import { ProjectHero, StatsGrid } from "@/components/shared";
-import MapSection from "@/components/shared/MapSection";
+import {
+  LocationSection,
+  ProjectImage,
+  SectionContent,
+} from "@/components/shared";
 
 const phasesData = [
   {
@@ -79,7 +83,7 @@ export default function ResidentialPage() {
 
   const selectedLabel = phaseOptions.find((p) => p.value === selectedStep)?.label;
 
-  // ── Dropdown المرحلة — يُمرَّر كـ extraContent إلى MapSection ──────────────
+  // ── Dropdown المرحلة — يُمرَّر كـ children داخل SectionContent ─────────────
   const phasesDropdown = (
     <div className="relative w-fit">
       <button
@@ -139,18 +143,23 @@ export default function ResidentialPage() {
         />
 
         {/* ── موقع المشروع ── */}
-        <MapSection
-          visualType="image"
-          imageSrc="/assets/projects/abrag-elmadina/aaa.png"
-          imageAlt="مخطط أبراج المدينة"
-          description="يتمتع مشروع أبراج المدينة بموقع عبقري واستراتيجي، دقيقة واحدة فقط من شارع قناة السويس، و10 دقائق من جامعة المنصورة، و5 دقائق من شارع الجيش، مع قرب مباشر من جميع الخدمات والمرافق الحيوية. يقع المشروع في الاتجاه المقابل لـ كوبري جديلة، مما يمنحه سهولة وصول استثنائية من مختلف أنحاء المنصورة كذلك الدلتا."
-          mapPosition="map-left"
-          showDivider={true}
-          titleIconClassName="w-6 h-6"
+        <LocationSection
+          mediaPosition="end"
           containerVariant="primary-light"
-          textContainerClassName="gap-5"
-          extraContent={phasesDropdown}
-        />
+          contentSlotClassName="gap-5"
+        >
+          <ProjectImage
+            src="/assets/projects/abrag-elmadina/aaa.png"
+            alt="مخطط أبراج المدينة"
+          />
+          <SectionContent
+            description="يتمتع مشروع أبراج المدينة بموقع عبقري واستراتيجي، دقيقة واحدة فقط من شارع قناة السويس، و10 دقائق من جامعة المنصورة، و5 دقائق من شارع الجيش، مع قرب مباشر من جميع الخدمات والمرافق الحيوية. يقع المشروع في الاتجاه المقابل لـ كوبري جديلة، مما يمنحه سهولة وصول استثنائية من مختلف أنحاء المنصورة كذلك الدلتا."
+            showDivider={true}
+            titleIconClassName="w-6 h-6"
+          >
+            {phasesDropdown}
+          </SectionContent>
+        </LocationSection>
 
         {/* ── الوحدات ── */}
         <div ref={unitsRef}>

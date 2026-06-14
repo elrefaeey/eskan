@@ -8,57 +8,70 @@ import HeroSkeleton from "./HeroSkeleton";
 import type { ProjectHeroProps } from "./types";
 
 // ─── Re-exports (public API) ──────────────────────────────────────────────────
-// تُعيد تصدير جميع الـ types للحفاظ على نفس الـ public API السابق
-export type { ProjectHeroProps, HeroCtaButton, HeroBadgeColor, HeroVisualType } from "./types";
+export type {
+  ProjectHeroProps,
+  ProjectHeroSliderProps,
+  ProjectHeroStaticProps,
+  ProjectHeroGradientProps,
+  HeroCtaButton,
+  HeroBadgeColor,
+  HeroVisualType,
+} from "./types";
 
 // ─── ProjectHero ──────────────────────────────────────────────────────────────
-/**
- * ProjectHero — القسم العلوي المشترك لصفحات المشاريع.
- *
- * يدعم ثلاثة أنواع من الجانب المرئي:
- *  - slider:   Swiper slider من مصفوفة صور
- *  - static:   صورة ثابتة واحدة بـ next/image
- *  - gradient: خلفية gradient بدون صورة
- *
- * يحتوي على:
- *  - Badge تصنيفي
- *  - عنوان H1 + موقع + divider + وصف
- *  - زر فيديو YouTube (اختياري)
- *  - أزرار CTA متعددة
- *  - Loading State داخلي (skeleton)
- *
- * لا يحتوي على أي منطق API — يستقبل البيانات جاهزة من الصفحة الأم.
- *
- * البنية الداخلية:
- *  ├── HeroMedia    — الجانب المرئي
- *  ├── HeroContent  — النص (badge/title/location/description)
- *  ├── HeroActions  — الأزرار (video/CTA)
- *  └── HeroSkeleton — loading state
- */
-export default function ProjectHero({
-  isLoading = false,
-  visualType = "slider",
-  images = [],
-  staticImage,
-  staticImageAlt = "project image",
-  gradientClassName,
-  gradientContent,
-  badge,
-  title,
-  subtitle,
-  location,
-  description,
-  highlightText,
-  videoId,
-  videoButtonText = "مشاهدة فيديو المشروع",
-  ctaButtons = [],
-  dir = "rtl",
-  className,
-  contentClassName,
-  mediaClassName,
-}: ProjectHeroProps) {
 
-  // ── Loading State ──────────────────────────────────────────────────────────
+function renderHeroMedia(
+  props: ProjectHeroProps,
+  mediaClassName: string | undefined,
+) {
+  switch (props.visualType) {
+    case "slider":
+      return (
+        <HeroMedia
+          visualType="slider"
+          images={props.images}
+          mediaClassName={mediaClassName}
+        />
+      );
+    case "static":
+      return (
+        <HeroMedia
+          visualType="static"
+          staticImage={props.staticImage}
+          staticImageAlt={props.staticImageAlt}
+          mediaClassName={mediaClassName}
+        />
+      );
+    case "gradient":
+      return (
+        <HeroMedia
+          visualType="gradient"
+          gradientClassName={props.gradientClassName}
+          gradientContent={props.gradientContent}
+          mediaClassName={mediaClassName}
+        />
+      );
+  }
+}
+
+export default function ProjectHero(props: ProjectHeroProps) {
+  const {
+    isLoading = false,
+    badge,
+    title,
+    subtitle,
+    location,
+    description,
+    highlightText,
+    videoId,
+    videoButtonText = "مشاهدة فيديو المشروع",
+    ctaButtons = [],
+    dir = "rtl",
+    className,
+    contentClassName,
+    mediaClassName,
+  } = props;
+
   if (isLoading) {
     return (
       <section className={cn("mb-10 bg-white", className)} dir={dir}>
@@ -74,18 +87,8 @@ export default function ProjectHero({
       <div className="container mx-auto">
         <div className="rounded-2xl overflow-hidden bg-white grid grid-cols-1 md:grid-cols-2">
 
-          {/* ── الجانب المرئي ── */}
-          <HeroMedia
-            visualType={visualType}
-            images={images}
-            staticImage={staticImage}
-            staticImageAlt={staticImageAlt}
-            gradientClassName={gradientClassName}
-            gradientContent={gradientContent}
-            mediaClassName={mediaClassName}
-          />
+          {renderHeroMedia(props, mediaClassName)}
 
-          {/* ── الجانب النصي + الأزرار ── */}
           <div
             className={cn(
               "flex flex-col justify-between gap-4 p-6 md:p-8 order-2",

@@ -3,72 +3,80 @@
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import ProjectImgsSlider from "@/components/Projects/ProjectImagesSlider";
-import type { HeroVisualType } from "./types";
 
 // ─── Props ────────────────────────────────────────────────────────────────────
 
-interface HeroMediaProps {
-  visualType: HeroVisualType;
-  // slider
+export type HeroMediaSliderProps = {
+  visualType: "slider";
   images: string[];
-  // static
-  staticImage?: string;
+  mediaClassName?: string;
+};
+
+export type HeroMediaStaticProps = {
+  visualType: "static";
+  staticImage: string;
   staticImageAlt: string;
-  // gradient
+  mediaClassName?: string;
+};
+
+export type HeroMediaGradientProps = {
+  visualType: "gradient";
   gradientClassName?: string;
   gradientContent?: React.ReactNode;
-  /** كلاس CSS إضافي على wrapper الجانب المرئي — يُستخدم لتخصيص الارتفاع */
   mediaClassName?: string;
-}
+};
+
+export type HeroMediaProps =
+  | HeroMediaSliderProps
+  | HeroMediaStaticProps
+  | HeroMediaGradientProps;
+
+const WRAPPER_CLASS =
+  "relative h-80 max-h-80 md:h-auto md:min-h-[300px] md:max-h-none order-1 rounded-2xl overflow-hidden";
 
 // ─── HeroMedia ────────────────────────────────────────────────────────────────
-// الجانب المرئي من الـ Hero.
-// يدعم ثلاثة أوضاع: slider / static image / gradient.
 
-export default function HeroMedia({
-  visualType,
-  images,
-  staticImage,
-  staticImageAlt,
-  gradientClassName,
-  gradientContent,
-  mediaClassName,
-}: HeroMediaProps) {
-  return (
-    <div className={cn(
-      "relative h-80 max-h-80 md:h-auto md:min-h-[300px] md:max-h-none order-1 rounded-2xl overflow-hidden",
-      mediaClassName,
-    )}>
+export default function HeroMedia(props: HeroMediaProps) {
+  const { mediaClassName } = props;
 
-      {visualType === "slider" && (
+  if (props.visualType === "slider") {
+    return (
+      <div className={cn(WRAPPER_CLASS, mediaClassName)}>
         <ProjectImgsSlider
-          images={images}
+          images={props.images}
           height="h-full md:!h-full"
           rounded={false}
         />
-      )}
+      </div>
+    );
+  }
 
-      {visualType === "static" && staticImage && (
-        <Image
-          src={staticImage}
-          alt={staticImageAlt}
-          fill
-          className="object-cover"
-          priority
-        />
-      )}
+  if (props.visualType === "static") {
+    return (
+      <div className={cn(WRAPPER_CLASS, mediaClassName)}>
+        {props.staticImage && (
+          <Image
+            src={props.staticImage}
+            alt={props.staticImageAlt}
+            fill
+            className="object-cover"
+            priority
+          />
+        )}
+      </div>
+    );
+  }
 
-      {visualType === "gradient" && (
-        <div
-          className={cn(
-            "w-full h-full flex items-center justify-center",
-            gradientClassName ?? "bg-gradient-to-br from-[#1F4B57] to-[#0d3d22]",
-          )}
-        >
-          {gradientContent}
-        </div>
-      )}
-
+  return (
+    <div className={cn(WRAPPER_CLASS, mediaClassName)}>
+      <div
+        className={cn(
+          "w-full h-full flex items-center justify-center",
+          props.gradientClassName ?? "bg-gradient-to-br from-[#1F4B57] to-[#0d3d22]",
+        )}
+      >
+        {props.gradientContent}
+      </div>
     </div>
   );
 }

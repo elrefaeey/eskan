@@ -13,7 +13,12 @@ import useConstructionPhases from "@/features/gallery-ground/hooks/useConstructi
 import ProjectImgsSlider from "@/components/Projects/ProjectImagesSlider";
 import { ProjectHero, StatsGrid } from "@/components/shared";
 import type { StatItem } from "@/components/shared";
-import MapSection from "@/components/shared/MapSection";
+import {
+  LocationSection,
+  ProjectMap,
+  SectionContent,
+  ExternalMapLink,
+} from "@/components/shared";
 
 const galleryGroundLocations = [
   { value: "ابراج المدينة 1", label: "ابراج المدينة 1" },
@@ -118,22 +123,28 @@ function GalleryGroundPage() {
       </AnimatedSection>
 
       {/* ── موقع المشروع ── */}
-      <MapSection
-        embedUrl="https://www.google.com/maps?q=31.050302,31.410547&output=embed&t=k"
-        iframeTitle="موقع أرض المعارض"
-        iframeClassName="rounded-xl"
-        visualClassName="rounded-xl overflow-hidden"
-        description="موقع استراتيجي سهل الوصول، دقيقة واحدة فقط من شارع قناة السويس، 10 دقائق من جامعة المنصورة، 5 دقائق من شارع الجيش، مع قرب مباشر من جميع الخدمات والمرافق الحيوية. يقع المشروع في الاتجاه المقابل لـ كوبري جديلة مما يمنحه سهولة وصول استثنائية من مختلف أنحاء المنصورة والدلتا."
-        descriptionClassName="text-base md:text-lg leading-[2]"
-        externalMapUrl="https://maps.app.goo.gl/unEGE1Y6QCEZP2wM6"
-        buttonClassName="px-5 py-3 text-sm mt-2"
-        titleIconClassName="w-6 h-6"
-        textContainerClassName="gap-3 p-6 md:p-8"
-        mapPosition="map-left"
-        gridClassName="gap-6"
+      <LocationSection
+        mediaPosition="end"
         containerVariant="card"
-        className="mb-10"
-      />
+        gridClassName="gap-6"
+        mediaSlotClassName="rounded-xl overflow-hidden"
+        contentSlotClassName="gap-3 p-6 md:p-8"
+      >
+        <ProjectMap
+          embedUrl="https://www.google.com/maps?q=31.050302,31.410547&output=embed&t=k"
+          title="موقع أرض المعارض"
+        />
+        <SectionContent
+          description="موقع استراتيجي سهل الوصول، دقيقة واحدة فقط من شارع قناة السويس، 10 دقائق من جامعة المنصورة، 5 دقائق من شارع الجيش، مع قرب مباشر من جميع الخدمات والمرافق الحيوية. يقع المشروع في الاتجاه المقابل لـ كوبري جديلة مما يمنحه سهولة وصول استثنائية من مختلف أنحاء المنصورة والدلتا."
+          descriptionClassName="text-base md:text-lg leading-[2]"
+          titleIconClassName="w-6 h-6"
+        >
+          <ExternalMapLink
+            href="https://maps.app.goo.gl/unEGE1Y6QCEZP2wM6"
+            className="px-5 py-3 text-sm mt-2"
+          />
+        </SectionContent>
+      </LocationSection>
 
       {/* ── الوحدات ── */}
       <div ref={unitsRef}>
