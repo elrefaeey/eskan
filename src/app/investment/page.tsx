@@ -93,7 +93,7 @@ function Investment() {
         isSubmitting ? (
           <LoadingScreen />
         ) : (
-          <main className="bg-[#FAFBFC] page pt-4 text-center mx-auto pb-4 px-4 lg:mt-[82px] ">
+          <main className="bg-[#FAFBFC] page pt-4 text-center mx-auto pb-4 lg:mt-[82px] ">
             <div className="container ">
               <div
                 className={`transition-all  duration-1000 ease-out transform ${

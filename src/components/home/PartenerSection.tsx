@@ -112,7 +112,7 @@ function PartenerSection() {
 
           {/* Content */}
           <motion.div
-            className="relative container mx-auto px-4  text-center  text-white"
+            className="relative text-center text-white"
             variants={staggerContainer}
           >
             {/* Icon */}

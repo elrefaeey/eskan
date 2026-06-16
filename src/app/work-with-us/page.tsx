@@ -26,7 +26,7 @@ function WorkWithUs() {
         contentClassName="md:p-10"
       />
 
-      <div className="sec-padding container px-4">
+      <div className="sec-padding container">
         <WorkWithUsForm />
       </div>
     </main>

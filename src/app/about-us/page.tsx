@@ -26,7 +26,7 @@ function AboutUsPage() {
         contentClassName="md:p-10"
       />
 
-      <div className="container mx-auto px-4 sec-padding">
+      <div className="container mx-auto sec-padding">
         <StatsGrid
           stats={stats}
           colorScheme="primary"

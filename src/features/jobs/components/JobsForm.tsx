@@ -113,7 +113,7 @@ const JobForm = ({ jobTitle }: JobFormProps) => {
         variants={staggerContainer}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="bg-[#EFEFEF] px-4 pb-4 rounded-lg"
+        className="bg-[#EFEFEF] px-3 pb-4 sm:px-4 rounded-lg"
         onSubmit={handleSubmit(submitHandler)}
       >
         <motion.div

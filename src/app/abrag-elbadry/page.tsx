@@ -71,7 +71,7 @@ export default function AbragElBadry() {
         className="mb-10"
       />
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
 
         {/* ── موقع المشروع ── */}
         <LocationSection {...GRAY_MAP_LOCATION_DEFAULTS}>

@@ -34,7 +34,7 @@ const SouqIstanbul = () => {
   const constructionImages = constructionImagesData?.data?.map((img) => img.img) || [];
 
   return (
-    <div className="container page px-4" dir="rtl">
+    <div className="page" dir="rtl">
 
       {/* ── Hero ── */}
       <ProjectHero
@@ -55,6 +55,8 @@ const SouqIstanbul = () => {
         ]}
         className="mb-10"
       />
+
+      <div className="container mx-auto">
 
       {/* ── مميزات ── */}
       <FeaturesHighlights highlights={highlights} cols={3} className="mb-10" />
@@ -102,6 +104,8 @@ const SouqIstanbul = () => {
         </h2>
         <SouqIstanbulUnits />
       </AnimatedSection>
+      </div>
+
       </div>
 
     </div>

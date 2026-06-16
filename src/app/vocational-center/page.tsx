@@ -74,7 +74,7 @@ export default function VocationalCenterPage() {
         className="mb-10"
       />
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
 
         {/* ── Stats ── */}
         <StatsGrid stats={stats} colorScheme="teal" className="mb-10" />

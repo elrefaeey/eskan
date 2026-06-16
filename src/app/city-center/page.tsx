@@ -83,7 +83,7 @@ const CityCenterPage = () => {
         className="mb-12"
       />
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
 
         {/* Stats */}
         <StatsGrid stats={stats} colorScheme="primary" className="mb-12" />

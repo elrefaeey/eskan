@@ -43,7 +43,7 @@ const MedicalCityCenter = () => {
 
   return (
     <>
-      <section className="page container px-4">
+      <section className="page container">
         <div className="grid gap-8 md:gap-16 grid-cols-1 justify-center lg:grid-cols-12 pt-2! md:pt-7!">
           <div className="lg:col-span-6 h-full w-full">
             <HeaderLocation

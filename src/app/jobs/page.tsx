@@ -42,7 +42,7 @@ const JobsPage = () => {
         mediaClassName="md:min-h-[380px]"
       />
 
-      <div className="container px-4 sec-padding">
+      <div className="container sec-padding">
         <h3 className="text-primary font-bold h3 my-4">حدد تخصصك</h3>
         <JobsSelections onChangeJob={onChangeJob} selectedJob={selectedJob} />
         <JobsContent jobTitle={selectedJobTitle || ""} />

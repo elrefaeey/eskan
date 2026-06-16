@@ -43,7 +43,7 @@ function ElbadryTowers() {
 
       {/* ── Hero ── */}
       <section className="mb-12 bg-white border-b border-gray-100">
-        <div className="rounded-2xl overflow-hidden bg-white grid grid-cols-1 md:grid-cols-2 max-w-7xl mx-auto">
+        <div className="rounded-2xl overflow-hidden bg-white grid grid-cols-1 md:grid-cols-2 container mx-auto">
 
           {/* الصورة */}
           <div className="relative h-80 max-h-80 md:h-auto md:min-h-[300px] md:max-h-none order-1 rounded-2xl overflow-hidden">
@@ -51,7 +51,7 @@ function ElbadryTowers() {
           </div>
 
           {/* النص */}
-          <div className="flex flex-col justify-between gap-4 p-6 md:p-8 order-2">
+          <div className="flex flex-col justify-between gap-4 py-6 max-md:px-0 md:p-8 order-2">
             <div>
               <div className="inline-block bg-primary/10 text-primary font-bold text-sm px-3 py-1 rounded-full w-fit mb-3">
                 مشروع سكني
@@ -104,7 +104,7 @@ function ElbadryTowers() {
         </div>
       </section>
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
 
         {/* ── مميزات المشروع ── */}
         <AnimatedSection duration={0.5} className="mb-12">

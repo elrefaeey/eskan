@@ -133,7 +133,7 @@ export default function ResidentialPage() {
         className="mb-10 border-b border-gray-100"
       />
 
-      <div className="container px-4">
+      <div className="container mx-auto">
 
         {/* ── Stats ── */}
         <StatsGrid

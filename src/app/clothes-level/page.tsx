@@ -39,7 +39,7 @@ const ClothesLevel = () => {
   useLenis();
 
   return (
-    <div className="container page px-4" dir="rtl">
+    <div className="page" dir="rtl">
 
       {/* ── Hero ── */}
       <ProjectHero
@@ -61,6 +61,8 @@ const ClothesLevel = () => {
         ]}
         className="mb-10"
       />
+
+      <div className="container mx-auto">
 
       {/* ── مميزات ── */}
       <FeaturesHighlights highlights={highlights} cols={3} className="mb-10" />
@@ -104,6 +106,8 @@ const ClothesLevel = () => {
           </motion.button>
         )}
       </AnimatedSection>
+      </div>
+
       </div>
 
     </div>

@@ -91,7 +91,7 @@ export default function ProjectHero(props: ProjectHeroProps) {
 
           <div
             className={cn(
-              "flex flex-col justify-between gap-4 p-6 md:p-8 order-2",
+              "flex flex-col justify-between gap-4 py-6 max-md:px-0 md:p-8 order-2",
               contentClassName,
             )}
           >

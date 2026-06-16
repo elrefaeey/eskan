@@ -92,7 +92,7 @@ function GalleryGroundPage() {
         className="mb-10"
       />
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
       <StatsGrid stats={stats} colorScheme="purple" className="mb-10" />
 
       {/* ── ما يميز الاستثمار ── */}
