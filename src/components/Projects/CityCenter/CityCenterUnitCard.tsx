@@ -34,7 +34,7 @@ interface UnitInfoItemProps {
 // --------------------------------------------------
 
 const UnitInfoItem: React.FC<UnitInfoItemProps> = ({ label, value }) => (
-  <p className="text-base sm:text-[1.02em] xl:text-lg">
+  <p className="text-body-base sm:text-[1.02em] xl:text-lg">
     <span className="font-semibold">{label}</span> : {value}
   </p>
 );

@@ -125,7 +125,7 @@ export default function AbragElBadry() {
                 </div>
                 <div>
                   <h3 className="font-extrabold text-xl text-[#1a1a1a] mb-2">{card.title}</h3>
-                  <p className="text-[#555] text-base leading-relaxed">{card.desc}</p>
+                  <p className="text-[#555] text-body-base leading-relaxed">{card.desc}</p>
                 </div>
                 <button
                   onClick={(e) => { e.stopPropagation(); router.push(card.href); }}

@@ -98,7 +98,7 @@ function GalleryGroundPage() {
       {/* ── ما يميز الاستثمار ── */}
       <AnimatedSection
         duration={0.5}
-        className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 bg-[#f8f8f8] rounded-2xl p-6 md:p-8 border border-gray-100"
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 bg-[#f8f8f8] rounded-2xl p-4 md:p-8 border border-gray-100"
       >
         {/* صور المراحل */}
         {phaseImages.length > 0 && (
@@ -113,7 +113,7 @@ function GalleryGroundPage() {
           </h2>
           <ul className="flex flex-col gap-3">
             {projectFeatures.map((f, i) => (
-              <li key={i} className="flex items-start gap-2 text-[#333] text-base md:text-lg leading-relaxed">
+              <li key={i} className="flex items-start gap-2 text-[#333] text-body-base md:text-lg leading-relaxed">
                 <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                 {f}
               </li>
@@ -128,7 +128,7 @@ function GalleryGroundPage() {
         containerVariant="card"
         gridClassName="gap-6"
         mediaSlotClassName="rounded-xl overflow-hidden"
-        contentSlotClassName="gap-3 p-6 md:p-8"
+          contentSlotClassName="gap-3 p-4 md:p-8"
       >
         <ProjectMap
           embedUrl="https://www.google.com/maps?q=31.050302,31.410547&output=embed&t=k"
@@ -136,7 +136,7 @@ function GalleryGroundPage() {
         />
         <SectionContent
           description="موقع استراتيجي سهل الوصول، دقيقة واحدة فقط من شارع قناة السويس، 10 دقائق من جامعة المنصورة، 5 دقائق من شارع الجيش، مع قرب مباشر من جميع الخدمات والمرافق الحيوية. يقع المشروع في الاتجاه المقابل لـ كوبري جديلة مما يمنحه سهولة وصول استثنائية من مختلف أنحاء المنصورة والدلتا."
-          descriptionClassName="text-base md:text-lg leading-[2]"
+          descriptionClassName="text-body-base md:text-lg leading-[2]"
           titleIconClassName="w-6 h-6"
         >
           <ExternalMapLink

@@ -72,14 +72,14 @@ const BazarLevel = () => {
       {/* ── ليه تستثمر + صورة المخطط ── */}
       <AnimatedSection
         duration={0.5}
-        className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 bg-[#f8f8f8] rounded-2xl p-6 md:p-8 border border-gray-100 items-center"
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 bg-[#f8f8f8] rounded-2xl p-4 md:p-8 border border-gray-100 items-center"
       >
         <div className="flex flex-col gap-3">
           <h2 className="text-primary text-2xl md:text-3xl font-extrabold flex items-center gap-2">
             <img src="/assets/icons/glass-icon.svg" alt="search" className="w-7 h-7" />
             ليه تستثمر في البازار؟
           </h2>
-          <p className="text-[#333] text-base md:text-lg leading-[2]">
+          <p className="text-[#333] text-body-base md:text-lg leading-[2]">
             سيتي سنتر خصص دور كامل للبازارات وهي مجموعة مساحات لعرض وبيع منتجات مختلفة ومتنوعة
             زي الملابس والاكسسوار والمعطرات ومنتجات عناية البشرة والأنشطة الموسمية مثل شنط المدارس
             ومعارض رمضان والعيد ودخلة رأس السنة. ويتم تأجير البازار يومياً وليس شهرياً بعوائد
@@ -97,7 +97,7 @@ const BazarLevel = () => {
       <div id="units-section">
         <AnimatedSection duration={0.5} className="mb-10">
         {/* header الفلاتر */}
-        <div className="bg-[#364138] rounded-2xl p-5 mb-6">
+        <div className="bg-[#364138] rounded-2xl p-4 mb-6">
           <h3 className="text-white font-extrabold text-xl text-center mb-5 flex items-center justify-center gap-2">
             <MoveDown className="w-5 h-5" />
             حدد مواصفات محلك

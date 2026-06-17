@@ -120,7 +120,7 @@ export default function AbragElmadinaLanding({
               y={25}
               duration={0.5}
               delay={i * 0.1}
-              className={`${card.cardBg} border-2 ${card.border} rounded-2xl p-6 flex flex-col gap-5 shadow-md hover:shadow-lg transition-shadow duration-200`}
+              className={`${card.cardBg} border-2 ${card.border} rounded-2xl p-4 md:p-6 flex flex-col gap-5 shadow-md hover:shadow-lg transition-shadow duration-200`}
             >
               {/* أيقونة + tag */}
               <div className="flex items-center justify-between">
@@ -135,7 +135,7 @@ export default function AbragElmadinaLanding({
               {/* نص */}
               <div>
                 <h3 className="font-extrabold text-xl text-[#1a1a1a] mb-2">{card.title}</h3>
-                <p className="text-[#555] text-base leading-relaxed">{card.desc}</p>
+                <p className="text-[#555] text-body-base leading-relaxed">{card.desc}</p>
               </div>
 
               {/* زر */}

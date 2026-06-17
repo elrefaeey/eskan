@@ -76,7 +76,7 @@ export default function ConstructionProgress() {
   return (
     <AnimatedSection duration={0.6} className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm [direction:rtl]">
       {/* Header */}
-      <div className="px-6 md:px-8 py-5 flex items-start justify-between gap-4 flex-wrap">
+      <div className="px-4 md:px-8 py-5 flex items-start justify-between gap-4 flex-wrap">
         <div>
           <h3 className="text-primary font-extrabold text-xl md:text-2xl">تقدم الإنشاءات</h3>
           <p className="text-gray-400 text-xs mt-1">آخر تحديث: مايو 2026</p>
@@ -87,7 +87,7 @@ export default function ConstructionProgress() {
       </div>
 
       {/* Progress bar + circle */}
-      <div className="px-6 md:px-8 pb-6">
+      <div className="px-4 md:px-8 pb-6">
         <div className="flex items-center gap-6 flex-row-reverse">
           {/* bar side */}
           <div className="flex-1">
@@ -104,7 +104,7 @@ export default function ConstructionProgress() {
                 className="absolute right-0 top-0 h-full bg-gradient-to-l from-[#4a9e6e] to-primary rounded-full"
               />
             </div>
-            <p className="text-gray-500 text-sm mt-3">
+            <p className="text-gray-500 text-body-sm mt-3">
               تم الانتهاء من <span className="text-primary font-bold">4 مراحل</span> من أصل 6 — المشروع يسير وفق الجدول الزمني المحدد.
             </p>
           </div>

@@ -136,7 +136,7 @@ const UnitInfoItem = ({
   label: string;
   value: string | number;
 }) => (
-  <p className="text-base max-[375px]:text-base sm:text-2xl md:text-base ">
+  <p className="text-body-base max-[375px]:text-body-base sm:text-2xl md:text-base ">
     <span className="font-semibold">{label}</span> : {value}
   </p>
 );

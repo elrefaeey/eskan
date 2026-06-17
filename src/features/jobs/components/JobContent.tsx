@@ -25,7 +25,7 @@ export default function JobsContent({ jobTitle }: JobsContentProps) {
           </h3>
         </div>
 
-        <div className="p-3 sm:p-4 text-gray-700 prose max-w-full rtl ">
+        <div className="p-3 sm:p-4 text-gray-700 prose max-w-full rtl text-body-base md:text-base">
           {isLoading ? (
             <div className="space-y-2">
               {[...Array(5)].map((_, i) => (

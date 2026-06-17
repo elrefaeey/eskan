@@ -28,7 +28,7 @@ function OwnersAssociation() {
             المزاد العقاري{" "}
           </h3>
 
-          <p className="text-text text-[19px] text-justify lg:text-3xl leading-relaxed text-[#3F3F3F]">
+          <p className="text-text text-[21px] text-justify lg:text-3xl leading-relaxed text-[#3F3F3F]">
             مزاد اتحاد الملاك هو تجربة تفاعلية فريدة تتميز بالشفافية الكاملة
             وتتيح لك امتلاك وحدتك السكنية بأفضل سعر ممكن! كل ما عليك هو تحديد
             عرضك لقيمة المقدم الذي ترغب في دفعه (حتى 50%)، وكلما زادت نسبة

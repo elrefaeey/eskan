@@ -70,7 +70,7 @@ const ClothesLevel = () => {
       {/* ── الفلاتر + الوحدات ── */}
       <div id="units-section">
         <AnimatedSection duration={0.5} className="mb-10">
-        <div className="bg-[#364138] rounded-2xl p-5 mb-6">
+        <div className="bg-[#364138] rounded-2xl p-4 mb-6">
           <h3 className="text-white font-extrabold text-xl text-center mb-5 flex items-center justify-center gap-2">
             <MoveDown className="w-5 h-5" />
             حدد مواصفات محلك

@@ -52,7 +52,7 @@ function ElbadryTrade() {
         {/* ── ما يتميز به المشروع + جولة 3D ── */}
         <AnimatedSection
           duration={0.5}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 bg-[#f8f8f8] rounded-2xl p-6 md:p-8 border border-gray-100 items-stretch"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 bg-[#f8f8f8] rounded-2xl p-4 md:p-8 border border-gray-100 items-stretch"
         >
           {/* الكلام — يمين */}
           <div className="flex flex-col gap-4 order-1">
@@ -67,7 +67,7 @@ function ElbadryTrade() {
                 "تنفيذ مجموعة البدري للتجارة والمقاولات بالتعاون مع إسكان المنصورة",
                 "مجتمع متكامل بخدمات متطورة (أمن وحراسة، جراجات، مصاعد، ونادي ترفيهي)",
               ].map((f, i) => (
-                <li key={i} className="flex items-start gap-2 text-[#333] text-base leading-relaxed">
+                <li key={i} className="flex items-start gap-2 text-[#333] text-body-base leading-relaxed">
                   <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                   {f}
                 </li>

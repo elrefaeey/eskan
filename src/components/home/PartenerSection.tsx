@@ -75,7 +75,7 @@ function PartenerSection() {
                 <h3 className="text-xl font-bold ">{item.title}</h3>
 
                 {/* Description */}
-                <p className="text-lg text-[#F0F0F0] leading-normal">
+                <p className="text-body-lg text-[#F0F0F0] leading-normal">
                   {item.desc}
                 </p>
               </motion.div>

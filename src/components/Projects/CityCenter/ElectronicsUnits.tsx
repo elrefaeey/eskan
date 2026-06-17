@@ -61,7 +61,7 @@ function ElectronicsUnits() {
             <span>لية تشتري في الالكترونيات؟</span>
           </h2>
 
-          <p className="text-primary text-justify text-base md:text-[20px] lg:text-2xl xl:text-[26px] leading-relaxed text-[#444] mt-2">
+          <p className="text-primary text-justify text-body-base md:text-[20px] lg:text-2xl xl:text-[26px] leading-relaxed text-[#444] mt-2">
             مول سيتي سنتر بيوفر أكبر مجمع للإلكترونيات متخصص في تجارة وصيانة
             وبيع جميع أنواع الموبايلات وأجهزة الكمبيوتر واللابتوب وماكينات
             الطباعة دور الالكترونيات هو الاختيار الأول والوحيد لكل المهتمين لكل

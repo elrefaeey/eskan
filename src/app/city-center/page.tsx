@@ -91,14 +91,14 @@ const CityCenterPage = () => {
         {/* الاستثمار + ما يميز المشروع */}
         <AnimatedSection
           duration={0.5}
-          className="mb-12 bg-[#f8f8f8] rounded-2xl p-6 md:p-8 border border-gray-100"
+          className="mb-12 bg-[#f8f8f8] rounded-2xl p-4 md:p-8 border border-gray-100"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* النص */}
             <div className="flex flex-col gap-5 order-2 md:order-1">
               <div>
                 <h2 className="text-primary text-2xl md:text-3xl font-extrabold mb-2">الاستثمار في سيتي سنتر</h2>
-                <p className="text-[#333] text-base md:text-lg leading-[2]">
+                <p className="text-[#333] text-body-base md:text-lg leading-[2]">
                   الاستثمار في محلات التجارية في مول سيتي سنتر هو الأفضل لأنه يحقق عائد استثماري سريع.
                   توفر إسكان المنصورة فرصة الاستثمار بغرض إعادة البيع أو العائد الإيجاري بعقود ملزمة
                   من شركة الإدارة، مما يعني توفُر كل شهر دخل ثابت يُأمن لك حياتك وحياة أسرتك.
@@ -110,7 +110,7 @@ const CityCenterPage = () => {
                 </h3>
                 <ul className="flex flex-col gap-2">
                   {projectFeatures.map((f, i) => (
-                    <li key={i} className="flex items-start gap-2 text-[#333] text-base leading-relaxed">
+                    <li key={i} className="flex items-start gap-2 text-[#333] text-body-base leading-relaxed">
                       <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                       {f}
                     </li>
@@ -135,17 +135,17 @@ const CityCenterPage = () => {
           duration={0.5}
           className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"
         >
-          <div className="bg-[#f8f8f8] border border-gray-100 rounded-2xl p-6 flex flex-col gap-4">
+          <div className="bg-[#f8f8f8] border border-gray-100 rounded-2xl p-4 md:p-6 flex flex-col gap-4">
             <h2 className="text-primary text-2xl font-extrabold flex items-center gap-2">
               <ShieldCheck className="w-6 h-6 shrink-0" />
               أسلوب تعاقد يضمن لك أموالك
             </h2>
-            <p className="text-[#555] text-base leading-relaxed">
+            <p className="text-[#555] text-body-base leading-relaxed">
               سيتي سنتر المنصورة يتم تنفيذه بنظام اتحاد الملاك — أقوى وأضمن نظام تعاقد يحقق الأمان للمتعاقدين:
             </p>
             <ul className="flex flex-col gap-3">
               {contractSteps.map((s, i) => (
-                <li key={i} className="flex items-start gap-2 text-[#333] text-base leading-relaxed">
+                <li key={i} className="flex items-start gap-2 text-[#333] text-body-base leading-relaxed">
                   <span className="w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
                     {i + 1}
                   </span>
@@ -154,12 +154,12 @@ const CityCenterPage = () => {
               ))}
             </ul>
           </div>
-          <div className="bg-primary rounded-2xl p-6 flex flex-col gap-4 text-white">
+          <div className="bg-primary rounded-2xl p-4 md:p-6 flex flex-col gap-4 text-white">
             <h2 className="text-2xl font-extrabold flex items-center gap-2">
               <Building2 className="w-6 h-6 shrink-0" />
               نظام إدارة قوي
             </h2>
-            <div className="flex flex-col gap-3 text-white/90 text-base leading-[2]">
+            <div className="flex flex-col gap-3 text-white/90 text-body-base leading-[2]">
               <p>
                 <span className="font-bold text-white">الشركة المالكة:</span> شركة توب براون — حامد الطنطاوي
                 (المالك لمول الطنطاوي للأدوات المنزلية ومطاعم قصر الأسماك)

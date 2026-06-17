@@ -79,7 +79,7 @@ function ProjectCard({
             <h2 className="text-2xl md:text-4xl font-extrabold text-primary mb-2 leading-snug">
               {title}
             </h2>
-            <div className="flex items-center gap-1.5 text-[#555] text-sm md:text-base">
+            <div className="flex items-center gap-1.5 text-[#555] text-body-sm md:text-base">
               <MapPin className="w-4 h-4 text-primary shrink-0" />
               <span>{location}</span>
             </div>

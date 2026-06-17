@@ -66,7 +66,7 @@ const ContactUsForm = () => {
         {/* Header */}
         <AnimatedSection duration={0.5} className="text-center mb-8">
           <h2 className="text-white text-3xl md:text-4xl font-extrabold mb-3">تواصل معنا</h2>
-          <p className="text-white/70 text-base md:text-lg leading-relaxed">
+          <p className="text-white/70 text-body-base md:text-lg leading-relaxed">
             سجل بياناتك وخلي فريقنا يساعدك تختار العقار اللي يناسب احتياجك وميزانيتك
           </p>
         </AnimatedSection>

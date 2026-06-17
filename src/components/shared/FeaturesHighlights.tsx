@@ -69,8 +69,13 @@ export default function FeaturesHighlights({
     >
       {highlights.map((h, i) => (
         <div
+<<<<<<< HEAD
           key={i}
           className="bg-primary/5 border border-primary/20 rounded-2xl p-5 flex gap-4"
+=======
+          key={h.title}
+          className="bg-primary/5 border border-primary/20 rounded-2xl p-4 flex gap-4"
+>>>>>>> 7c0ba31 (refactor: reduce mobile padding across project sections)
         >
           {/* حاوية الأيقونة */}
           <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
@@ -80,7 +85,7 @@ export default function FeaturesHighlights({
           {/* النص */}
           <div>
             <p className="font-extrabold text-primary text-base">{h.title}</p>
-            <p className="text-[#555] text-sm leading-relaxed mt-1">{h.desc}</p>
+            <p className="text-[#555] text-body-sm leading-relaxed mt-1">{h.desc}</p>
           </div>
         </div>
       ))}

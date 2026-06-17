@@ -56,15 +56,15 @@ const LevelCard: React.FC<LevelCardProps> = ({
         {!isSold && units && (
           <div className="flex flex-col gap-1.5">
             {link === "/restaurant" ? (
-              <p className="text-[#555] text-sm">
+              <p className="text-[#555] text-body-sm">
                 <span className="font-bold text-[#333]">{units}</span> وحدة — مساحات تبدأ من <span className="font-bold text-[#333]">{area}م</span>
               </p>
             ) : (
               <>
-                <p className="text-[#555] text-sm">
+                <p className="text-[#555] text-body-sm">
                   مساحة تبدأ من <span className="font-bold text-[#333]">{area}م²</span>
                 </p>
-                <p className="text-[#555] text-sm">
+                <p className="text-[#555] text-body-sm">
                   مقدم من <span className="font-bold text-primary">{advance} ألف</span> — تقسيط حتى <span className="font-bold text-[#333]">{years} سنوات</span>
                 </p>
               </>

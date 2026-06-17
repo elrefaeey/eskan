@@ -119,16 +119,16 @@ export default function InvestmentDetailsPage() {
                   >
                     <div className="space-y-2">
                       <p className="font-semibold">وحدة رقم: {unit.number}</p>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-body-sm text-gray-600">
                         متر السهم: {unit.share_meter_num}
                       </p>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-body-sm text-gray-600">
                         سعر السهم: {unit.share_price}
                       </p>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-body-sm text-gray-600">
                         عدد الأسهم: {unit.shares_num}
                       </p>
-                      <p className="text-sm text-gray-600">
+                      <p className="text-body-sm text-gray-600">
                         نوع العائد: {unit.return_type}
                       </p>
                       <p className="text-primary font-bold">

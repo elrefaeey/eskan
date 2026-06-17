@@ -33,7 +33,7 @@ export default function SectionContent({
       <p
         className={cn(
           "text-[#333] leading-[2]",
-          descriptionClassName ?? "text-base md:text-lg",
+          descriptionClassName ?? "text-body-base md:text-lg",
         )}
       >
         {description}

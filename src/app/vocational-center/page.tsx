@@ -54,10 +54,10 @@ export default function VocationalCenterPage() {
               <GraduationCap className="w-40 h-40" />
             </div>
             <div className="relative flex flex-col items-center justify-center gap-3 p-8">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 text-center border border-white/20">
                 <GraduationCap className="w-16 h-16 text-white mx-auto mb-3" />
                 <p className="text-white font-extrabold text-xl">مركز إتقان</p>
-                <p className="text-white/70 text-sm mt-1">للتدريب المتقدم</p>
+                <p className="text-white/70 text-body-sm mt-1">للتدريب المتقدم</p>
               </div>
             </div>
           </>
@@ -80,12 +80,12 @@ export default function VocationalCenterPage() {
         <StatsGrid stats={stats} colorScheme="teal" className="mb-10" />
 
         {/* ── لماذا مركز إتقان ── */}
-        <AnimateInView className="mb-10 bg-[#f8f8f8] rounded-2xl p-6 md:p-8 border border-gray-100">
+        <AnimateInView className="mb-10 bg-[#f8f8f8] rounded-2xl p-4 md:p-8 border border-gray-100">
           <h2 className="text-primary text-2xl md:text-3xl font-extrabold mb-2">لماذا مركز إتقان؟</h2>
-          <p className="text-[#555] text-base md:text-lg mb-6">لأن السوق لا يحتاج إلى شهادات فقط... بل يحتاج إلى مهارات حقيقية.</p>
+          <p className="text-[#555] text-body-base md:text-lg mb-6">لأن السوق لا يحتاج إلى شهادات فقط... بل يحتاج إلى مهارات حقيقية.</p>
           <ul className="flex flex-col gap-3">
             {whyItqan.map((item, i) => (
-              <li key={i} className="flex items-start gap-2 text-[#333] text-base md:text-lg leading-relaxed">
+              <li key={i} className="flex items-start gap-2 text-[#333] text-body-base md:text-lg leading-relaxed">
                 <CheckCircle2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                 {item}
               </li>
@@ -104,14 +104,14 @@ export default function VocationalCenterPage() {
                 key={f.title}
                 delay={i * 0.1}
                 duration={0.4}
-                className="bg-white border-2 border-primary/20 rounded-2xl p-5 flex gap-4 shadow-sm hover:border-primary/50 transition-colors"
+                className="bg-white border-2 border-primary/20 rounded-2xl p-4 flex gap-4 shadow-sm hover:border-primary/50 transition-colors"
               >
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                   <f.icon className="w-6 h-6 text-primary" />
                 </div>
                 <div>
                   <h3 className="font-extrabold text-lg text-primary mb-1">{f.title}</h3>
-                  <p className="text-[#555] text-sm leading-relaxed">{f.desc}</p>
+                  <p className="text-[#555] text-body-sm leading-relaxed">{f.desc}</p>
                 </div>
               </AnimateInView>
             ))}
@@ -119,23 +119,23 @@ export default function VocationalCenterPage() {
         </AnimateInView>
 
         {/* ── لمن هذه الفرصة ── */}
-        <AnimateInView className="mb-10 grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#f8f8f8] rounded-2xl p-6 md:p-8 border border-gray-100">
+        <AnimateInView className="mb-10 grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#f8f8f8] rounded-2xl p-4 md:p-8 border border-gray-100">
           <div className="flex flex-col gap-4">
             <h2 className="text-primary text-2xl md:text-3xl font-extrabold">لمن هذه الفرصة؟</h2>
-            <p className="text-[#555] text-base md:text-lg">هذه الفرصة مناسبة لكل مستثمر يبحث عن:</p>
+            <p className="text-[#555] text-body-base md:text-lg">هذه الفرصة مناسبة لكل مستثمر يبحث عن:</p>
             <ul className="flex flex-col gap-3">
               {forWho.map((item, i) => (
-                <li key={i} className="flex items-center gap-2 text-[#333] text-base md:text-lg">
+                <li key={i} className="flex items-center gap-2 text-[#333] text-body-base md:text-lg">
                   <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
                   {item}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="flex flex-col justify-between gap-4 bg-primary rounded-2xl p-6 text-white">
+          <div className="flex flex-col justify-between gap-4 bg-primary rounded-2xl p-4 md:p-6 text-white">
             <div>
               <h3 className="text-2xl font-extrabold mb-3">رسالتنا</h3>
-              <p className="text-white/90 text-base leading-[1.9]">
+              <p className="text-white/90 text-body-base leading-[1.9]">
                 أن يصبح مركز إتقان بوابة الخريجين لاكتساب المهارات العملية،
                 والتحول من مجرد باحث عن وظيفة إلى شخص مؤهل للعمل والإنتاج.
               </p>

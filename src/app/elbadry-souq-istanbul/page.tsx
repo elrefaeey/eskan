@@ -65,7 +65,7 @@ const SouqIstanbul = () => {
       {(constructionImages.length > 0) && (
         <AnimatedSection
           duration={0.5}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 bg-[#f8f8f8] rounded-2xl p-6 md:p-8 border border-gray-100 items-stretch"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 bg-[#f8f8f8] rounded-2xl p-4 md:p-8 border border-gray-100 items-stretch"
         >
           {/* الكلام — يمين */}
           <div className="flex flex-col gap-4 order-1">
@@ -80,7 +80,7 @@ const SouqIstanbul = () => {
                 "تنفيذ مجموعة البدري للتجارة والمقاولات بالتعاون مع إسكان المنصورة",
                 "مجتمع متكامل بخدمات متطورة (أمن وحراسة، جراجات، مصاعد، ونادي ترفيهي)",
               ].map((f, i) => (
-                <li key={i} className="flex items-start gap-2 text-[#333] text-base leading-relaxed">
+                <li key={i} className="flex items-start gap-2 text-[#333] text-body-base leading-relaxed">
                   <span className="w-2 h-2 rounded-full bg-primary shrink-0 mt-2" />
                   {f}
                 </li>

@@ -53,12 +53,12 @@ export default function HeroContent({
 
       {/* نص فرعي (اختياري) */}
       {subtitle && (
-        <p className="text-[#555] text-sm">{subtitle}</p>
+        <p className="text-[#555] text-body-sm">{subtitle}</p>
       )}
 
       {/* الموقع — HeroLocation inline (لا يستحق ملفاً مستقلاً) */}
       {location && (
-        <div className="flex items-center gap-1.5 text-[#555] text-sm">
+        <div className="flex items-center gap-1.5 text-[#555] text-body-sm">
           <MapPin className="w-4 h-4 text-primary shrink-0" />
           <span>{location}</span>
         </div>
@@ -68,13 +68,13 @@ export default function HeroContent({
       <div className="w-10 h-1 bg-primary rounded" />
 
       {/* الوصف */}
-      <div className="text-[#444] text-base md:text-lg leading-[1.9]">
+      <div className="text-[#444] text-body-base md:text-lg leading-[1.9]">
         {description}
       </div>
 
       {/* نص مميّز اختياري */}
       {highlightText && (
-        <p className="text-primary font-extrabold text-base mt-1">
+        <p className="text-primary font-extrabold text-body-base mt-1">
           {highlightText}
         </p>
       )}

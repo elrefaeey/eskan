@@ -89,7 +89,7 @@ function InvestProjectCard({
       <h3 className="text-primary font-bold  text-xl md:text-2xl">
         {projectName}
       </h3>
-      <p className=" text-lg lg:text-xl text-[#2D2D2D] flex-grow">
+      <p className="text-body-lg lg:text-xl text-[#2D2D2D] flex-grow">
         {miniContent}
       </p>
       <button

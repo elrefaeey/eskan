@@ -44,7 +44,7 @@ export async function ProjectsList() {
   if (!projects || projects.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-600 text-lg">لا توجد مشاريع حالياً</p>
+        <p className="text-gray-600 text-body-lg">لا توجد مشاريع حالياً</p>
       </div>
     );
   }

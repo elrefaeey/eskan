@@ -18,7 +18,7 @@ export default function ProjectBulletList({ sentences }: ProjectBulletListProps)
             <div className="mt-0.5 shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
               <Icon className="w-4 h-4 text-primary" />
             </div>
-            <p className="text-[#333] text-base md:text-lg leading-relaxed">
+            <p className="text-[#333] text-body-base md:text-lg leading-relaxed">
               {sentence}
             </p>
           </div>

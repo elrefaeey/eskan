@@ -124,7 +124,7 @@ export default function ElbadryPriceChart() {
             key={row.period}
             className={`flex flex-col items-center text-center py-4 px-1 gap-1 border-r border-gray-100 last:border-0 ${i === 0 ? "bg-primary/5" : ""}`}
           >
-            <span className={`font-extrabold text-base md:text-lg ${i === 0 ? "text-primary" : "text-gray-700"}`}>
+            <span className={`font-extrabold text-body-base md:text-lg ${i === 0 ? "text-primary" : "text-gray-700"}`}>
               {row.price.toLocaleString()}
             </span>
             {row.growth && (

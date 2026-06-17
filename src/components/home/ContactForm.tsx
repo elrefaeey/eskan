@@ -51,7 +51,7 @@ export default function ContactForm() {
             نحن هنا لمساعدتك
           </span>
           <h2 className="text-primary text-3xl md:text-4xl font-extrabold mb-3">تواصل معنا</h2>
-          <p className="text-gray-500 text-base md:text-lg max-w-xl mx-auto leading-relaxed">
+          <p className="text-gray-500 text-body-base md:text-lg max-w-xl mx-auto leading-relaxed">
             سجل بياناتك وخلي فريقنا يساعدك تختار العقار اللي يناسب احتياجك وميزانيتك
           </p>
         </motion.div>
@@ -68,7 +68,7 @@ export default function ContactForm() {
           >
             <div className="bg-primary rounded-2xl p-8 text-white">
               <h3 className="text-2xl font-extrabold mb-2">استشارة مجانية</h3>
-              <p className="text-white/80 text-base leading-relaxed mb-6">
+              <p className="text-white/80 text-body-base leading-relaxed mb-6">
                 هنقدملك استشارة مجانية ونرشحلك أفضل الخيارات المتاحة حسب رغبتك
               </p>
               <div className="flex flex-col gap-4">

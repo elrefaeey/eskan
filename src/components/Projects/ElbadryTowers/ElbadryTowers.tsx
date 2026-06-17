@@ -59,12 +59,12 @@ function ElbadryTowers() {
               <h1 className="text-primary text-3xl md:text-4xl font-extrabold leading-tight mb-2">
                 {projectDetails.name}
               </h1>
-              <div className="flex items-center gap-1.5 text-[#555] text-sm mb-4">
+              <div className="flex items-center gap-1.5 text-[#555] text-body-sm mb-4">
                 <MapPin className="w-4 h-4 text-primary shrink-0" />
                 <span>{projectDetails.location}</span>
               </div>
               <div className="w-16 h-1.5 bg-primary rounded mb-4" />
-              <p className="text-[#444] text-base md:text-lg leading-[1.9]">
+              <p className="text-[#444] text-body-base md:text-lg leading-[1.9]">
                 {projectDetails.description}
               </p>
             </div>
@@ -114,7 +114,7 @@ function ElbadryTowers() {
         {/* ── ما يتميز به المشروع ── */}
         <AnimatedSection
           duration={0.5}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 bg-[#f8f8f8] rounded-2xl p-6 md:p-8 border border-gray-100 items-stretch"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12 bg-[#f8f8f8] rounded-2xl p-4 md:p-8 border border-gray-100 items-stretch"
         >
           {/* الكلام — يمين */}
           <div className="flex flex-col gap-4 order-1">
@@ -129,7 +129,7 @@ function ElbadryTowers() {
                 "تنفيذ مجموعة البدري للتجارة والمقاولات بالتعاون مع إسكان المنصورة",
                 "مجتمع متكامل بخدمات متطورة (أمن وحراسة، جراجات، مصاعد، ونادي ترفيهي)",
               ].map((f, i) => (
-                <li key={i} className="flex items-start gap-2 text-[#333] text-base leading-relaxed">
+                <li key={i} className="flex items-start gap-2 text-[#333] text-body-base leading-relaxed">
                   <span className="w-2 h-2 rounded-full bg-primary shrink-0 mt-2" />
                   {f}
                 </li>

@@ -49,7 +49,7 @@ function InvestmentUnit({
             <h3 className="text-xl md:text-2xl text-[#2D2D2D] font-medium">
               مستشارك العقاري
             </h3>
-            <p className="ztext-sm text-[#1E1E1E]">
+            <p className="text-body-sm text-[#1E1E1E]">
               خبير استثمار - اسكان المنصورة
             </p>
           </div>
@@ -70,7 +70,7 @@ function InvestmentUnit({
         transition={{ duration: 0.8, delay: 0.2 }}
         className="mt-4 container"
       >
-        <p className="bg-[#F3FAF6] rounded-lg relative text-lg p-4 leading-relaxed">
+        <p className="bg-[#F3FAF6] rounded-lg relative text-body-lg p-4 leading-relaxed">
           {message}
           <Image
             src="/assets/investment/Vector.png"
@@ -149,7 +149,7 @@ function InvestmentUnit({
               حصص ب{project.share_type} - {project.name ?? project.project_name}
             </h2>
 
-            <p className="text-sm mt-2 flex items-center gap-1">
+            <p className="text-body-sm mt-2 flex items-center gap-1">
               <Image
                 src="/assets/investment/location.svg"
                 alt=""

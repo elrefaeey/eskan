@@ -46,7 +46,7 @@ const ElbadryActivities = () => {
             <h4 className="font-extrabold text-lg" style={{ color: item.accent }}>
               {item.title}
             </h4>
-            <p className="text-[#555] text-sm leading-relaxed">{item.description}</p>
+            <p className="text-[#555] text-body-sm leading-relaxed">{item.description}</p>
             <Link
               href={item.link}
               onClick={() => window.scrollTo(0, 0)}

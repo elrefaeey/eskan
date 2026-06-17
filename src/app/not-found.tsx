@@ -19,7 +19,7 @@ export default function NotFound() {
           الصفحة غير موجودة
         </h2>
 
-        <p className="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
+        <p className="text-body-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
           عذراً، الصفحة التي تبحث عنها غير موجودة أو تم نقلها إلى موقع آخر.
           <br />
           يمكنك العودة إلى الصفحة الرئيسية أو تصفح مشاريعنا.

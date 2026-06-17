@@ -30,7 +30,7 @@ export default function FooterContent() {
 
       <div className="w-12 h-px bg-white/20" />
 
-      <AnimatedSection as="p" delay={0.1} duration={0.6} className="text-white text-sm leading-relaxed max-w-md">
+      <AnimatedSection as="p" delay={0.1} duration={0.6} className="text-white text-body-sm leading-relaxed max-w-md">
         نبني ثقتك قبل أن نبني عقارك — شريكك الموثوق في الاستثمار العقاري بالمنصورة والدلتا منذ أكثر من 17 عاماً
       </AnimatedSection>
 

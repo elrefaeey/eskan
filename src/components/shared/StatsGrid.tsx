@@ -106,7 +106,11 @@ export default function StatsGrid({
           <p className={cn("text-2xl md:text-3xl font-extrabold", colors.value)}>
             {stat.value}
           </p>
+<<<<<<< HEAD
           <p className="text-[#555] text-sm">{stat.label}</p>
+=======
+          <p className="text-muted-foreground text-body-sm">{stat.label}</p>
+>>>>>>> 7c0ba31 (refactor: reduce mobile padding across project sections)
         </div>
       ))}
     </AnimatedSection>

@@ -58,7 +58,7 @@ const CityCenterUnitsClient = () => {
             <span>ليه تستثمر في البازار ؟</span>
           </h2>
 
-          <p className="text-primary text-justify text-base md:text-[20px] lg:text-2xl xl:text-[26px] leading-relaxed text-[#444] mt-2">
+          <p className="text-primary text-justify text-body-base md:text-[20px] lg:text-2xl xl:text-[26px] leading-relaxed text-[#444] mt-2">
             سيتي سنتر خصص دور كامل للبازارات وهي مجموعة مساحات لعرض وبيع منتجات
             مختلفة ومتنوعة زي الملابس والاكسسوار والمعطرات ومنتجات عناية البشرة
             والأنشطة الموسمية مثل شنط المدارس ومعارض رمضان والعيد ودخلة رأس

@@ -79,7 +79,7 @@ const ElbadryToursUnits = () => {
                   </div>
                   <div>
                     <p className="font-bold text-primary text-sm mb-0.5">بلوك {block.id}</p>
-                    <p className="text-[#555] text-sm leading-relaxed">{block.text}</p>
+                    <p className="text-[#555] text-body-sm leading-relaxed">{block.text}</p>
                   </div>
                 </AnimatedSection>
               ))}
