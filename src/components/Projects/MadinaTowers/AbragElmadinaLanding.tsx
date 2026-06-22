@@ -41,7 +41,7 @@ const cards = (onViewUnits?: () => void) => [
   },
   {
     icon: GraduationCap,
-    title: "المركز التعليمي",
+    title: "معهد إعداد الخريجين (GPI)",
     desc: "مشروع تعليمي تدريبي بعائد شهري مستقر ونمو متوقع عاماً بعد عام. أكثر من مليون خريج جامعي خلال آخر خمس سنوات، أغلبهم يحتاج إلى تأهيل عملي حقيقي لدخول سوق العمل بكفاءة.",
     btn: "عرض المشروع",
     href: "/vocational-center",
@@ -105,7 +105,7 @@ export default function AbragElmadinaLanding({
           أقسام المشروع
         </AnimatedSection>
 
-        <div className="grid grid-cols-3 items-stretch gap-2 sm:gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 items-stretch gap-4 md:gap-6">
           {cards(onViewUnits).map((card, i) => (
             <div
               key={card.title}
@@ -116,22 +116,22 @@ export default function AbragElmadinaLanding({
               y={25}
               duration={0.5}
               delay={i * 0.1}
-              className={`${card.cardBg} border-2 ${card.border} rounded-xl sm:rounded-2xl p-2.5 sm:p-4 md:p-6 flex h-full flex-col gap-2 sm:gap-4 md:gap-5 shadow-md hover:shadow-lg transition-shadow duration-200`}
+              className={`${card.cardBg} border-2 ${card.border} rounded-2xl p-4 md:p-6 flex h-full flex-col gap-4 md:gap-5 shadow-md hover:shadow-lg transition-shadow duration-200`}
             >
               {/* أيقونة + tag */}
               <div className="flex items-center justify-between gap-1">
-                <div className={`${card.iconBg} w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg sm:rounded-xl flex items-center justify-center shadow shrink-0`}>
-                  <card.icon className="text-white w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+                <div className={`${card.iconBg} w-14 h-14 md:w-16 md:h-16 rounded-xl flex items-center justify-center shadow shrink-0`}>
+                  <card.icon className="text-white w-7 h-7 md:w-8 md:h-8" />
                 </div>
-                <span className={`text-[10px] sm:text-xs md:text-sm font-bold px-2 py-0.5 sm:px-3 sm:py-1 rounded-full whitespace-nowrap ${card.tagClass}`}>
+                <span className={`text-base md:text-lg font-bold px-3 py-1.5 rounded-full whitespace-nowrap ${card.tagClass}`}>
                   {card.tag}
                 </span>
               </div>
 
               {/* نص */}
               <div className="min-w-0 flex-1">
-                <h3 className="font-extrabold text-sm sm:text-lg md:text-xl text-[#1a1a1a] mb-1 sm:mb-2 leading-snug">{card.title}</h3>
-                <p className="text-[#555] text-[10px] sm:text-sm md:text-base leading-relaxed">{card.desc}</p>
+                <h3 className="font-extrabold text-2xl md:text-3xl text-[#1a1a1a] mb-2 leading-snug">{card.title}</h3>
+                <p className="text-[#555] text-lg md:text-xl leading-relaxed">{card.desc}</p>
               </div>
 
               {/* زر */}
@@ -142,7 +142,7 @@ export default function AbragElmadinaLanding({
                     router.push(card.href as string);
                   }
                 }}
-                className={`${card.btnClass} text-white font-bold rounded-lg sm:rounded-xl px-2 py-2 sm:px-4 sm:py-3 mt-auto transition-colors duration-200 w-full text-[11px] sm:text-sm md:text-base`}
+                className={`${card.btnClass} text-white font-bold rounded-xl px-4 py-3.5 mt-auto transition-colors duration-200 w-full text-lg md:text-xl`}
               >
                 {card.btn}
               </button>

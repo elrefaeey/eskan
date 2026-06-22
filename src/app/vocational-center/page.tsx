@@ -56,14 +56,14 @@ export default function VocationalCenterPage() {
             <div className="relative flex flex-col items-center justify-center gap-3 p-8">
               <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 md:p-6 text-center border border-white/20">
                 <GraduationCap className="w-16 h-16 text-white mx-auto mb-3" />
-                <p className="text-white font-extrabold text-xl">مركز إتقان</p>
-                <p className="text-white/70 text-body-sm mt-1">للتدريب المتقدم</p>
+                <p className="text-white font-extrabold text-xl">معهد إعداد الخريجين</p>
+                <p className="text-white/70 text-body-sm mt-1">(GPI)</p>
               </div>
             </div>
           </>
         }
         badge={{ text: "مشروع تدريبي استثماري", className: "bg-[#1F4B57]/10 text-[#1F4B57]" }}
-        title="مركز إتقان للتدريب المتقدم"
+        title="معهد إعداد الخريجين (GPI)"
         description="مشروع تعليمي تدريبي بعائد شهري مستقر ونمو متوقع عاماً بعد عام. أكثر من مليون خريج جامعي خلال آخر خمس سنوات في محافظات الدقهلية وكفر الشيخ والغربية، أغلبهم يحتاج إلى تأهيل عملي حقيقي لدخول سوق العمل بكفاءة."
         ctaButtons={[{
           text: "احجز حصتك الاستثمارية الآن",
@@ -79,9 +79,9 @@ export default function VocationalCenterPage() {
         {/* ── Stats ── */}
         <StatsGrid stats={stats} className="mb-10" />
 
-        {/* ── لماذا مركز إتقان ── */}
+        {/* ── لماذا معهد إعداد الخريجين ── */}
         <AnimateInView className="mb-10 bg-[#f8f8f8] rounded-2xl p-4 md:p-8 border border-gray-100">
-          <h2 className="text-primary text-2xl md:text-3xl font-extrabold mb-2">لماذا مركز إتقان؟</h2>
+          <h2 className="text-primary text-2xl md:text-3xl font-extrabold mb-2">لماذا معهد إعداد الخريجين؟</h2>
           <p className="text-[#555] text-body-base md:text-lg mb-6">لأن السوق لا يحتاج إلى شهادات فقط... بل يحتاج إلى مهارات حقيقية.</p>
           <ul className="flex flex-col gap-3">
             {whyItqan.map((item, i) => (
@@ -136,7 +136,7 @@ export default function VocationalCenterPage() {
             <div>
               <h3 className="text-2xl font-extrabold mb-3">رسالتنا</h3>
               <p className="text-white/90 text-body-base leading-[1.9]">
-                أن يصبح مركز إتقان بوابة الخريجين لاكتساب المهارات العملية،
+                أن يصبح معهد إعداد الخريجين (GPI) بوابة الخريجين لاكتساب المهارات العملية،
                 والتحول من مجرد باحث عن وظيفة إلى شخص مؤهل للعمل والإنتاج.
               </p>
             </div>
