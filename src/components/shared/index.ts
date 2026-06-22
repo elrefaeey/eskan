@@ -19,7 +19,7 @@ export { default as YouTubeDialog } from "./YouTubeDialog";
 export type { YouTubeDialogProps } from "./YouTubeDialog";
 
 export { default as StatsGrid } from "./StatsGrid";
-export type { StatsGridProps, StatItem, StatsColorScheme } from "./StatsGrid";
+export type { StatsGridProps, StatItem, StatsColorScheme, StatsVariant } from "./StatsGrid";
 
 export { default as FeaturesHighlights } from "./FeaturesHighlights";
 export type { FeaturesHighlightsProps, HighlightItem } from "./FeaturesHighlights";

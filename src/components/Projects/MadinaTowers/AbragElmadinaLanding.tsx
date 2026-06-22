@@ -2,7 +2,6 @@
 import { useRouter } from "next/navigation";
 import AnimatedSection from "@/components/common/animations/AnimatedSection";
 import { Building2, Store, GraduationCap } from "lucide-react";
-import PriceChart from "@/components/Projects/MadinaTowers/PriceChart";
 import {
   ProjectHero,
   LocationSection,
@@ -38,7 +37,7 @@ const cards = (onViewUnits?: () => void) => [
     btnClass: "bg-[#4A36A2] hover:bg-[#3b2a8a]",
     tag: "تجاري",
     tagClass: "bg-[#4A36A2]/15 text-[#4A36A2]",
-    cardBg: "bg-[#F2F2F5]",
+    cardBg: "bg-[#4A36A2]/5",
   },
   {
     icon: GraduationCap,
@@ -95,9 +94,6 @@ export default function AbragElmadinaLanding({
         </SectionContent>
       </LocationSection>
 
-      {/* ── تشارت تطور السعر ── */}
-      <PriceChart />
-
       {/* ── 3 كروت ── */}
       <section className="mb-6">
         <AnimatedSection
@@ -109,33 +105,33 @@ export default function AbragElmadinaLanding({
           أقسام المشروع
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="grid grid-cols-3 items-stretch gap-2 sm:gap-4 md:gap-6">
           {cards(onViewUnits).map((card, i) => (
             <div
               key={card.title}
               onClick={() => "href" in card && card.href ? router.push(card.href as string) : undefined}
-              className="cursor-pointer"
+              className="flex h-full cursor-pointer flex-col"
             >
             <AnimatedSection
               y={25}
               duration={0.5}
               delay={i * 0.1}
-              className={`${card.cardBg} border-2 ${card.border} rounded-2xl p-4 md:p-6 flex flex-col gap-5 shadow-md hover:shadow-lg transition-shadow duration-200`}
+              className={`${card.cardBg} border-2 ${card.border} rounded-xl sm:rounded-2xl p-2.5 sm:p-4 md:p-6 flex h-full flex-col gap-2 sm:gap-4 md:gap-5 shadow-md hover:shadow-lg transition-shadow duration-200`}
             >
               {/* أيقونة + tag */}
-              <div className="flex items-center justify-between">
-                <div className={`${card.iconBg} w-14 h-14 rounded-xl flex items-center justify-center shadow`}>
-                  <card.icon className="text-white w-7 h-7" />
+              <div className="flex items-center justify-between gap-1">
+                <div className={`${card.iconBg} w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-lg sm:rounded-xl flex items-center justify-center shadow shrink-0`}>
+                  <card.icon className="text-white w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
                 </div>
-                <span className={`text-sm font-bold px-3 py-1 rounded-full ${card.tagClass}`}>
+                <span className={`text-[10px] sm:text-xs md:text-sm font-bold px-2 py-0.5 sm:px-3 sm:py-1 rounded-full whitespace-nowrap ${card.tagClass}`}>
                   {card.tag}
                 </span>
               </div>
 
               {/* نص */}
-              <div>
-                <h3 className="font-extrabold text-xl text-[#1a1a1a] mb-2">{card.title}</h3>
-                <p className="text-[#555] text-body-base leading-relaxed">{card.desc}</p>
+              <div className="min-w-0 flex-1">
+                <h3 className="font-extrabold text-sm sm:text-lg md:text-xl text-[#1a1a1a] mb-1 sm:mb-2 leading-snug">{card.title}</h3>
+                <p className="text-[#555] text-[10px] sm:text-sm md:text-base leading-relaxed">{card.desc}</p>
               </div>
 
               {/* زر */}
@@ -146,7 +142,7 @@ export default function AbragElmadinaLanding({
                     router.push(card.href as string);
                   }
                 }}
-                className={`${card.btnClass} text-white font-bold rounded-xl px-4 py-3 mt-auto transition-colors duration-200 w-full text-base`}
+                className={`${card.btnClass} text-white font-bold rounded-lg sm:rounded-xl px-2 py-2 sm:px-4 sm:py-3 mt-auto transition-colors duration-200 w-full text-[11px] sm:text-sm md:text-base`}
               >
                 {card.btn}
               </button>

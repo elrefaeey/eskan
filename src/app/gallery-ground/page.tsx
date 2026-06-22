@@ -79,10 +79,11 @@ function GalleryGroundPage() {
       <ProjectHero
         visualType="slider"
         images={sliderImages}
-        badge={{ text: "مشروع تجاري", className: "bg-[#4A36A2]/15 text-[#4A36A2]" }}
+        badge={{ text: "مشروع تجاري", color: "purple" }}
         title={projectDetails.name}
         location={projectDetails.location}
         description={projectDetails.description}
+        accentScheme="primary"
         ctaButtons={[{
           text: "احجز وحدتك الآن",
           icon: <Store className="w-5 h-5" />,
@@ -93,7 +94,7 @@ function GalleryGroundPage() {
       />
 
       <div className="container mx-auto">
-      <StatsGrid stats={stats} colorScheme="purple" className="mb-10" />
+      <StatsGrid stats={stats} colorScheme="primary" className="mb-10" />
 
       {/* ── ما يميز الاستثمار ── */}
       <AnimatedSection
@@ -135,11 +136,13 @@ function GalleryGroundPage() {
           title="موقع أرض المعارض"
         />
         <SectionContent
+          accentScheme="primary"
           description="موقع استراتيجي سهل الوصول، دقيقة واحدة فقط من شارع قناة السويس، 10 دقائق من جامعة المنصورة، 5 دقائق من شارع الجيش، مع قرب مباشر من جميع الخدمات والمرافق الحيوية. يقع المشروع في الاتجاه المقابل لـ كوبري جديلة مما يمنحه سهولة وصول استثنائية من مختلف أنحاء المنصورة والدلتا."
           descriptionClassName="text-body-base md:text-lg leading-[2]"
           titleIconClassName="w-6 h-6"
         >
           <ExternalMapLink
+            accentScheme="primary"
             href="https://maps.app.goo.gl/unEGE1Y6QCEZP2wM6"
             className="px-5 py-3 text-sm mt-2"
           />

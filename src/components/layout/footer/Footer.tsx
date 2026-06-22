@@ -14,7 +14,7 @@ export default function Footer() {
           height={600}
           quality={60}
           sizes="26vw"
-          className="absolute bottom-0 left-0 z-0 h-auto w-[26%] max-w-full translate-y-5 pointer-events-none opacity-30"
+          className="absolute bottom-0 left-0 z-0 hidden h-auto w-[26%] max-w-full translate-y-5 pointer-events-none opacity-30 lg:block"
           aria-hidden
         />
         <Image
@@ -24,7 +24,7 @@ export default function Footer() {
           height={600}
           quality={60}
           sizes="26vw"
-          className="absolute bottom-0 right-0 z-0 h-auto w-[26%] max-w-full translate-y-5 pointer-events-none opacity-30"
+          className="absolute bottom-0 right-0 z-0 hidden h-auto w-[26%] max-w-full translate-y-5 pointer-events-none opacity-30 lg:block"
           aria-hidden
         />
         <FooterContent />

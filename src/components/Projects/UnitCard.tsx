@@ -90,7 +90,6 @@ const DisplayUnitImgs = ({
 
   const labels = buttonLabels || defaultLabels;
 
-  // Handle both image formats
   const unitImg = images?.unit_img || img;
   const floorImg = images?.floor_img || levelimg;
   const imagesList = [unitImg, floorImg].filter(Boolean) as string[];
@@ -105,14 +104,14 @@ const DisplayUnitImgs = ({
     <>
       <div className="relative w-full h-[400px] md:h-[500px] overflow-hidden rounded-lg bg-gray-100">
         <AnimatedImageSwitcher imageKey={imgIndex} className="absolute inset-0">
-            <Image
-              src={imagesList[imgIndex] || unitImg}
-              alt="unit image صورة الوحدة"
-              fill
-              className="object-contain"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              priority={imgIndex === 0}
-            />
+          <Image
+            src={imagesList[imgIndex] || unitImg}
+            alt="unit image صورة الوحدة"
+            fill
+            className="object-contain"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority={imgIndex === 0}
+          />
         </AnimatedImageSwitcher>
       </div>
       {imagesList.length > 1 && (
@@ -154,7 +153,6 @@ const UnitCard = ({ unit, data, projectId, config = {} }: UnitCardProps) => {
     rightFields,
   } = config;
 
-  // Default fields if not provided
   const defaultLeftFields: UnitField[] = [
     { label: "المساحة", value: `${parseInt(unit.space.toString())} متر` },
     { label: "مدة التسليم", value: unit.duration },
@@ -193,7 +191,6 @@ const UnitCard = ({ unit, data, projectId, config = {} }: UnitCardProps) => {
       className="relative p-3 pt-0 sm:p-4
       rounded-xl mt-0 bg-[#EDEDED] shadow-md hover:shadow-xl transition-shadow duration-300"
     >
-      {/* Special Offer Banner */}
       {unit?.offer ? (
         <button className="bg-[#C6392E] rounded-xl top-[21px] -left-2 text-sm cursor-default absolute p-2 z-10 swing text-white flex flex-col gap-0 font-semibold shadow-lg">
           <Image

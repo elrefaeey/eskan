@@ -10,8 +10,19 @@ import type { ProjectHeroProps } from "./types";
 
 type HeroContentProps = Pick<
   ProjectHeroProps,
-  "badge" | "title" | "subtitle" | "location" | "description" | "highlightText"
+  | "badge"
+  | "title"
+  | "subtitle"
+  | "location"
+  | "description"
+  | "highlightText"
+  | "accentScheme"
 >;
+
+const accentStyles = {
+  primary: { text: "text-primary", bg: "bg-primary" },
+  purple: { text: "text-[#4A36A2]", bg: "bg-[#4A36A2]" },
+} as const;
 
 // ─── HeroContent ──────────────────────────────────────────────────────────────
 // الجانب النصي من الـ Hero.
@@ -24,7 +35,9 @@ export default function HeroContent({
   location,
   description,
   highlightText,
+  accentScheme = "primary",
 }: HeroContentProps) {
+  const accent = accentStyles[accentScheme];
 
   // تحديد كلاس الـ badge — يُفضّل className المخصص على color map
   const badgeClass = badge
@@ -47,7 +60,7 @@ export default function HeroContent({
       )}
 
       {/* عنوان المشروع H1 */}
-      <h1 className="text-primary text-3xl md:text-4xl font-extrabold leading-tight">
+      <h1 className={cn(accent.text, "text-3xl md:text-4xl font-extrabold leading-tight")}>
         {title}
       </h1>
 
@@ -59,13 +72,12 @@ export default function HeroContent({
       {/* الموقع — HeroLocation inline (لا يستحق ملفاً مستقلاً) */}
       {location && (
         <div className="flex items-center gap-1.5 text-[#555] text-body-sm">
-          <MapPin className="w-4 h-4 text-primary shrink-0" />
+          <MapPin className={cn("w-4 h-4 shrink-0", accent.text)} />
           <span>{location}</span>
         </div>
       )}
 
-      {/* Divider الأخضر */}
-      <div className="w-10 h-1 bg-primary rounded" />
+      <div className={cn("w-10 h-1 rounded", accent.bg)} />
 
       {/* الوصف */}
       <div className="text-[#444] text-body-base md:text-lg leading-[1.9]">
@@ -74,7 +86,7 @@ export default function HeroContent({
 
       {/* نص مميّز اختياري */}
       {highlightText && (
-        <p className="text-primary font-extrabold text-body-base mt-1">
+        <p className={cn(accent.text, "font-extrabold text-body-base mt-1")}>
           {highlightText}
         </p>
       )}

@@ -16,12 +16,24 @@ import {
 import { TrendingUp, ArrowUpRight } from "lucide-react";
 import AnimatedSection from "@/components/common/animations/AnimatedSection";
 
-const data = [
-  { period: "يناير", price: 9500, growth: null },
-  { period: "أبريل", price: 11500, growth: "+21%" },
-  { period: "يوليو", price: 13000, growth: "+37%" },
-  { period: "سبتمبر", price: 14000, growth: "+47%" },
+const pricePoints = [
+  { period: "يناير", price: 9500 },
+  { period: "أبريل", price: 11500 },
+  { period: "يوليو", price: 13000 },
+  { period: "سبتمبر", price: 14000 },
 ];
+
+const basePrice = pricePoints[0].price;
+
+const data = pricePoints.map((point, index) => ({
+  ...point,
+  growth:
+    index === 0
+      ? null
+      : `+${Math.round(((point.price - basePrice) / basePrice) * 100)}%`,
+}));
+
+const totalGrowth = data[data.length - 1].growth ?? "+0%";
 
 const COLORS = ["#a8d5b5", "#7ec49a", "#4da876", "#1F503B"];
 
@@ -73,7 +85,7 @@ export default function ElbadryPriceChart() {
           </div>
           <div className="flex items-center gap-1.5 bg-white/15 rounded-xl px-3 py-1.5 border border-white/20">
             <ArrowUpRight className="w-4 h-4 text-white" />
-            <span className="text-white font-extrabold text-sm">+47%</span>
+            <span className="text-white font-extrabold text-sm">{totalGrowth}</span>
             <span className="text-white/70 text-xs">نمو خلال 2024</span>
           </div>
         </div>

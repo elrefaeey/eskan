@@ -5,6 +5,9 @@ import type React from "react";
 /** لون الـ badge أعلى العنوان */
 export type HeroBadgeColor = "primary" | "purple" | "teal" | "red" | "custom";
 
+/** لون accent للعنوان والأزرار والفواصل داخل الـ Hero */
+export type HeroAccentScheme = "primary" | "purple";
+
 /** نوع الجانب المرئي في الـ Hero */
 export type HeroVisualType =
   | "slider"    // Swiper slider من مصفوفة صور
@@ -45,6 +48,8 @@ type ProjectHeroBase = {
   videoId?: string;
   videoButtonText?: string;
   ctaButtons?: HeroCtaButton[];
+  /** لون accent — الافتراضي primary (أخضر) */
+  accentScheme?: HeroAccentScheme;
   dir?: "rtl" | "ltr";
   className?: string;
   contentClassName?: string;

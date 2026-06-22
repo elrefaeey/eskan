@@ -152,7 +152,7 @@ const ReserveUnitForm = ({ projectId, unitId }: ReserveUnitFormProps) => {
               >
                 {isPending ? (
                   <span className="flex items-center justify-center gap-2 text-lg ">
-                    <Loader2 className="h-5 w-5 animate-spin" />
+                    <Loader2 className="h-5 w-5 animate-spin text-primary" />
                     <span>جاري الإرسال...</span>
                   </span>
                 ) : (

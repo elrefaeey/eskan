@@ -141,7 +141,7 @@ const ReserveCityCenterUnitForm = ({ section, unitNum }: Props) => {
                 >
                   {isPending ? (
                     <span className="flex items-center justify-center gap-2 text-lg ">
-                      <Loader2 className="w-5 h-5 animate-spin" />
+                      <Loader2 className="w-5 h-5 animate-spin text-primary" />
                       <span>جاري الإرسال...</span>
                     </span>
                   ) : (

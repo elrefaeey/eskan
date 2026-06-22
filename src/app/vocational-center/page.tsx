@@ -77,7 +77,7 @@ export default function VocationalCenterPage() {
       <div className="container mx-auto">
 
         {/* ── Stats ── */}
-        <StatsGrid stats={stats} colorScheme="teal" className="mb-10" />
+        <StatsGrid stats={stats} className="mb-10" />
 
         {/* ── لماذا مركز إتقان ── */}
         <AnimateInView className="mb-10 bg-[#f8f8f8] rounded-2xl p-4 md:p-8 border border-gray-100">

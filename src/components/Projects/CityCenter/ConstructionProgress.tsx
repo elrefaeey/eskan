@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion, useInView, animate } from "framer-motion";
 import AnimatedSection from "@/components/common/animations/AnimatedSection";
@@ -15,12 +15,53 @@ const phases = [
   { label: "الاندسكيب", icon: Wrench, done: false },
 ];
 
-const TOTAL_PROGRESS = 75;
+const TOTAL_STAGES = 6;
+const COMPLETED_STAGES = 5.5; // 5 مراحل مكتملة + نصف التشطيبات
+const TOTAL_PROGRESS = Math.round((COMPLETED_STAGES / TOTAL_STAGES) * 100);
+const TIMELINE_PROGRESS = `${(COMPLETED_STAGES / TOTAL_STAGES) * 100}%`;
 
 // SVG circular progress
 const radius = 54;
 const circumference = 2 * Math.PI * radius;
 const strokeDashoffset = circumference - (TOTAL_PROGRESS / 100) * circumference;
+
+function ProgressBar() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (isInView) {
+      const controls = animate(0, TOTAL_PROGRESS, {
+        duration: 1.4,
+        ease: "easeOut",
+        onUpdate: (v) => setDisplay(Math.round(v)),
+      });
+      return () => controls.stop();
+    }
+  }, [isInView]);
+
+  return (
+    <div ref={ref} className="relative w-full h-4">
+      <div className="absolute inset-0 overflow-hidden rounded-full bg-gray-100">
+        <motion.div
+          initial={{ width: 0 }}
+          animate={isInView ? { width: `${TOTAL_PROGRESS}%` } : { width: 0 }}
+          transition={progressBarTransition}
+          className="absolute right-0 top-0 h-full rounded-full bg-gradient-to-l from-primary to-[#4a9e6e]"
+        />
+      </div>
+      {display > 0 && (
+        <span
+          className="absolute top-1/2 z-10 -translate-y-1/2 translate-x-1/2 whitespace-nowrap rounded border border-primary/20 bg-white px-1 py-px text-[9px] font-bold leading-none text-primary shadow-sm"
+          style={{ right: `${display}%` }}
+        >
+          {display}%
+        </span>
+      )}
+    </div>
+  );
+}
 
 function CircularProgress() {
   const ref = useRef(null);
@@ -62,11 +103,13 @@ function CircularProgress() {
           </linearGradient>
         </defs>
       </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <motion.span className="text-primary font-extrabold text-2xl leading-none">
-          {display}%
-        </motion.span>
-        <span className="text-gray-400 text-xs mt-1">إنجاز</span>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-0.5 text-center">
+          <span className="text-gray-400 text-[10px] leading-none">تم التنفيذ</span>
+          <motion.span className="text-primary font-extrabold text-2xl leading-none tabular-nums">
+            {display}%
+          </motion.span>
+        </div>
       </div>
     </div>
   );
@@ -91,21 +134,13 @@ export default function ConstructionProgress() {
         <div className="flex items-center gap-6 flex-row-reverse">
           {/* bar side */}
           <div className="flex-1">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-400 text-xs">100%</span>
+            <div className="mb-2 flex items-center justify-between">
               <span className="text-gray-400 text-xs">0%</span>
+              <span className="text-gray-400 text-xs">100%</span>
             </div>
-            <div className="relative w-full h-4 bg-gray-100 rounded-full overflow-hidden">
-              <motion.div
-                initial={{ width: 0 }}
-                whileInView={{ width: `${TOTAL_PROGRESS}%` }}
-                viewport={{ once: true }}
-                transition={progressBarTransition}
-                className="absolute right-0 top-0 h-full bg-gradient-to-l from-[#4a9e6e] to-primary rounded-full"
-              />
-            </div>
+            <ProgressBar />
             <p className="text-gray-500 text-body-sm mt-3">
-              تم الانتهاء من <span className="text-primary font-bold">4 مراحل</span> من أصل 6 — المشروع يسير وفق الجدول الزمني المحدد.
+              تم الانتهاء من <span className="text-primary font-bold">5 مراحل ونصف</span> من أصل 6 — نصف أعمال التشطيبات مكتمل والمشروع يسير وفق الجدول الزمني المحدد.
             </p>
           </div>
           {/* circular progress */}
@@ -119,7 +154,7 @@ export default function ConstructionProgress() {
           <div className="absolute top-5 right-5 left-5 h-0.5 bg-gray-200 z-0" />
           <motion.div
             initial={{ width: 0 }}
-            whileInView={{ width: "66%" }}
+            whileInView={{ width: TIMELINE_PROGRESS }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: "easeOut" }}
             className="absolute top-5 right-5 h-0.5 bg-primary z-0"

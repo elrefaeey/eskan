@@ -142,7 +142,7 @@ const BazarLevel = () => {
             onClick={handlePaginate}
             className="flex items-center mx-auto mt-6 gap-2 text-black font-bold text-lg disabled:opacity-50"
           >
-            {isLoadingUnits ? <Loader2 className="w-5 h-5 animate-spin" /> : "رؤية المزيد"}
+            {isLoadingUnits ? <Loader2 className="w-5 h-5 animate-spin text-primary" /> : "رؤية المزيد"}
             {!isLoadingUnits && <MdExpandMore className="text-primary font-bold" size={28} />}
           </motion.button>
         )}

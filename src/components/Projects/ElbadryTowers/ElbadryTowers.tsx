@@ -6,6 +6,7 @@ import AnimatedSection from "@/components/common/animations/AnimatedSection";
 import ProjectImgsSlider from "@/components/Projects/ProjectImagesSlider";
 import CardsInfo from "@/components/Projects/ElbadryTowers/CardsInfo";
 import ElbadryToursUnits from "@/components/Projects/ElbadryTowers/ElbadryToursUnits";
+import ElbadryPriceChart from "@/components/Projects/ElbadryTowers/ElbadryPriceChart";
 import { useLenis } from "@/hooks/useLenis";
 import useProjectDetails from "@/features/elbadry-towers/hooks/useProjectDetails";
 import useConstructionPhases from "@/features/elbadry-towers/hooks/useConstructionPhases";
@@ -141,6 +142,14 @@ function ElbadryTowers() {
           <div className="relative w-full rounded-xl overflow-hidden order-2 min-h-[300px]">
             <ProjectImgsSlider rounded={true} height="h-full" images={phaseImages} />
           </div>
+        </AnimatedSection>
+
+        {/* ── مخطط المشروع ── */}
+        <AnimatedSection duration={0.5} className="mb-12">
+          <h2 className="text-[#1a1a1a] text-2xl md:text-3xl font-extrabold mb-6 border-r-4 border-primary pr-4">
+            مخطط المشروع
+          </h2>
+          <ElbadryPriceChart />
         </AnimatedSection>
 
         {/* ── جولة 3D ── */}

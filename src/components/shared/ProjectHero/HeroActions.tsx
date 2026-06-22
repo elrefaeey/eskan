@@ -13,6 +13,17 @@ interface HeroActionsProps {
   ctaButtons: HeroCtaButton[];
 }
 
+const accentStyles = {
+  primary: {
+    solid: "bg-primary text-white hover:bg-primary/90",
+    outline: "border-2 border-primary text-primary hover:bg-primary/5",
+  },
+  purple: {
+    solid: "bg-[#4A36A2] text-white hover:bg-[#4A36A2]/90",
+    outline: "border-2 border-[#4A36A2] text-[#4A36A2] hover:bg-[#4A36A2]/5",
+  },
+} as const;
+
 // ─── Helper: حل زر CTA ───────────────────────────────────────────────────────
 // يحدد الـ action المناسب للزر:
 // 1. scrollToId → smooth scroll
@@ -42,13 +53,15 @@ export default function HeroActions({
   videoButtonText,
   ctaButtons,
 }: HeroActionsProps) {
+  const accent = accentStyles.primary;
+
   return (
     <div className="flex flex-wrap gap-3">
 
       {/* زر الفيديو — يظهر تلقائياً إذا مُرر videoId */}
       {videoId && (
         <YouTubeDialog videoId={videoId} dialogTitle="فيديو المشروع">
-          <button className="flex items-center justify-center gap-2 bg-primary text-white font-bold text-base rounded-xl px-5 py-3 hover:bg-primary/90 transition-colors w-full md:w-fit">
+          <button className={cn("flex items-center justify-center gap-2 font-bold text-base rounded-xl px-5 py-3 transition-colors w-full md:w-fit", accent.solid)}>
             <GoVideo className="size-5" />
             {videoButtonText}
           </button>
@@ -67,9 +80,7 @@ export default function HeroActions({
             disabled={btn.disabled}
             className={cn(
               "flex items-center justify-center gap-2 font-bold text-base rounded-xl px-5 py-3 transition-colors w-full md:w-fit",
-              isOutline
-                ? "border-2 border-primary text-primary hover:bg-primary/5"
-                : "bg-primary text-white hover:bg-primary/90",
+              isOutline ? accent.outline : accent.solid,
             )}
           >
             {btn.icon}

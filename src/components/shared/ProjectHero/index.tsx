@@ -66,6 +66,7 @@ export default function ProjectHero(props: ProjectHeroProps) {
     videoId,
     videoButtonText = "مشاهدة فيديو المشروع",
     ctaButtons = [],
+    accentScheme = "primary",
     dir = "rtl",
     className,
     contentClassName,
@@ -102,6 +103,7 @@ export default function ProjectHero(props: ProjectHeroProps) {
               location={location}
               description={description}
               highlightText={highlightText}
+              accentScheme={accentScheme}
             />
 
             <HeroActions

@@ -33,32 +33,31 @@ function PartenerSection() {
       viewport={viewportOnceAmount(0.2)}
       variants={staggerContainer}
     >
-      <div className="rounded-3xl overflow-hidden  bg-primary  flex lg:flex-row flex-col  items-stretch">
+      <div className="rounded-3xl overflow-hidden bg-primary flex flex-col items-stretch lg:flex-row">
         <motion.div
-          className=" p-6 lg:p-8 mb-0 bg-primary pb-6 lg:pb-7  flex flex-col gap-3 grow"
+          className="mb-0 flex min-w-0 flex-1 flex-col gap-4 bg-primary p-6 pb-6 md:p-8 lg:p-10 lg:pb-10"
           variants={fadeUp}
         >
           <motion.h2
-            className="text-2xl lg:text-4xl font-extrabold text-white "
+            className="text-2xl font-extrabold text-white md:text-3xl lg:text-4xl"
             variants={fadeUp}
           >
             سجّل كشريك تسويق معنا
           </motion.h2>
-          <motion.p className="p text-white" variants={fadeUp}>
+          <motion.p className="p max-w-3xl text-white/95 leading-relaxed" variants={fadeUp}>
             نعلن عن فتح باب التعاون مع مكاتب التسويق والوساطة العقارية في مراكز
             محافظة الدقهلية مثل شربين - بلقاس -نبروه - دكرنس - أجا - منية النصر
             - المطرية وغيرها. قم بتسجيل بيانات مكتبك وسيتواصل معك فريقنا قريباً.
           </motion.p>
 
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6"
+            className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 xl:grid-cols-3 xl:gap-6"
             variants={staggerContainer}
           >
             {features.map((item, index) => (
               <motion.div
                 key={index}
-                className="bg-white/10 border border-white/5 rounded-3xl p-3 flex flex-col gap-0.5
-               text-white shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-300"
+                className="flex flex-col gap-1 rounded-3xl border border-white/5 bg-white/10 p-4 text-white shadow-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-md"
                 variants={fadeUp}
                 whileHover={{ y: -4 }}
               >
@@ -93,7 +92,7 @@ function PartenerSection() {
           </motion.div>
         </motion.div>
         <motion.section
-          className="relative bg-[#2D5A4280]/50 flex items-center  py-16 overflow-hidden shrink-0"
+          className="relative flex w-full shrink-0 items-center justify-center overflow-hidden border-t border-white/10 bg-[#2D5A4280]/50 px-5 py-12 sm:px-8 md:py-16 lg:w-[min(100%,26rem)] lg:border-t-0 lg:border-s lg:px-10 lg:py-20 xl:w-[28rem]"
           variants={fadeUp}
         >
           {/* Grid Background */}
@@ -112,14 +111,13 @@ function PartenerSection() {
 
           {/* Content */}
           <motion.div
-            className="relative text-center text-white"
+            className="relative w-full text-center text-white"
             variants={staggerContainer}
           >
             {/* Icon */}
-            <motion.div className="flex justify-center mb-3" variants={fadeUp}>
+            <motion.div className="mb-4 flex justify-center" variants={fadeUp}>
               <motion.div
-                className="w-16 h-16 flex items-center justify-center rounded-2xl
-                          border-[#FFFFFF1A] border bg-white/10 backdrop-blur-md   shadow-lg"
+                className="flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-2xl border border-[#FFFFFF1A] bg-white/10 shadow-lg backdrop-blur-md sm:h-20 sm:w-20"
                 animate={{ y: [0, -4, 0] }}
                 transition={{
                   duration: 2.8,
@@ -133,18 +131,18 @@ function PartenerSection() {
 
             {/* Title */}
             <motion.h2
-              className="text-2xl lg:text-3xl font-extrabold mb-1"
+              className="mb-3 text-base font-extrabold leading-tight max-[359px]:whitespace-normal min-[360px]:whitespace-nowrap sm:text-2xl lg:text-[1.75rem] xl:text-3xl"
               variants={fadeUp}
             >
-              شبكة المكاتب المعتمدة{" "}
+              شبكة المكاتب المعتمدة
             </motion.h2>
 
             {/* Description */}
             <motion.p
-              className="text-[#F5F9F7B2] text-sm md:text-lg"
+              className="mx-auto max-w-[22rem] text-sm leading-relaxed text-[#F5F9F7] sm:text-base md:text-lg lg:max-w-none"
               variants={fadeUp}
             >
-              كن جزءاً من منظومة التطوير العقاري الأكبر في الدلتا{" "}
+              كن جزءاً من منظومة التطوير العقاري الأكبر في الدلتا
             </motion.p>
           </motion.div>
         </motion.section>

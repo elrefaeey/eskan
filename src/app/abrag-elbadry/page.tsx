@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import AnimatedSection from "@/components/common/animations/AnimatedSection";
 import { Building2, Store } from "lucide-react";
-import ElbadryPriceChart from "@/components/Projects/ElbadryTowers/ElbadryPriceChart";
 import { useLenis } from "@/hooks/useLenis";
 import useProjectDetails from "@/features/elbadry-towers/hooks/useProjectDetails";
 import { LoadingPage } from "@/components/ui/LoadingPage";
@@ -86,14 +85,6 @@ export default function AbragElBadry() {
             <ExternalMapLink href="https://maps.app.goo.gl/vW6CVHK8YDKEyaKV9" />
           </SectionContent>
         </LocationSection>
-
-        {/* ── الشارت ── */}
-        <AnimatedSection duration={0.5} className="mb-12">
-          <h2 className="text-[#1a1a1a] text-2xl md:text-3xl font-extrabold mb-6 border-r-4 border-primary pr-4">
-            مخطط المشروع
-          </h2>
-          <ElbadryPriceChart />
-        </AnimatedSection>
 
         {/* ── الكروت ── */}
         <section className="mb-12">

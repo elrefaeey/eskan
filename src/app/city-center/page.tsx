@@ -86,7 +86,7 @@ const CityCenterPage = () => {
       <div className="container mx-auto">
 
         {/* Stats */}
-        <StatsGrid stats={stats} colorScheme="primary" className="mb-12" />
+        <StatsGrid stats={stats} colorScheme="primary" variant="strip" className="mb-12" />
 
         {/* الاستثمار + ما يميز المشروع */}
         <AnimatedSection

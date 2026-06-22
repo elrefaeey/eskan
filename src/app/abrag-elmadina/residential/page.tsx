@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import AnimatedSection from "@/components/common/animations/AnimatedSection";
 import { Building2, Clock, Layers, Home, ChevronDown, Loader2 } from "lucide-react";
 import MadinaTowersUnits from "@/components/Projects/MadinaTowers/MadinaTowersUnits";
+import PriceChart from "@/components/Projects/MadinaTowers/PriceChart";
 import { useLenis } from "@/hooks/useLenis";
 import useMadinaProjectDetails from "@/features/abrag-elmadina/hooks/useMadinaProjectDetails";
 import { ProjectHero, StatsGrid } from "@/components/shared";
@@ -139,8 +140,17 @@ export default function ResidentialPage() {
         <StatsGrid
           stats={stats}
           colorScheme="primary"
+          variant="strip"
           className="mb-10 mt-8"
         />
+
+        {/* ── مخطط المشروع ── */}
+        <AnimatedSection duration={0.5} className="mb-10">
+          <h2 className="text-[#1a1a1a] text-2xl md:text-3xl font-extrabold mb-6 border-r-4 border-primary pr-4">
+            مخطط المشروع
+          </h2>
+          <PriceChart />
+        </AnimatedSection>
 
         {/* ── موقع المشروع ── */}
         <LocationSection

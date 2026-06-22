@@ -102,7 +102,7 @@ const ContactUsForm = () => {
               >
                 {isPending ? (
                   <span className="flex items-center gap-2">
-                    <Loader2 className="h-5 w-5 animate-spin" />
+                    <Loader2 className="h-5 w-5 animate-spin text-primary" />
                     جاري الإرسال...
                   </span>
                 ) : "إرسال الطلب"}
