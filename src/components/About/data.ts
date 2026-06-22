@@ -2,6 +2,7 @@ import {
   Calculator,
   Code2,
   Handshake,
+  Megaphone,
   Palette,
   PencilRuler,
   type LucideIcon,
@@ -19,8 +20,10 @@ export interface TeamDepartment {
 export const teamSectionContent = {
   badge: "فريقنا",
   title: "فريق عملنا المتميز",
-  image: "/assets/about-us/who us.png",
+  image: "/assets/about-us/whhoo.png",
   imageAlt: "فريق عمل إسكان المنصورة",
+  imageWidth: 1216,
+  imageHeight: 700,
   paragraphs: [
     "فريق عمل إسكان المنصورة يضم نخبة من الأقسام المحترفة التي تعمل في تناغم لإنتاج منتج عقاري محترف ومتميز.",
     "كما تعمل الشركة على مواكبة التطورات في مجال التكنولوجيا وتقديم حلول برمجية ترفع من كفاءة العمل وتساعد العميل في الحصول على تجربة متميزة.",
@@ -67,5 +70,13 @@ export const teamDepartments: TeamDepartment[] = [
     description:
       "مسؤول عن الهوية البصرية للشركة وتصميم المواد التسويقية والإعلانية بشكل احترافي يعكس جودة العلامة التجارية.",
     icon: Palette,
+  },
+  {
+    id: "marketing",
+    order: 6,
+    title: "قسم التسويق",
+    description:
+      "يضع استراتيجيات التسويق والترويج للمشروعات، ويدير الحملات الإعلانية ومنصات التواصل لزيادة الوعي بالعلامة وجذب العملاء المحتملين.",
+    icon: Megaphone,
   },
 ];
