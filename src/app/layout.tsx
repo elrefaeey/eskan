@@ -7,6 +7,8 @@ import Footer from "@/components/layout/footer/Footer";
 import ReactQueryProvider from "@/providers/react-queryprovider";
 import { Toaster } from "react-hot-toast";
 import { WelcomeChat } from "@/features/chat";
+import { Suspense } from "react";
+import ScrollToTop from "@/components/layout/ScrollToTop";
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
@@ -153,6 +155,9 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
       </head>
       <body className={cairo.className}>
         <ReactQueryProvider>
+          <Suspense fallback={null}>
+            <ScrollToTop />
+          </Suspense>
           <Toaster />
           <Navbar />
           <>{children}</>

@@ -1,10 +1,10 @@
 "use client";
 
-import { GraduationCap, CheckCircle2, TrendingUp, Users, BookOpen, X } from "lucide-react";
-import { useState } from "react";
+import { GraduationCap, CheckCircle2, TrendingUp, Users, BookOpen } from "lucide-react";
 import { useLenis } from "@/hooks/useLenis";
 import { ProjectHero, StatsGrid } from "@/components/shared";
 import { AnimateInView } from "@/components/common/animations";
+import { VocationalSharesSection } from "@/features/vocational-center/components/VocationalSharesSection";
 import type { StatItem } from "@/components/shared";
 
 const whyItqan = [
@@ -39,7 +39,12 @@ const forWho = [
 
 export default function VocationalCenterPage() {
   useLenis();
-  const [open, setOpen] = useState(false);
+
+  const scrollToShares = () => {
+    document
+      .getElementById("investment-shares")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <main className="page" dir="rtl">
@@ -68,7 +73,7 @@ export default function VocationalCenterPage() {
         ctaButtons={[{
           text: "احجز حصتك الاستثمارية الآن",
           icon: <GraduationCap className="w-5 h-5" />,
-          onClick: () => setOpen(true),
+          onClick: scrollToShares,
           variant: "primary",
         }]}
         className="mb-10"
@@ -142,61 +147,21 @@ export default function VocationalCenterPage() {
             </div>
             <div className="border-t border-white/20 pt-4">
               <p className="text-white/80 text-sm font-semibold mb-3">استثمر اليوم في مشروع يصنع المستقبل</p>
-              <a
-                href="#"
-                onClick={(e) => { e.preventDefault(); setOpen(true); }}
+              <button
+                type="button"
+                onClick={scrollToShares}
                 className="inline-flex items-center gap-2 bg-white text-primary font-bold rounded-xl px-5 py-3 text-sm hover:bg-white/90 transition-colors"
               >
                 <GraduationCap className="w-4 h-4" />
                 احجز حصتك الاستثمارية الآن
-              </a>
+              </button>
             </div>
           </div>
         </AnimateInView>
 
-      </div>
+        <VocationalSharesSection />
 
-      {/* ── Modal الحجز ── */}
-      {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4" onClick={() => setOpen(false)}>
-          <div className="bg-white rounded-2xl w-full max-w-sm p-6 relative shadow-2xl" dir="rtl" onClick={(e) => e.stopPropagation()}>
-            <button onClick={() => setOpen(false)} className="absolute top-4 left-4 text-gray-400 hover:text-gray-700 transition-colors">
-              <X className="w-5 h-5" />
-            </button>
-            <h2 className="text-[#1a1a1a] text-2xl font-extrabold text-center mb-1">حجز وحدة</h2>
-            <hr className="mb-6 border-gray-200" />
-            <div className="flex flex-col gap-5">
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-semibold text-[#333] text-right">الاسم الكامل</label>
-                <input type="text" placeholder="أدخل اسمك الكامل" className="border border-primary rounded-lg px-4 py-2.5 text-right text-sm outline-none focus:border-primary transition-colors w-full" />
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-semibold text-[#333] text-right">رقم الهاتف</label>
-                <input type="tel" placeholder="01XXXXXXXXX" className="border border-gray-300 rounded-lg px-4 py-2.5 text-right text-sm outline-none focus:border-primary transition-colors w-full" />
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-semibold text-[#333] text-right">المهنة</label>
-                <input type="text" placeholder="أدخل مهنتك" className="border border-gray-300 rounded-lg px-4 py-2.5 text-right text-sm outline-none focus:border-primary transition-colors w-full" />
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm font-semibold text-[#333] text-right">وقت التواصل المفضل</label>
-                <div className="relative">
-                  <select defaultValue="" className="border border-gray-300 rounded-lg px-4 py-2.5 text-right text-sm outline-none focus:border-primary transition-colors w-full appearance-none bg-white text-gray-400">
-                    <option value="" disabled>اختر الوقت المناسب</option>
-                    <option value="morning">الصباح (9 ص - 12 م)</option>
-                    <option value="afternoon">الظهر (12 م - 4 م)</option>
-                    <option value="evening">المساء (4 م - 9 م)</option>
-                  </select>
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">▾</span>
-                </div>
-              </div>
-              <button className="bg-primary text-white font-extrabold rounded-xl py-3.5 text-base hover:bg-primary/90 transition-colors w-full mt-1">
-                تأكيد الحجز
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      </div>
 
     </main>
   );

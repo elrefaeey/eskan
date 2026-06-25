@@ -48,7 +48,7 @@ const cards = (onViewUnits?: () => void) => [
     border: "border-[#1F4B57]",
     iconBg: "bg-[#1F4B57]",
     btnClass: "bg-[#1F4B57] hover:bg-[#183d47]",
-    tag: "إداري",
+    tag: "تدريبي استثماري",
     tagClass: "bg-[#1F4B57]/10 text-[#1F4B57]",
     cardBg: "bg-[#1F4B57]/5",
   },

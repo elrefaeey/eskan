@@ -70,7 +70,7 @@ export const PROJECT_OVERRIDES: Record<number, ProjectOverride> = {
     segments: [
       { label: "أبراج المدينة",   tag: "سكني",  href: "/abrag-elmadina/residential" },
       { label: "أرض المعارض",     tag: "تجاري", href: "/gallery-ground"             },
-      { label: "معهد إعداد الخريجين (GPI)", tag: "إداري", href: "/vocational-center"           },
+      { label: "معهد إعداد الخريجين (GPI)", tag: "تدريبي استثماري", href: "/vocational-center"           },
     ],
   },
 };

@@ -23,7 +23,7 @@ const Heading = ({ title, desc }: HeadingProps) => {
         as="p"
         delay={0.3}
         duration={0.6}
-        className="text-text/90 text-[21px] text-justify md:text-[32px] leading-relaxed  font-bold"
+        className="text-text/90 text-[21px] text-justify md:text-[32px] leading-relaxed font-normal"
       >
         {desc}
       </AnimatedSection>

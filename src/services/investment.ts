@@ -101,6 +101,14 @@ export const investmentService = {
     return response.data.data;
   },
 
+  getUnits: async (projectId?: number): Promise<InvestmentUnit[]> => {
+    const response = await Api.get<{ data: InvestmentUnit[] }>(
+      "investment-units",
+      projectId ? { investment_project_id: projectId } : undefined,
+    );
+    return response.data.data;
+  },
+
   getProjectById: async (
     formId: string,
     projectId: string,

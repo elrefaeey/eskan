@@ -108,6 +108,7 @@ function Investment() {
 
   const displayData = investmentData;
   const selectedValue = watch(currentStepData?.field || "goal");
+  const showResults = isFormCompleted && !shouldRestart;
   const restartHandled = useRef(false);
   const resumeHandled = useRef(false);
 
@@ -119,11 +120,14 @@ function Investment() {
     if (restartHandled.current) return;
     restartHandled.current = true;
 
-    router.replace("/investment");
+    clearFormIdFromStorage();
+    clearFormDataFromStorage();
     resetForm({ goal: "", budget: "", payment: "" });
     resetSteps();
     resetSubmit();
     setIsFormCompleted(false);
+    resumeHandled.current = false;
+    router.replace("/investment");
   }, [shouldRestart, router, resetForm, resetSteps, resetSubmit]);
 
   useEffect(() => {
@@ -157,13 +161,13 @@ function Investment() {
     }
   }, [isFormCompleted]);
 
-  if (isRestoring) {
+  if (isRestoring && !shouldRestart) {
     return <LoadingScreen />;
   }
 
   return (
     <>
-      {!isFormCompleted ? (
+      {!showResults ? (
         isSubmitting ? (
           <LoadingScreen />
         ) : (
