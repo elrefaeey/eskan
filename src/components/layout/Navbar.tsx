@@ -14,7 +14,7 @@ const links: Array<{ path: string; label: string; authRequired?: boolean }> = [
   { path: "/about-us", label: "من نحن" },
   { path: "/work-with-us", label: "علاقاتك استثمارك" },
   {
-    path: "/investment",
+    path: "/investment?start=1",
     label: "الإستثمار العقاري",
   },
   {
@@ -68,7 +68,10 @@ export default function ClientNavbar() {
               {/* Desktop Navigation */}
               <div className="hidden lg:flex items-center gap-6 xl:gap-10">
                 {links.map((link) => {
-                  const isActive = pathname === link.path;
+                  const isActive =
+                    link.path.startsWith("/investment")
+                      ? pathname === "/investment"
+                      : pathname === link.path;
                   return (
                     <Link
                       key={link.path}

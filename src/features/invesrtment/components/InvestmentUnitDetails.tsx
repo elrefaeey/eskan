@@ -1,211 +1,273 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import AnimatedSection from "@/components/common/animations/AnimatedSection";
-import { fadeInLeft, fadeInRight } from "@/lib/animations";
+import Link from "next/link";
+import {
+  ArrowRight,
+  Lock,
+  Minus,
+  Plus,
+  Ruler,
+  TrendingUp,
+  Wallet,
+  X,
+  ZoomIn,
+} from "lucide-react";
 import { useInvestmentUnitDetails } from "../hooks/useInvestmentUnitDetails";
 import ReserveInvestmentUnit from "./ReserveInvestmentUnit";
+import { InvestmentStatCell } from "./InvestmentStatCell";
 import { LoadingPage } from "@/components/ui/LoadingPage";
 
 interface InvestmentUnitDetailsProps {
   unitId: string;
 }
 
+const formatNumber = (value: number) =>
+  value.toLocaleString("en-US", { maximumFractionDigits: 0 });
+
 const InvestmentUnitDetails = ({ unitId }: InvestmentUnitDetailsProps) => {
   const { data, isLoading } = useInvestmentUnitDetails(unitId);
-
   const [shareNum, setShareNum] = useState(1);
-  const [sharePrice, setSharePrice] = useState(0);
-  const [returnPrice, setReturnPrice] = useState(0);
-  const [meterNum, setMeterNum] = useState(0);
-
-  useEffect(() => {
-    if (data) {
-      setSharePrice(Number(data.share_price));
-      setReturnPrice(Number(data.return_value));
-      setMeterNum(Number(data.share_meter_num));
-    }
-  }, [data]);
+  const [imageZoomed, setImageZoomed] = useState(false);
 
   if (isLoading || !data) {
     return <LoadingPage />;
   }
 
   const availableShares = data.shares_num - data.contracted_shares;
-  const contractedNum = data.contracted_shares;
-  const contractedArray = new Array(contractedNum).fill(1);
-  const shareBoxes = new Array(availableShares).fill(1);
+  const contractedShares = data.contracted_shares;
+  const unitSharePrice = Number(data.share_price);
+  const unitReturn = Number(data.return_value);
+  const unitMeter = Number(data.share_meter_num);
 
-  const handleAddSub = (
-    val1: number,
-    sign: "+" | "-",
-    val2: number,
-    fixNum: number,
-    type: "price" | "meter" | "return",
-  ) => {
-    let result: number;
-    if (sign === "+") {
-      result = Number(val1) + Number(val2);
-    } else {
-      result = Number(val2) - Number(val1);
-    }
+  const totalPrice = unitSharePrice * shareNum;
+  const totalReturn = unitReturn * shareNum;
+  const totalMeter = unitMeter * shareNum;
 
-    switch (type) {
-      case "price":
-        setSharePrice(result);
-        break;
-      case "meter":
-        setMeterNum(Number(result.toFixed(fixNum)));
-        break;
-      case "return":
-        setReturnPrice(result);
-        break;
-    }
-  };
+  const returnLabel =
+    data.return_type === "عائد ايجاري" ? "العائد الإيجاري" : "عائد إعادة البيع";
 
-  const handleShareNum = (typ: "plus" | "minus") => {
-    if (typ === "plus" && shareNum < availableShares) {
-      setShareNum((p) => p + 1);
-      handleAddSub(Number(data.share_price), "+", sharePrice, 3, "price");
-      handleAddSub(Number(data.share_meter_num), "+", meterNum, 2, "meter");
-      handleAddSub(Number(data.return_value), "+", returnPrice, 3, "return");
-    }
+  const unitImage = data.img || "/assets/investment/floor.png";
 
-    if (typ === "minus" && shareNum > 1) {
-      setShareNum((p) => p - 1);
-      handleAddSub(Number(data.share_price), "-", sharePrice, 3, "price");
-      handleAddSub(Number(data.share_meter_num), "-", meterNum, 2, "meter");
-      handleAddSub(Number(data.return_value), "-", returnPrice, 3, "return");
-    }
+  const handleShareChange = (delta: number) => {
+    setShareNum((prev) => {
+      const next = prev + delta;
+      if (next < 1 || next > availableShares) return prev;
+      return next;
+    });
   };
 
   return (
-    <AnimatedSection duration={0.5} className="container page py-4 sm:py-6">
-      <div className="p-4 rounded-lg bg-gradient-to-b from-[#FBFBFB] to-[#F6F6F6] shadow-md">
-        <h3 className="flex justify-center items-center text-lg sm:text-xl lg:text-2xl w-fit mx-auto border-b border-gray-700 mb-6">
-          {data.number}
-        </h3>
+    <main className="page bg-[#FAFBFC] !min-h-0 pb-2" dir="rtl">
+      <div className="container max-w-5xl mx-auto px-3 py-2 lg:py-3">
+        <Link
+          href="/investment"
+          className="inline-flex items-center gap-1.5 mb-2 text-primary text-xs font-semibold hover:underline"
+        >
+          <ArrowRight className="w-3.5 h-3.5" />
+          رجوع للاستثمار
+        </Link>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 place-items-center">
-          <motion.div
-            className="max-w-full"
-            variants={fadeInLeft}
-            initial="hidden"
-            animate="visible"
-          >
-            {/* Shares Boxes */}
-            <div className="flex flex-wrap justify-center gap-1 mb-3">
-              {contractedArray.map((_, ind) => (
-                <motion.div
-                  key={`contracted-${ind}`}
-                  className="w-[18px] h-[15px] bg-gray-400 border border-white sm:w-[25px] sm:h-[20px]"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: ind * 0.05 }}
-                />
-              ))}
+        <div className="rounded-xl border border-primary/15 bg-white shadow-sm overflow-hidden">
+          {/* Header — سطر واحد */}
+          <div className="flex items-center justify-between gap-2 px-3 py-2 border-b border-primary/10 bg-[#FAFBFC]">
+            <h1 className="text-sm sm:text-base font-bold text-[#1F503B] truncate">
+              {data.number}
+            </h1>
+            <span
+              className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold ${
+                availableShares > 0
+                  ? "bg-[#E8F5EC] text-[#2D6A4F]"
+                  : "bg-red-50 text-red-700"
+              }`}
+            >
+              {availableShares > 0 ? `${availableShares} حصة` : "مكتمل"}
+            </span>
+          </div>
 
-              {shareBoxes.map((_, ind) => (
-                <motion.div
-                  key={`available-${ind}`}
-                  className="w-[18px] h-[15px] border border-gray-400 mt-[1px] sm:w-[25px] sm:h-[18px]"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: ind * 0.03 }}
-                />
-              ))}
-            </div>
-
-            <h4 className="text-sm sm:text-base lg:text-xl text-center mb-4">
-              الحصص المتاحة: {availableShares}
-            </h4>
-
-            <div className="border-2 border-gray-300 rounded-lg overflow-hidden">
-              <div className="grid grid-cols-2 text-center divide-x-2 divide-gray-300">
-                <div className="p-4 sm:p-5 border-r border-gray-300">
-                  <span className="block text-base sm:text-lg">سعر الحصة</span>
-                  <strong className="mt-2 block text-xl sm:text-2xl">
-                    {sharePrice} جنية
-                  </strong>
-                </div>
-                <div className="p-4 sm:p-5">
-                  <span className="block text-base sm:text-lg">
-                    العائد{" "}
-                    {data.return_type === "عائد ايجاري" ? "الإيجاري" : ""}
-                  </span>
-                  <strong className="mt-2 block text-xl sm:text-2xl">
-                    {returnPrice} جنية
-                  </strong>
+          <div className="grid grid-cols-1 lg:grid-cols-2 lg:items-stretch">
+            {/* تفاصيل — يمين */}
+            <div className="order-2 lg:order-1 p-3 sm:p-4 flex flex-col gap-3 lg:justify-center lg:min-h-[280px]">
+              {/* حصص */}
+              <div>
+                <p className="text-xs font-semibold text-[#1F503B] mb-1.5">
+                  الحصص المتاحة
+                </p>
+                <div className="flex flex-wrap items-center gap-1.5">
+                  {Array.from({ length: contractedShares }).map((_, i) => (
+                    <div
+                      key={`c-${i}`}
+                      className="flex h-6 w-7 items-center justify-center rounded-md bg-red-600 shadow-sm"
+                      title="محجوز"
+                    >
+                      <Lock className="w-3 h-3 text-white" />
+                    </div>
+                  ))}
+                  {Array.from({ length: availableShares }).map((_, i) => (
+                    <div
+                      key={`a-${i}`}
+                      className="flex h-6 w-7 items-center justify-center rounded-md border-2 border-primary/35 bg-white text-primary text-xs font-bold"
+                    >
+                      {i + 1}
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              <div className="border-t border-gray-300 text-center p-4 sm:p-5">
-                عدد الامتار فى الحصة :
-                <strong className="px-1">{meterNum}</strong>
-                <span className="relative text-sm font-bold">
-                  م<sub className="absolute -left-1 top-2">2</sub>
-                </span>
+              {/* جدول الأسعار */}
+              <div className="rounded-xl overflow-hidden border border-primary/10 shadow-sm">
+                <div className="grid grid-cols-2 gap-px bg-primary/10">
+                  <InvestmentStatCell
+                    tone="green"
+                    icon={<Wallet className="w-4 h-4" />}
+                    label="سعر الحصة"
+                    value={`${formatNumber(unitSharePrice)} جنيه`}
+                  />
+                  <InvestmentStatCell
+                    tone="green"
+                    icon={<TrendingUp className="w-4 h-4" />}
+                    label={returnLabel}
+                    value={`${formatNumber(unitReturn)} جنيه`}
+                  />
+                </div>
+                <InvestmentStatCell
+                  tone="white"
+                  icon={<Ruler className="w-4 h-4" />}
+                  label="مساحة الحصة"
+                  value={`${formatNumber(unitMeter)} م²`}
+                />
               </div>
+
+              {availableShares > 0 ? (
+                <div className="rounded-xl border border-primary/15 bg-[#FAFBFC] p-3 space-y-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="text-sm font-semibold text-[#1F503B] shrink-0">
+                      عدد الحصص
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => handleShareChange(-1)}
+                        disabled={shareNum <= 1}
+                        className="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/25 bg-white text-primary disabled:opacity-40 hover:bg-white/80"
+                        aria-label="تقليل"
+                      >
+                        <Minus className="w-3.5 h-3.5" />
+                      </button>
+                      <span className="min-w-[1.5rem] text-center text-base font-bold text-[#1F503B]">
+                        {shareNum}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleShareChange(1)}
+                        disabled={shareNum >= availableShares}
+                        className="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/25 bg-white text-primary disabled:opacity-40 hover:bg-white/80"
+                        aria-label="زيادة"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between border-t border-primary/10 pt-2.5">
+                    <span className="text-xs text-[#666]">الإجمالي</span>
+                    <div className="text-left">
+                      <p className="text-lg sm:text-xl font-extrabold text-[#1F503B] leading-none">
+                        {formatNumber(totalPrice)}{" "}
+                        <span className="text-xs font-semibold text-[#666]">جنيه</span>
+                      </p>
+                      {shareNum > 1 && (
+                        <p className="text-[10px] text-[#999] mt-0.5">
+                          عائد: {formatNumber(totalReturn)} ج · {formatNumber(totalMeter)} م²
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="[&_button]:!py-2.5 [&_button]:!text-sm [&_button]:!rounded-xl [&_button]:!shadow-md">
+                    <ReserveInvestmentUnit
+                      txt="احجز الحصة الاستثمارية"
+                      unitData={data}
+                      withShareNum={false}
+                      externalShareNum={shareNum}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className="rounded-xl bg-gray-50 border border-gray-200 py-3 text-center">
+                  <p className="text-sm font-semibold text-[#666]">
+                    لا توجد حصص متاحة للحجز
+                  </p>
+                </div>
+              )}
             </div>
 
-            <div className="mt-5 flex flex-col lg:flex-row items-center justify-center gap-4">
-              <h3 className="text-lg sm:text-xl lg:text-3xl font-semibold">
-                إختر عدد الحصص :
-              </h3>
-
-              <div className="flex items-center gap-3">
-                <button
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-tr-md rounded-br-md bg-gray-300 flex items-center justify-center"
-                  onClick={() => handleShareNum("plus")}
-                >
-                  <span className="text-2xl sm:text-3xl mb-1">+</span>
-                </button>
-
-                <span className="text-xl sm:text-2xl lg:text-3xl">
-                  {shareNum}
+            {/* مخطط — أول سلايد: عرض كامل */}
+            <div className="order-1 lg:order-2 flex flex-col border-b lg:border-b-0 lg:border-r border-primary/10 bg-white lg:bg-[#FAFBFC] -mx-px lg:mx-0">
+              <div className="flex items-center justify-between px-3 py-2 shrink-0 bg-[#FAFBFC]">
+                <span className="text-[11px] font-semibold text-[#1F503B]">
+                  مخطط الوحدة
                 </span>
-
                 <button
-                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-tl-md rounded-bl-md bg-gray-200 flex items-center justify-center"
-                  onClick={() => handleShareNum("minus")}
+                  type="button"
+                  onClick={() => setImageZoomed(true)}
+                  className="inline-flex items-center gap-0.5 text-[10px] text-primary hover:underline"
                 >
-                  <span className="text-2xl sm:text-3xl mb-1">-</span>
+                  <ZoomIn className="w-3 h-3" />
+                  تكبير
                 </button>
               </div>
+              <button
+                type="button"
+                onClick={() => setImageZoomed(true)}
+                className="block w-full bg-white cursor-zoom-in p-1 sm:p-2 lg:p-3 lg:flex lg:flex-1 lg:items-center lg:min-h-[280px]"
+              >
+                <Image
+                  src={unitImage}
+                  alt={data.number}
+                  width={1600}
+                  height={1000}
+                  unoptimized
+                  className="w-full h-auto object-contain"
+                  sizes="100vw"
+                  priority
+                />
+              </button>
             </div>
-
-            <div className="mt-6 flex justify-center">
-              <ReserveInvestmentUnit
-                txt="إحجز الحصة الاستثمارية"
-                unitData={data}
-                withShareNum={false}
-                externalShareNum={shareNum}
-              />
-            </div>
-          </motion.div>
-
-          <motion.div
-            className="w-full max-w-xs sm:max-w-md mx-auto"
-            variants={fadeInRight}
-            initial="hidden"
-            animate="visible"
-          >
-            <div className="unit-img w-full mx-auto mt-4">
-              <Image
-                src={data.img}
-                alt={data.number}
-                width={500}
-                height={400}
-                className="object-contain w-full h-auto rounded-lg"
-                priority
-              />
-            </div>
-          </motion.div>
+          </div>
         </div>
       </div>
-    </AnimatedSection>
+
+      {imageZoomed && (
+        <div
+          className="fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4"
+          onClick={() => setImageZoomed(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="مخطط الوحدة مكبر"
+        >
+          <button
+            type="button"
+            onClick={() => setImageZoomed(false)}
+            className="absolute top-4 left-4 hidden sm:flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
+            aria-label="إغلاق"
+          >
+            <X className="w-4 h-4" />
+          </button>
+          <Image
+            src={unitImage}
+            alt={data.number}
+            width={1600}
+            height={1000}
+            unoptimized
+            className="max-h-[85vh] w-auto max-w-full object-contain"
+            sizes="100vw"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+    </main>
   );
 };
 

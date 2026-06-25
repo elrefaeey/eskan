@@ -1,6 +1,7 @@
 "use client";
 import InvestmentUnit from "@/features/invesrtment/components/InvestmentUnit";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import {
   useInvestmentSteps,
@@ -13,13 +14,25 @@ import {
   InvestmentStep,
   StepIndicator,
   LoadingScreen,
+  InvestmentStepsGrid,
 } from "@/features/invesrtment/components";
-import { InvestmentResponseData } from "@/services/investment";
+import { HOW_IT_WORKS } from "@/features/invesrtment/constants/flow-steps";
+import {
+  InvestmentResponseData,
+  clearFormDataFromStorage,
+  clearFormIdFromStorage,
+  getFormDataFromStorage,
+} from "@/services/investment";
 
 function Investment() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const shouldRestart = searchParams.get("start") === "1";
+
   const [isFormCompleted, setIsFormCompleted] = useState(false);
 
-  const { formId: storedFormId } = useLoadInvestment();
+  const { formId: storedFormId, restoredData, isRestoring } =
+    useLoadInvestment({ restoreSession: !shouldRestart });
 
   const {
     currentStep,
@@ -36,6 +49,7 @@ function Investment() {
   const {
     isSubmitting,
     investmentData,
+    error: submitError,
     submitInvestment,
     reset: resetSubmit,
     setInvestmentData,
@@ -57,6 +71,11 @@ function Investment() {
   const handleOptionClick = async (value: string) => {
     if (!currentStepData) return;
 
+    if (value === "rental") {
+      router.push("/bazar-level");
+      return;
+    }
+
     setValue(currentStepData.field, value);
 
     if (currentStep < investmentSteps.length) {
@@ -66,8 +85,10 @@ function Investment() {
     } else {
       setTimeout(async () => {
         const formData = getValues();
-        await submitInvestment(formData, storedFormId);
-        setIsFormCompleted(true);
+        const success = await submitInvestment(formData, storedFormId);
+        if (success) {
+          setIsFormCompleted(true);
+        }
       }, 400);
     }
   };
@@ -76,6 +97,8 @@ function Investment() {
     resetForm();
     resetSteps();
     resetSubmit();
+    clearFormIdFromStorage();
+    clearFormDataFromStorage();
     setIsFormCompleted(false);
   };
 
@@ -84,8 +107,59 @@ function Investment() {
   };
 
   const displayData = investmentData;
-
   const selectedValue = watch(currentStepData?.field || "goal");
+  const restartHandled = useRef(false);
+  const resumeHandled = useRef(false);
+
+  useEffect(() => {
+    if (!shouldRestart) {
+      restartHandled.current = false;
+      return;
+    }
+    if (restartHandled.current) return;
+    restartHandled.current = true;
+
+    router.replace("/investment");
+    resetForm({ goal: "", budget: "", payment: "" });
+    resetSteps();
+    resetSubmit();
+    setIsFormCompleted(false);
+  }, [shouldRestart, router, resetForm, resetSteps, resetSubmit]);
+
+  useEffect(() => {
+    if (shouldRestart) {
+      resumeHandled.current = false;
+      return;
+    }
+    if (!restoredData || resumeHandled.current) return;
+    resumeHandled.current = true;
+
+    setInvestmentData(restoredData);
+    setIsFormCompleted(true);
+
+    const storedForm = getFormDataFromStorage();
+    if (storedForm) {
+      resetForm({
+        goal: storedForm.investment_goal,
+        budget: storedForm.budget_range || "",
+        payment: storedForm.funding_source || "",
+      });
+    }
+
+    if (searchParams.get("resume") === "1") {
+      router.replace("/investment");
+    }
+  }, [shouldRestart, restoredData, setInvestmentData, resetForm, router, searchParams]);
+
+  useEffect(() => {
+    if (isFormCompleted) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [isFormCompleted]);
+
+  if (isRestoring) {
+    return <LoadingScreen />;
+  }
 
   return (
     <>
@@ -93,37 +167,39 @@ function Investment() {
         isSubmitting ? (
           <LoadingScreen />
         ) : (
-          <main className="bg-[#FAFBFC] page pt-4 text-center mx-auto pb-4 lg:mt-[82px] ">
-            <div className="container ">
+          <main className="bg-[#FAFBFC] page pt-5 sm:pt-6 text-center mx-auto pb-10 lg:mt-[82px]">
+            <div className="container max-w-4xl">
               <div
-                className={`transition-all  duration-1000 ease-out transform ${
+                className={`transition-all duration-1000 ease-out transform ${
                   hasLoaded
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 -translate-y-8"
                 }`}
               >
-                <h2 className="font-extrabold text-2xl md:text-3xl lg:text-4xl text-[#1F503B]">
+                <h1 className="font-extrabold text-[1.625rem] sm:text-3xl lg:text-[2rem] text-[#1F503B] leading-tight">
                   استثمر مع{" "}
                   <span className="text-[#498E56]">اسكان المنصورة</span>
-                </h2>
-                {/* <p className="text-[#1E1E1E] text-lg lg:text-xl xl:text-2xl mt-2">
-                  للحصول علي افضل استثمار برجاء الاجابة علي تلك الاسئلة
-                </p> */}
+                </h1>
+                <p className="text-[#888] text-sm sm:text-body-base md:text-lg mt-2 max-w-lg mx-auto leading-relaxed">
+                  خطوة واحدة ونوصّيك بأفضل فرصة استثمارية تناسبك
+                </p>
               </div>
 
               <div
-                className={`my-4  transition-all duration-1000 ease-out transform delay-200 ${
+                className={`mt-6 sm:mt-8 transition-all duration-1000 ease-out transform delay-200 ${
                   hasLoaded
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-8"
                 }`}
               >
-                <StepIndicator
-                  currentStep={currentStep}
-                  maxReachedStep={maxReachedStep}
-                  onStepChange={handleStepChange}
-                  totalSteps={investmentSteps.length}
-                />
+                {investmentSteps.length > 1 && (
+                  <StepIndicator
+                    currentStep={currentStep}
+                    maxReachedStep={maxReachedStep}
+                    onStepChange={handleStepChange}
+                    totalSteps={investmentSteps.length}
+                  />
+                )}
 
                 {currentStepData && (
                   <InvestmentStep
@@ -136,15 +212,19 @@ function Investment() {
                   />
                 )}
 
-                {/* <div className="mt-4 sm:mt-6 flex justify-center">
-                  <button
-                    type="button"
-                    onClick={goToNextStep}
-                    className="text-[#2D2D2DB8] underline hover:text-[#498E56] transition-colors duration-300 text-sm sm:text-base md:text-lg font-medium"
-                  >
-                    تخطي
-                  </button>
-                </div> */}
+                {submitError && (
+                  <p className="text-red-600 text-body-base mt-4 max-w-xl mx-auto bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+                    {submitError}
+                  </p>
+                )}
+
+                <InvestmentStepsGrid
+                  title="إزاي تستثمر معانا؟"
+                  steps={HOW_IT_WORKS}
+                  variant="light"
+                  centered
+                  className="max-w-3xl mx-auto mt-8 sm:mt-10"
+                />
               </div>
             </div>
           </main>
@@ -152,6 +232,7 @@ function Investment() {
       ) : (
         <InvestmentUnit
           investmentData={displayData}
+          selectedGoal={watch("goal")}
           onReanalyze={handleReanalyze}
           onProjectSelect={handleProjectSelect}
         />

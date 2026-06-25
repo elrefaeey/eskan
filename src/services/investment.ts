@@ -155,6 +155,23 @@ export const clearFormDataFromStorage = (): void => {
   }
 };
 
+/** Maps backend external URLs to on-site routes when possible. */
+export function resolveProjectLink(externalLink: string): string {
+  if (!externalLink) return "";
+  try {
+    const url = new URL(externalLink, window.location.origin);
+    const path = url.pathname.toLowerCase();
+    if (path.includes("bazar-level")) return "/bazar-level";
+    if (path.includes("electronics-level")) return "/electronics-level";
+    if (path.includes("clothes-level")) return "/clothes-level";
+    if (externalLink.startsWith("/")) return externalLink;
+    return externalLink;
+  } catch {
+    if (externalLink.includes("bazar-level")) return "/bazar-level";
+    return externalLink;
+  }
+}
+
 export const reserveInvestmentUnit = async (formData: FormData) => {
   const response = await Api.post<{
     success: boolean;

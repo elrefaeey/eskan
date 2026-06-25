@@ -9,6 +9,12 @@ export type InvestmentFormData = {
 type StepOption = {
   value: string;
   label: string;
+  description?: string;
+};
+
+export const GOAL_LABELS: Record<string, string> = {
+  rental: "دخل شهري ثابت (عائد إيجاري)",
+  resale: "ربح من اعادة البيع",
 };
 
 export type Step = {
@@ -24,9 +30,18 @@ export const investmentSteps: Step[] = [
     title: "ما هو هدفك الاستثماري؟",
     field: "goal",
     options: [
-      { value: "rental", label: "دخل شهري ثابت (عائد إيجاري)" },
-      { value: "resale", label: "ربح من اعادة البيع" },
-      // { value: "both", label: "مزيج بين الاثنين" },
+      {
+        value: "rental",
+        label: "دخل شهري ثابت (عائد إيجاري)",
+        description:
+          "عائد إيجار شهري مستقر — مناسب لمستثمر يبحث عن دخل منتظم",
+      },
+      {
+        value: "resale",
+        label: "ربح من اعادة البيع",
+        description:
+          "ربح من فرق السعر — مناسب لمستثمر يبحث عن مكسب عند البيع",
+      },
     ],
   },
   // {

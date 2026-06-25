@@ -126,7 +126,7 @@ function Hero() {
                 اتحاد الملاك
               </ActionButton>
             </Link>
-            <Link href="/investment" className=" block">
+            <Link href="/investment?start=1" className=" block">
               <ActionButton
                 variant="secondary"
                 className="lg:px-10 block w-full py-4"

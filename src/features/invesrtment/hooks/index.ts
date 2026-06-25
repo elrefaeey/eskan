@@ -1,6 +1,7 @@
 export {
   useInvestmentSteps,
   investmentSteps,
+  GOAL_LABELS,
   type InvestmentFormData,
   type Step,
 } from "./useInvestmentSteps";

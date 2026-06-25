@@ -80,7 +80,10 @@ export default function MobileMenu({
                   className="space-y-2"
                 >
                   {links.map((link, index) => {
-                    const isActive = pathname === link.path;
+                    const isActive =
+                      link.path.startsWith("/investment")
+                        ? pathname === "/investment"
+                        : pathname === link.path;
                     return (
                       <motion.div
                         key={link.path}

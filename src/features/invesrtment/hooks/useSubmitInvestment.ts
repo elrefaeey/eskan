@@ -4,6 +4,8 @@ import {
   InvestmentCreatePayload,
   InvestmentResponseData,
   saveFormIdToStorage,
+  saveFormDataToStorage,
+  resolveProjectLink,
 } from "@/services/investment";
 import type { InvestmentFormData } from "./useInvestmentSteps";
 
@@ -15,7 +17,7 @@ interface UseSubmitInvestmentReturn {
   submitInvestment: (
     formData: InvestmentFormData,
     existingFormId?: string | null,
-  ) => Promise<void>;
+  ) => Promise<boolean>;
   reset: () => void;
   setInvestmentData: (data: InvestmentResponseData) => void;
 }
@@ -34,7 +36,6 @@ export function useSubmitInvestment(): UseSubmitInvestmentReturn {
     setIsSubmitting(true);
     setError(null);
 
-    // Transform form data to match API payload
     const payload: InvestmentCreatePayload = {
       investment_goal: formData.goal,
       budget_range: formData.budget,
@@ -47,28 +48,31 @@ export function useSubmitInvestment(): UseSubmitInvestmentReturn {
       if (existingFormId) {
         response = await investmentService.recreate(existingFormId, payload);
       } else {
-        // Create new investment
         response = await investmentService.create(payload);
       }
-
-      // Call /investments endpoint as well
-      // await investmentService.submitInvestment(payload);
 
       if (response.status === "ok" && response.data) {
         setIsSuccess(true);
         setInvestmentData(response.data);
         saveFormIdToStorage(response.data.form_id);
+        saveFormDataToStorage(payload);
 
         if (response.data.project?.external_link) {
-          window.location.href = response.data.project.external_link;
-          return;
+          window.location.href = resolveProjectLink(
+            response.data.project.external_link,
+          );
+          return true;
         }
-      } else {
-        setError(response.message?.ar || "فشل في إرسال البيانات");
+
+        return true;
       }
+
+      setError(response.message?.ar || "فشل في إرسال البيانات");
+      return false;
     } catch (err) {
       console.error("Investment submission error:", err);
       setError("حدث خطأ أثناء إرسال البيانات. يرجى المحاولة مرة أخرى.");
+      return false;
     } finally {
       setIsSubmitting(false);
     }
