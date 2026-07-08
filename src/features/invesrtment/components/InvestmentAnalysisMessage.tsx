@@ -5,12 +5,14 @@ import { Sparkles } from "lucide-react";
 
 interface InvestmentAnalysisMessageProps {
   message: string;
+  onComplete?: () => void;
 }
 
 const CHAR_DELAY_MS = 18;
 
 export function InvestmentAnalysisMessage({
   message,
+  onComplete,
 }: InvestmentAnalysisMessageProps) {
   const [displayedText, setDisplayedText] = useState("");
   const [isComplete, setIsComplete] = useState(false);
@@ -26,11 +28,12 @@ export function InvestmentAnalysisMessage({
       if (index >= message.length) {
         clearInterval(timer);
         setIsComplete(true);
+        onComplete?.();
       }
     }, CHAR_DELAY_MS);
 
     return () => clearInterval(timer);
-  }, [message]);
+  }, [message, onComplete]);
 
   return (
     <div className="relative bg-white border border-primary/10 rounded-2xl p-4 sm:p-5 shadow-sm overflow-hidden">

@@ -1,14 +1,14 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { BOOKING_STEPS } from "@/features/invesrtment/constants/flow-steps";
 import { fetchMadinaProjectDetails } from "@/services/abrag-elmadina";
 import type { InvestmentResponseData } from "@/services/investment";
+import { AnimateInView } from "@/components/common/animations";
 import InvestProjectCard from "./InvestProjectCard";
 import ShareCard from "./ShareCard";
 import { InvestmentAnalysisMessage } from "./InvestmentAnalysisMessage";
 import { InvestmentSectionHeading } from "./InvestmentSectionHeading";
-import { InvestmentStepsGrid } from "./InvestmentStepsGrid";
 import ProjectHeroCard, { isAbragElmadinaProject } from "./ProjectHeroCard";
 
 interface InvestmentUnitProps {
@@ -20,6 +20,16 @@ function InvestmentUnit({
   investmentData,
   onProjectSelect,
 }: InvestmentUnitProps) {
+  const [showContent, setShowContent] = useState(!investmentData?.message);
+
+  useEffect(() => {
+    setShowContent(!investmentData?.message);
+  }, [investmentData?.message]);
+
+  const handleMessageComplete = useCallback(() => {
+    setShowContent(true);
+  }, []);
+
   const { data: madinaProject } = useQuery({
     queryKey: ["madina-project-gallery"],
     queryFn: fetchMadinaProjectDetails,
@@ -48,63 +58,70 @@ function InvestmentUnit({
   return (
     <main className="page bg-[#FAFBFC] pb-10 lg:pb-14">
       <div className="container max-w-6xl pt-4 sm:pt-6 space-y-6 sm:space-y-8">
-        {message && <InvestmentAnalysisMessage message={message} />}
-
-        <section>
-          <InvestmentSectionHeading
-            title="المشروع المقترح"
-            level="subsection"
-            className="mb-3 px-1"
-          />
-          <ProjectHeroCard
-            project={project}
-            projectTitle={projectTitle}
-            galleryImages={galleryImages}
-          />
-        </section>
-
-        {hasUnits && (
-          <section>
-            <InvestmentSectionHeading
-              title="الوحدات المتاحة"
-              subtitle="اختار الحصة اللي تناسبك واحجز مباشرة"
-              level="section"
-              className="mb-4"
-            />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-              {units!.map((unit) => (
-                <ShareCard key={unit.id} unit={unit} />
-              ))}
-            </div>
-          </section>
-        )}
-
-        {hasUnits && (
-          <InvestmentStepsGrid
-            title="إزاي تحجز حصتك؟"
-            steps={BOOKING_STEPS}
-            variant="filled"
+        {message && (
+          <InvestmentAnalysisMessage
+            message={message}
+            onComplete={handleMessageComplete}
           />
         )}
 
-        {suggested_projects && suggested_projects.length > 0 && (
-          <section>
-            <InvestmentSectionHeading
-              title="بدائل استثمارية مقترحة"
-              subtitle="مشاريع تانية ممكن تناسبك"
-              level="section"
-              className="mb-4"
-            />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-              {suggested_projects.map((suggestedProject) => (
-                <InvestProjectCard
-                  key={suggestedProject.id}
-                  project={suggestedProject}
-                  onProjectSelect={onProjectSelect}
+        {showContent && (
+          <>
+            <AnimateInView duration={0.6} y={24}>
+              <section>
+                <InvestmentSectionHeading
+                  title="المشروع المقترح"
+                  level="subsection"
+                  className="mb-3 px-1"
                 />
-              ))}
-            </div>
-          </section>
+                <ProjectHeroCard
+                  project={project}
+                  projectTitle={projectTitle}
+                  galleryImages={galleryImages}
+                />
+              </section>
+            </AnimateInView>
+
+            {hasUnits && (
+              <AnimateInView duration={0.6} y={24} delay={0.15}>
+                <section>
+                  <InvestmentSectionHeading
+                    title="الوحدات المتاحة"
+                    subtitle="اختار الحصة اللي تناسبك واحجز مباشرة"
+                    level="section"
+                    className="mb-4"
+                  />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+                    {units!.map((unit) => (
+                      <ShareCard key={unit.id} unit={unit} />
+                    ))}
+                  </div>
+                </section>
+              </AnimateInView>
+            )}
+
+            {suggested_projects && suggested_projects.length > 0 && (
+              <AnimateInView duration={0.6} y={24} delay={0.3}>
+                <section>
+                  <InvestmentSectionHeading
+                    title="بدائل استثمارية مقترحة"
+                    subtitle="مشاريع تانية ممكن تناسبك"
+                    level="section"
+                    className="mb-4"
+                  />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+                    {suggested_projects.map((suggestedProject) => (
+                      <InvestProjectCard
+                        key={suggestedProject.id}
+                        project={suggestedProject}
+                        onProjectSelect={onProjectSelect}
+                      />
+                    ))}
+                  </div>
+                </section>
+              </AnimateInView>
+            )}
+          </>
         )}
       </div>
     </main>
