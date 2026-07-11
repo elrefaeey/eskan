@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { useForm, FormProvider } from "react-hook-form";
 import { Loader2 } from "lucide-react";
 import { InvestmentSectionHeading } from "@/features/invesrtment/components/InvestmentSectionHeading";
@@ -12,33 +11,21 @@ import { FormInput } from "@/components/ui/ReusableComponents/FormInput";
 import SuccessModal from "@/components/ui/SuccessModal";
 import { useContactUs } from "@/features/contact-us/hooks/useContactUs";
 import { showErrorToast } from "@/lib/toast";
-
-const formSchema = z.object({
-  name: z.string().min(2, "الاسم مطلوب"),
-  phone: z
-    .string()
-    .min(7, "رقم الهاتف مطلوب")
-    .regex(/^[0-9\s+]+$/, "رقم الهاتف يجب أن يحتوي على أرقام فقط"),
-  investment_amount: z
-    .string()
-    .min(1, "مبلغ الاستثمار مطلوب")
-    .regex(/^[0-9,.\s]+$/, "أدخل مبلغاً صحيحاً"),
-});
-
-type FormValues = z.infer<typeof formSchema>;
+import { GPI_SHARES_SECTION_ID } from "../constants";
+import { gpiSharesSchema, type GpiSharesFormValues } from "../schemas/gpiSharesSchema";
 
 export function GpiSharesSection() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-  const methods = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+  const methods = useForm<GpiSharesFormValues>({
+    resolver: zodResolver(gpiSharesSchema),
     defaultValues: { name: "", phone: "", investment_amount: "" },
   });
 
   const { handleSubmit, reset } = methods;
   const { mutate: submitForm, isPending } = useContactUs();
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = (data: GpiSharesFormValues) => {
     submitForm(
       {
         name: data.name,
@@ -62,7 +49,7 @@ export function GpiSharesSection() {
   };
 
   return (
-    <section id="investment-shares" className="mb-10 scroll-mt-24" dir="rtl">
+    <section id={GPI_SHARES_SECTION_ID} className="sec-padding scroll-mt-24">
       <AnimateInView>
         <InvestmentSectionHeading
           title="الوحدات المتاحة"

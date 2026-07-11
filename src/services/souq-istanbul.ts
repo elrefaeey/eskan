@@ -1,9 +1,16 @@
 import axios from "axios";
+import { Api } from "./api";
 import {
   SouqIstanbulUnitsResponse,
   UniqueNumbersResponse,
   UniqueSpacesResponse,
 } from "@/features/souq-istanbul/types";
+import {
+  SouqIstanbulImagesResponse,
+  SouqIstanbulSingleImageResponse,
+  SouqIstanbulTradeFormData,
+  SouqIstanbulTradeFormResponse,
+} from "@/features/souq-istanbul/types/images";
 
 interface FetchSouqIstanbulUnitsParams {
   meter_price?: number;
@@ -80,5 +87,41 @@ export const fetchSouqIstanbulUniqueSpacesByNumber = async (
       number: params.number || 0,
     },
   });
+  return response.data;
+};
+
+export const fetchSouqIstanbulInnerDesignImages = async () => {
+  const response = await Api.get<SouqIstanbulImagesResponse>(
+    `/image/${encodeURIComponent("صورة-التصميم-الداخلي")}`
+  );
+  return response.data.data;
+};
+
+export const fetchSouqIstanbulArchitecturalDesignImage = async () => {
+  const response = await Api.get<SouqIstanbulSingleImageResponse>(
+    `/image/${encodeURIComponent("صورة-التصميم-المعماري")}`
+  );
+  return response.data.data;
+};
+
+export const submitSouqIstanbulTradeForm = async (
+  data: SouqIstanbulTradeFormData
+) => {
+  const formData = new FormData();
+  formData.append("name", data.name);
+  formData.append("phone", data.phone);
+  formData.append("shop_number", data.shop_number);
+  formData.append("contact_time", data.contact_time);
+  formData.append("region", data.region);
+
+  const response = await Api.post<SouqIstanbulTradeFormResponse>(
+    "/Souqistanboul-form",
+    formData
+  );
+
+  if (!response.data.success) {
+    throw new Error(response.data.message || "حدث خطأ أثناء الإرسال");
+  }
+
   return response.data;
 };
