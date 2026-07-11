@@ -35,7 +35,7 @@ const ClothesLevel = () => {
   useLenis();
 
   return (
-    <div className="page" dir="rtl">
+    <div className="page">
       <ProjectHero
         isLoading={isLoadingHeader}
         visualType="static"

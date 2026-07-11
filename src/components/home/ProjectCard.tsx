@@ -52,7 +52,6 @@ function ProjectCard({
         className={`cursor-pointer rounded-2xl overflow-hidden bg-white border border-gray-200 transition-shadow duration-300 flex flex-col md:flex-row ${
           reverse ? "md:flex-row-reverse" : ""
         }`}
-        dir="rtl"
       >
         {/* ── الصورة ── */}
         <div className="relative w-full md:w-[45%] shrink-0 h-64 md:h-auto min-h-[280px]">

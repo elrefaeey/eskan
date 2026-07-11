@@ -184,7 +184,7 @@ function NetworkPatternBackground({ tone }: { tone: "dark" | "light" }) {
 
 function CardsSections() {
   return (
-    <section className="container sec-padding" dir="rtl">
+    <section className="container sec-padding">
       <AnimatedSection y={30} duration={0.6} className="text-center mb-8 md:mb-10">
         <span className="inline-block bg-primary/10 text-primary font-bold text-sm px-4 py-1.5 rounded-full mb-3">
           استثمر معنا

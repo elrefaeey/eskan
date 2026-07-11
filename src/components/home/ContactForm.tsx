@@ -36,7 +36,7 @@ export default function ContactForm() {
   const onSubmit = () => { reset(); };
 
   return (
-    <section id="contact-form" className="py-16 bg-white" dir="rtl">
+    <section id="contact-form" className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         {/* Header */}

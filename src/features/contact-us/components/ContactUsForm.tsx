@@ -48,7 +48,7 @@ const ContactUsForm = () => {
   };
 
   return (
-    <section id="contact-form" className="relative py-14 overflow-hidden mb-10" dir="rtl">
+    <section id="contact-form" className="relative py-14 overflow-hidden mb-10">
       {/* Background image */}
       <Image
         src="/assets/footer/back33.png"

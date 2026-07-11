@@ -28,7 +28,7 @@ function ElbadryTrade() {
   const constructionSliderImages = constructionImages?.map((img) => img.img) || [];
 
   return (
-    <div className="w-full page" dir="rtl">
+    <div className="w-full page">
       <ProjectHero
         visualType="slider"
         images={headerImages}

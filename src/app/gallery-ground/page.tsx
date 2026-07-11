@@ -30,7 +30,7 @@ function GalleryGroundPage() {
       : [];
 
   return (
-    <main className="w-full page" dir="rtl">
+    <main className="w-full page">
       <ProjectHero
         visualType="slider"
         images={sliderImages}

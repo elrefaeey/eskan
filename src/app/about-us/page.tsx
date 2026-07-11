@@ -12,7 +12,7 @@ const stats: StatItem[] = [
 
 function AboutUsPage() {
   return (
-    <main dir="rtl" className="page">
+    <main className="page">
       <ProjectHero
         visualType="static"
         staticImage="/assets/about-us/about-us.png"

@@ -33,7 +33,7 @@ const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload?.length) {
     const d = payload[0].payload;
     return (
-      <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-xl text-right" dir="rtl">
+      <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-xl text-right">
         <p className="text-[#4A36A2] font-extrabold text-lg">2024 — {d.period}</p>
         <p className="text-[#4A36A2] font-extrabold text-2xl mt-1">
           {d.price.toLocaleString()} <span className="text-sm font-normal text-gray-400">جنيه / م²</span>
@@ -71,7 +71,7 @@ export default function ElbadryTradePriceChart() {
       duration={0.6}
       className="bg-white rounded-2xl border border-gray-200 shadow-md overflow-hidden"
     >
-      <div className="bg-gradient-to-l from-[#4A36A2] to-[#7259b8] px-5 md:px-8 py-5" dir="rtl">
+      <div className="bg-gradient-to-l from-[#4A36A2] to-[#7259b8] px-5 md:px-8 py-5">
         <div className="flex items-center justify-between gap-3 flex-wrap">
           <div className="flex items-center gap-2">
             <TrendingUp className="w-5 h-5 text-white shrink-0" />

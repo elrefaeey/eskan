@@ -38,7 +38,7 @@ const BazarLevel = () => {
   useLenis();
 
   return (
-    <div className="page" dir="rtl">
+    <div className="page">
       <ProjectHero
         visualType="static"
         staticImage={BAZAR_HERO.staticImage}

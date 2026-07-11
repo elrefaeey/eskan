@@ -8,7 +8,7 @@ interface ElbadryPriceChartHeaderProps {
 export default function 
 ElbadryPriceChartHeader({ totalGrowth }: ElbadryPriceChartHeaderProps) {
   return (
-    <div className="bg-gradient-to-l from-primary to-[#2d8a57] px-5 md:px-8 py-5" dir="rtl">
+    <div className="bg-gradient-to-l from-primary to-[#2d8a57] px-5 md:px-8 py-5">
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-2">
           <TrendingUp className="w-5 h-5 text-white shrink-0" />

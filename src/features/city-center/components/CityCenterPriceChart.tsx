@@ -39,7 +39,6 @@ const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: { payl
     return (
       <div
         className="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-xl text-right"
-        dir="rtl"
       >
         <p className="text-primary font-extrabold text-lg">{row.year}</p>
         <p className="text-primary font-extrabold text-2xl mt-1">
@@ -98,7 +97,7 @@ export function CityCenterPriceChart({ description }: CityCenterPriceChartProps)
       variant={fadeUp}
       className="sec-padding bg-white rounded-2xl border border-gray-200 shadow-md overflow-hidden"
     >
-      <div className="bg-gradient-to-l from-primary to-[#2d8a57] px-5 md:px-8 py-5" dir="rtl">
+      <div className="bg-gradient-to-l from-primary to-[#2d8a57] px-5 md:px-8 py-5">
         <div className="flex items-center justify-between gap-3 flex-wrap">
           <div className="flex items-center gap-2">
             <TrendingUp className="w-5 h-5 text-white shrink-0" />

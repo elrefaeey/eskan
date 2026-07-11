@@ -63,7 +63,7 @@ const Levels = ({
   ];
 
   return (
-    <div className="mb-12" dir="rtl">
+    <div className="mb-12">
       <h2 className="text-primary text-2xl md:text-3xl font-extrabold mb-6 border-r-4 border-primary pr-4">
         اختر النشاط التجاري المناسب لك
       </h2>

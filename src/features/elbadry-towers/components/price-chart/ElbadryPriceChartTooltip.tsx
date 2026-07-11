@@ -19,7 +19,6 @@ export default function ElbadryPriceChartTooltip({
   return (
     <div
       className="bg-white border border-gray-200 rounded-2xl px-4 py-3 shadow-xl text-right"
-      dir="rtl"
     >
       <p className="text-primary font-extrabold text-lg">{row.year}</p>
       <p className="text-primary font-extrabold text-2xl mt-1">

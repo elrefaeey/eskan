@@ -11,7 +11,7 @@ interface CityCenterLevelsSectionProps {
 
 export function CityCenterLevelsSection({ img, loading = false }: CityCenterLevelsSectionProps) {
   return (
-    <div className="sec-padding" dir="rtl">
+    <div className="sec-padding">
       <h2 className="text-primary text-2xl md:text-3xl font-extrabold mb-6 border-r-4 border-primary pr-4">
         {CITY_CENTER_LEVELS_TITLE}
       </h2>

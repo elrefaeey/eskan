@@ -7,7 +7,7 @@ import { teamDepartments, teamSectionContent } from "./data";
 
 export default function TeamDepartmentsSection() {
   return (
-    <section aria-labelledby="team-departments-heading" className="overflow-hidden" dir="rtl">
+    <section aria-labelledby="team-departments-heading" className="overflow-hidden">
       <div className="mb-8 grid grid-cols-1 items-center gap-6 lg:mb-10 lg:grid-cols-2 lg:gap-8 xl:gap-10">
         <AnimatedSection
           y={20}

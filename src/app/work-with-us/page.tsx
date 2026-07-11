@@ -5,7 +5,7 @@ import { ProjectHero } from "@/components/shared";
 
 function WorkWithUs() {
   return (
-    <main dir="rtl" className="page">
+    <main className="page">
 
       {/* ── Hero ── */}
       <ProjectHero

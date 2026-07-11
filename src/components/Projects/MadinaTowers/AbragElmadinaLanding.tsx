@@ -64,7 +64,7 @@ export default function AbragElmadinaLanding({
   const router = useRouter();
 
   return (
-    <div className="w-full page" dir="rtl">
+    <div className="w-full page">
 
       {/* ── Hero ── */}
       <ProjectHero
