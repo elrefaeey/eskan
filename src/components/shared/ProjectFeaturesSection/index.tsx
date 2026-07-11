@@ -13,6 +13,7 @@ export interface ProjectFeaturesSectionProps {
   title?: string;
   bulletStyle?: "dot" | "check";
   minImageHeight?: string;
+  imageOrder?: "start" | "end";
   className?: string;
 }
 
@@ -20,10 +21,14 @@ export default function ProjectFeaturesSection({
   features,
   images,
   title = MALL_SECTIONS.features,
-  bulletStyle = "dot",
+  bulletStyle = "check",
   minImageHeight = "min-h-[280px]",
+  imageOrder = "end",
   className,
 }: ProjectFeaturesSectionProps) {
+  const textOrder = imageOrder === "start" ? "order-1 md:order-2" : "order-1";
+  const imageSlotOrder = imageOrder === "start" ? "order-2 md:order-1" : "order-2";
+
   return (
     <AnimatedSection
       variant={fadeUp}
@@ -32,7 +37,7 @@ export default function ProjectFeaturesSection({
         className,
       )}
     >
-      <div className="flex flex-col gap-4 order-1">
+      <div className={cn("flex flex-col gap-4", textOrder)}>
         <h2 className="text-primary text-2xl md:text-3xl font-extrabold border-r-4 border-primary pr-4">
           {title}
         </h2>
@@ -53,9 +58,11 @@ export default function ProjectFeaturesSection({
         </ul>
       </div>
 
-      <div className={cn("relative w-full rounded-xl overflow-hidden order-2", minImageHeight)}>
-        <ProjectImgsSlider rounded height="h-full" images={images} />
-      </div>
+      {images.length > 0 && (
+        <div className={cn("relative w-full rounded-xl overflow-hidden", minImageHeight, imageSlotOrder)}>
+          <ProjectImgsSlider rounded height="h-full" images={images} />
+        </div>
+      )}
     </AnimatedSection>
   );
 }
