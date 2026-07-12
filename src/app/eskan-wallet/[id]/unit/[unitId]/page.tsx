@@ -1,11 +1,5 @@
-"use client";
+import EskanWalletUnitPage from "@/features/eskan-wallet/EskanWalletUnitPage";
 
-import { useParams } from "next/navigation";
-import UnitWalletDetails from "@/features/eskan-wallet/components/UnitWalletDetails";
-
-export default function UnitDetailsPage() {
-  const params = useParams();
-  const unitId = params?.unitId as string;
-
-  return <div className="page  pb-4"><UnitWalletDetails unitId={unitId} /></div>;
+export default function Page() {
+  return <EskanWalletUnitPage />;
 }
