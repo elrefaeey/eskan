@@ -1,5 +1,5 @@
-import ElbadryTowers from "@/components/Projects/ElbadryTowers/ElbadryTowers";
+import ElbadryTowersPage from "@/features/elbadry-towers/ElbadryTowersPage";
 
-export default function AbragElBadryTowers() {
-  return <ElbadryTowers />;
+export default function Page() {
+  return <ElbadryTowersPage />;
 }
