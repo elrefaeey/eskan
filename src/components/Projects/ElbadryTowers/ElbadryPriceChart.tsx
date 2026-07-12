@@ -1,1 +1,3 @@
-export { default } from "@/features/elbadry-towers/components/price-chart";
+"use client";
+
+export { default } from "./chart/ElbadryPriceChart";
