@@ -1,11 +1,5 @@
-import OurProjects from "@/components/home/OurProjects";
+import OurProjectsPage from "@/features/home/OurProjectsPage";
 
-function page() {
-  return (
-    <main className="sec-padding page !mt-[76px]" >
-      <OurProjects />
-    </main>
-  );
+export default function Page() {
+  return <OurProjectsPage />;
 }
-
-export default page;
