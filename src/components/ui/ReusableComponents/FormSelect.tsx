@@ -1,6 +1,7 @@
 "use client";
 
 import { useFormContext, Controller } from "react-hook-form";
+import { cn } from "@/lib/utils";
 import {
   Select,
   SelectContent,
@@ -8,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { FormFieldError } from "./FormFieldError";
 
 interface Option {
   value: string;
@@ -29,7 +31,7 @@ export function FormSelect({ name, placeholder, options }: FormSelectProps) {
   const error = errors[name]?.message as string | undefined;
 
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col">
       <Controller
         name={name}
         control={control}
@@ -37,8 +39,13 @@ export function FormSelect({ name, placeholder, options }: FormSelectProps) {
           <Select onValueChange={field.onChange} value={field.value}>
             <SelectTrigger
               aria-label={placeholder}
-              className="bg-[#FCFCFC] text-[#585858]! w-full text-start placeholder:text-start
-                                                     justify-between flex-row-reverse font-semibold  placeholder:text-[#585858]! border h-14! border-gray-300 rounded-xl focus:ring-0 focus:border-black"
+              aria-invalid={!!error}
+              className={cn(
+                "!bg-[#FCFCFC] !text-[#585858] w-full text-start placeholder:text-start",
+                "justify-between flex-row-reverse font-semibold !placeholder:text-[#585858]",
+                "border !h-14 border-gray-300 rounded-xl focus:ring-0 focus:border-black",
+                error && "border-red-400 focus:border-red-500",
+              )}
             >
               <SelectValue placeholder={placeholder} />
             </SelectTrigger>
@@ -52,11 +59,7 @@ export function FormSelect({ name, placeholder, options }: FormSelectProps) {
           </Select>
         )}
       />
-      {error && (
-        <p className="text-[#F9AEAE] mt-2  px-3 rounded-lg  shadow-sm">
-          *{error}
-        </p>
-      )}{" "}
+      <FormFieldError message={error} />
     </div>
   );
 }

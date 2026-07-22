@@ -2,7 +2,7 @@
 
 import UnitCard from "@/components/Projects/UnitCard";
 import { useSearchParams } from "next/navigation";
-import { Loader2 } from "lucide-react";
+import { BrandSpinner } from "@/components/common/BrandSpinner";
 import { ElbadryUnit } from "../types";
 import useElbadryUnits from "../hooks/useElbadryUnits";
 
@@ -28,7 +28,7 @@ const ElbadryUnitsList = ({ config, projectId }: ElbadryUnitsListProps) => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-8">
-        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+        <BrandSpinner size="md" />
       </div>
     );
   }

@@ -10,6 +10,7 @@ import { ChatAvatar } from "./ChatAvatar";
 import type { Message, ChatFormData, ConnectionStatus } from "../types";
 import { QUICK_MESSAGES } from "../constants";
 import { submitChatInfo } from "@/services/chat";
+import { logChatError } from "../utils/logChatError";
 
 interface ChatWindowProps {
   isOpen: boolean;
@@ -105,8 +106,12 @@ export const ChatWindow = ({
       payload.with_preferences = false;
     }
 
-    await submitChatInfo(payload);
-    setShowForm(false);
+    try {
+      await submitChatInfo(payload);
+      setShowForm(false);
+    } catch (error) {
+      logChatError("Chat form submit failed", error, { chatId });
+    }
   };
 
   if (!isOpen) return null;

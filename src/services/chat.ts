@@ -1,27 +1,36 @@
 import { ChatInfoPayload } from "@/features/chat/types";
+import { logChatError } from "@/features/chat/utils/logChatError";
 import axios from "axios";
 
+// Use environment variable or fallback to rewrite proxy
+const CHAT_HTTP_URL = process.env.NEXT_PUBLIC_CHAT_HTTP_URL || "/chat-api";
 const CHAT_WS_URL =
   process.env.NEXT_PUBLIC_CHAT_WS_URL || "wss://chat.enterprise-egy.com";
 
 export const chatConfig = {
+  chatHttpUrl: CHAT_HTTP_URL,
   chatWsUrl: CHAT_WS_URL,
 };
 
 export const createChatId = async (): Promise<string> => {
-  const response = await axios.post<{ chat_id?: string; error?: string }>(
-    "/api/chat/create",
-  );
-
-  if (!response.data?.chat_id) {
-    throw new Error(response.data?.error || "Failed to create chat ID");
+  try {
+    const response = await axios.post(`${CHAT_HTTP_URL}/chats/create`);
+    return response.data.chat_id;
+  } catch (error) {
+    logChatError("Failed to create chat", error);
+    throw error;
   }
-
-  return response.data.chat_id;
 };
 
 export const submitChatInfo = async (
-  payload: ChatInfoPayload,
+  payload: ChatInfoPayload
 ): Promise<void> => {
-  await axios.post("/api/chat/info", payload);
+  try {
+    await axios.post(`${CHAT_HTTP_URL}/info/add`, payload);
+  } catch (error) {
+    logChatError("Failed to submit chat info", error, {
+      chatId: payload.chat_id,
+    });
+    throw error;
+  }
 };

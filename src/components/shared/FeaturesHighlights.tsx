@@ -4,6 +4,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import type { LucideIcon } from "lucide-react";
 import AnimatedSection from "@/components/common/animations/AnimatedSection";
+import { fadeUp } from "@/lib/animations";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -60,9 +61,9 @@ export default function FeaturesHighlights({
 }: FeaturesHighlightsProps) {
   return (
     <AnimatedSection
-      duration={0.4}
+      variant={fadeUp}
       className={cn(
-        "grid gap-4 mb-10",
+        "grid gap-4 sec-padding",
         cols === 2 ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1 sm:grid-cols-3",
         className,
       )}

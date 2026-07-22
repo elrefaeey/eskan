@@ -10,7 +10,7 @@ import useElbadryLevels from "@/features/elbadry-towers/hooks/useElbadryLevels";
 import useElbadrySpaces from "@/features/elbadry-towers/hooks/useElbadrySpaces";
 import useElbadryMeterPrices from "@/features/elbadry-towers/hooks/useElbadryMeterPrices";
 import useElbadryUnits from "@/features/elbadry-towers/hooks/useElbadryUnits";
-import { Loader2 } from "lucide-react";
+import { BrandSpinner } from "@/components/common/BrandSpinner";
 
 const ElbadryTowersUnitsSection = () => {
   const searchParams = useSearchParams();
@@ -43,7 +43,7 @@ const ElbadryTowersUnitsSection = () => {
   if (blocksLoading) {
     return (
       <div className="sec-padding flex items-center justify-center py-12">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <BrandSpinner size="md" />
       </div>
     );
   }
@@ -115,7 +115,7 @@ const ElbadryTowersUnitsSection = () => {
       <div className="mt-2 lg:mt-4">
         {unitsLoading ? (
           <div className="flex items-center justify-center py-8">
-            <Loader2 className="h-6 w-6 animate-spin text-primary" />
+            <BrandSpinner size="md" />
           </div>
         ) : units && units.length > 0 ? (
           <div className="grid gap-3 units xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">

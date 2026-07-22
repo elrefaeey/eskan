@@ -4,7 +4,8 @@ import UnitCard from "../UnitCard";
 import { elbadryTradeConfig } from "../unitCardConfigs";
 import type { BaseUnit } from "../UnitCard";
 import { useCafeRestaurantUnits } from "@/features/cafe-restaurants/hooks/useCafeRestaurantUnits";
-import { Loader2, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import { BrandSpinner } from "@/components/common/BrandSpinner";
 
 const CafeRestaurantUnits = () => {
   const [itemsToShow, setItemsToShow] = useState<number>(3);
@@ -12,7 +13,6 @@ const CafeRestaurantUnits = () => {
   const level_id = 10;
   const type = "تجارى";
 
-  // Fetch units with pagination
   const { data: unitsResponse, isLoading } = useCafeRestaurantUnits({
     level_id,
     type,
@@ -46,13 +46,13 @@ const CafeRestaurantUnits = () => {
       <div className="grid gap-3 mt-0 units lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
         {isLoading && itemsToShow === 3 ? (
           <div className="col-span-full flex items-center justify-center py-12">
-            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            <BrandSpinner size="md" />
           </div>
         ) : (
           units.map((unit) => (
             <UnitCard
               key={unit.id}
-              projectId={1}
+              projectId={4}
               config={elbadryTradeConfig}
               unit={unit}
               data={units}
@@ -75,7 +75,7 @@ const CafeRestaurantUnits = () => {
 
       {isLoading && itemsToShow > 3 && (
         <div className="flex justify-center mt-6">
-          <Loader2 className="w-6 h-6 animate-spin text-primary" />
+          <BrandSpinner size="sm" />
         </div>
       )}
     </>

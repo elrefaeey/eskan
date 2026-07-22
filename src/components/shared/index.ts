@@ -24,6 +24,15 @@ export type { StatsGridProps, StatItem, StatsColorScheme, StatsVariant } from ".
 export { default as FeaturesHighlights } from "./FeaturesHighlights";
 export type { FeaturesHighlightsProps, HighlightItem } from "./FeaturesHighlights";
 
+export { default as ProjectFeaturesSection } from "./ProjectFeaturesSection";
+export type { ProjectFeaturesSectionProps } from "./ProjectFeaturesSection";
+
+export { default as ProjectTour3DSection } from "./ProjectTour3DSection";
+export type { ProjectTour3DSectionProps } from "./ProjectTour3DSection";
+
+export { default as ProjectUnitsSection } from "./ProjectUnitsSection";
+export type { ProjectUnitsSectionProps } from "./ProjectUnitsSection";
+
 export { default as LocationSection } from "./LocationSection";
 export {
   GRAY_MAP_LOCATION_DEFAULTS,

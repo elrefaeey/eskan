@@ -2,58 +2,35 @@
 
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import { useForm, FormProvider } from "react-hook-form";
 import { Loader2 } from "lucide-react";
 import FormInput from "@/components/ui/Form/FormInput";
 import FormRadioGroup from "@/components/ui/Form/FormRadioGroup";
 import SuccessModal from "@/components/ui/SuccessModal";
+import {
+  WORK_WITH_US_FORM_LABELS,
+  WORK_WITH_US_FORM_PLACEHOLDERS,
+  WORK_WITH_US_FORM_TITLE,
+  WORK_WITH_US_SUCCESS_MODAL,
+  WORK_WITH_US_YES_NO_OPTIONS,
+} from "@/features/work-with-us/constants";
+import {
+  workWithUsSchema,
+  type WorkWithUsFormValues,
+} from "@/features/work-with-us/schemas/workWithUsSchema";
 import { useWorkWithUs } from "../hooks/useWorkWithUs";
-
-const formSchema = z.object({
-  name: z
-    .string()
-    .min(2, "الاسم مطلوب")
-    .regex(/^[\u0600-\u06FF\sA-Za-z]+$/, "يجب أن يحتوي الاسم على أحرف فقط"),
-  phone: z
-    .string()
-    .min(7, "رقم الهاتف مطلوب")
-    .regex(/^[0-9]+$/, "يجب أن يحتوي على أرقام فقط"),
-  address: z.string().min(2, "محل الإقامة مطلوب"),
-  job: z.string().min(2, "المهنة مطلوبة"),
-  face_book_active: z
-    .enum(["نعم", "لا"], { message: "هذا الحقل مطلوب" })
-    .optional()
-    .refine((val) => val !== undefined, {
-      message: "هذا الحقل مطلوب",
-    }),
-  work_background: z
-    .enum(["نعم", "لا"], { message: "هذا الحقل مطلوب" })
-    .optional()
-    .refine((val) => val !== undefined, {
-      message: "هذا الحقل مطلوب",
-    }),
-  has_wide_netWork: z
-    .enum(["نعم", "لا"], { message: "هذا الحقل مطلوب" })
-    .optional()
-    .refine((val) => val !== undefined, {
-      message: "هذا الحقل مطلوب",
-    }),
-});
-
-type FormValues = z.infer<typeof formSchema>;
 
 const WorkWithUsForm = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-  const methods = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+  const methods = useForm<WorkWithUsFormValues>({
+    resolver: zodResolver(workWithUsSchema),
   });
 
   const { handleSubmit, reset } = methods;
   const { mutate: submitForm, isPending } = useWorkWithUs();
 
-  const onSubmit = async (data: FormValues) => {
+  const onSubmit = async (data: WorkWithUsFormValues) => {
     submitForm(data, {
       onSuccess: () => {
         setShowSuccessModal(true);
@@ -69,6 +46,8 @@ const WorkWithUsForm = () => {
     reset();
   };
 
+  const yesNoOptions = [...WORK_WITH_US_YES_NO_OPTIONS];
+
   return (
     <FormProvider {...methods}>
       <form
@@ -76,54 +55,54 @@ const WorkWithUsForm = () => {
         onSubmit={handleSubmit(onSubmit)}
       >
         <h2 className="text-primary mt-4 mb-4 md:mb-8 text-center text-xl md:text-3xl lg:text-[1.9em] font-bold">
-          للانضمام معنا سجل بياناتك
+          {WORK_WITH_US_FORM_TITLE}
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           <FormInput
             name="name"
-            label="الاسم"
-            placeholder="أدخل اسمك الثلاثي"
+            label={WORK_WITH_US_FORM_LABELS.name}
+            placeholder={WORK_WITH_US_FORM_PLACEHOLDERS.name}
             required
           />
 
           <FormInput
             name="phone"
-            label="رقم الموبايل"
-            placeholder="أدخل رقم الهاتف"
+            label={WORK_WITH_US_FORM_LABELS.phone}
+            placeholder={WORK_WITH_US_FORM_PLACEHOLDERS.phone}
             required
           />
 
           <FormInput
             name="address"
-            label="محل الإقامة"
-            placeholder="أدخل مكان المشروع المقترح"
+            label={WORK_WITH_US_FORM_LABELS.address}
+            placeholder={WORK_WITH_US_FORM_PLACEHOLDERS.address}
             required
           />
 
           <FormInput
             name="job"
-            label="المهنة"
-            placeholder="أدخل المهنة"
+            label={WORK_WITH_US_FORM_LABELS.job}
+            placeholder={WORK_WITH_US_FORM_PLACEHOLDERS.job}
             required
           />
 
           <FormRadioGroup
             name="face_book_active"
-            label="هل لديك حساب علي الفيس بوك؟"
-            options={["نعم", "لا"]}
+            label={WORK_WITH_US_FORM_LABELS.faceBookActive}
+            options={yesNoOptions}
           />
 
           <FormRadioGroup
             name="work_background"
-            label="هل عملت من قبل في مجال العقارات؟"
-            options={["نعم", "لا"]}
+            label={WORK_WITH_US_FORM_LABELS.workBackground}
+            options={yesNoOptions}
           />
 
           <FormRadioGroup
             name="has_wide_netWork"
-            label="هل تمتلك شبكة علاقات واسعة؟"
-            options={["نعم", "لا"]}
+            label={WORK_WITH_US_FORM_LABELS.hasWideNetwork}
+            options={yesNoOptions}
           />
         </div>
 
@@ -135,20 +114,19 @@ const WorkWithUsForm = () => {
           {isPending ? (
             <span className="flex items-center justify-center gap-2">
               <Loader2 className="h-5 w-5 animate-spin text-primary" />
-              جاري الإرسال...
+              {WORK_WITH_US_FORM_LABELS.submitting}
             </span>
           ) : (
-            "تسجيل"
+            WORK_WITH_US_FORM_LABELS.submit
           )}
         </button>
       </form>
 
-      {/* Success Modal */}
       <SuccessModal
         isOpen={showSuccessModal}
         onClose={handleCloseModal}
-        title="تم التسجيل بنجاح"
-        message="شكراً لتسجيلك، سيتم التواصل معك قريباً"
+        title={WORK_WITH_US_SUCCESS_MODAL.title}
+        message={WORK_WITH_US_SUCCESS_MODAL.message}
       />
     </FormProvider>
   );

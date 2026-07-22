@@ -9,6 +9,7 @@ import ReserveUnitForm from "./ReserveUnit";
 interface UnitImages {
   unit_img: string;
   floor_img?: string;
+  block_img?: string;
   levelimg?: string;
 }
 
@@ -90,8 +91,12 @@ const DisplayUnitImgs = ({
 
   const labels = buttonLabels || defaultLabels;
 
-  const unitImg = images?.unit_img || img;
-  const floorImg = images?.floor_img || levelimg;
+  const isValidImg = (src?: string) => !!src && src !== "null";
+
+  const unitImg = [images?.unit_img, img].find(isValidImg);
+  const floorImg = [images?.block_img, images?.floor_img, levelimg].find(
+    isValidImg,
+  );
   const imagesList = [unitImg, floorImg].filter(Boolean) as string[];
 
   const handleImg = () => {
@@ -101,30 +106,30 @@ const DisplayUnitImgs = ({
   if (!unitImg) return null;
 
   return (
-    <>
-      <div className="relative w-full h-[400px] md:h-[500px] overflow-hidden rounded-lg bg-gray-100">
-        <AnimatedImageSwitcher imageKey={imgIndex} className="absolute inset-0">
+    <div className="space-y-2.5">
+      <div className="relative w-full overflow-hidden rounded-xl bg-[#F3F4F6] border border-primary/10">
+        <AnimatedImageSwitcher imageKey={imgIndex} className="relative w-full">
           <Image
             src={imagesList[imgIndex] || unitImg}
-            alt="unit image صورة الوحدة"
-            fill
-            className="object-contain"
+            alt="صورة الوحدة"
+            width={900}
+            height={700}
+            className="w-full h-auto object-contain block"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             priority={imgIndex === 0}
           />
         </AnimatedImageSwitcher>
       </div>
       {imagesList.length > 1 && (
-        <div className="change-image-btn mt-2">
-          <button
-            onClick={handleImg}
-            className="p-2 text-white text-xl w-full px-4 bg-[#7D7D7D] hover:bg-[#6A6A6A] transition-colors rounded-lg"
-          >
-            {imgIndex === 0 ? labels.showFloor : labels.showUnit}
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={handleImg}
+          className="w-full rounded-xl bg-[#7D7D7D] px-4 py-2.5 text-sm sm:text-base font-bold text-white shadow-sm transition-colors hover:bg-[#6A6A6A]"
+        >
+          {imgIndex === 0 ? labels.showFloor : labels.showUnit}
+        </button>
       )}
-    </>
+    </div>
   );
 };
 
@@ -135,9 +140,14 @@ const UnitInfoItem = ({
   label: string;
   value: string | number;
 }) => (
-  <p className="text-body-base max-[375px]:text-body-base sm:text-2xl md:text-base ">
-    <span className="font-semibold">{label}</span> : {value}
-  </p>
+  <div className="min-w-0 rounded-lg bg-[#F8FAF9] border border-primary/8 px-2.5 py-2 text-start">
+    <p className="text-[11px] sm:text-xs text-[#555] font-semibold leading-tight mb-0.5">
+      {label}
+    </p>
+    <p className="text-sm sm:text-base font-extrabold text-[#414141] tabular-nums leading-snug break-words">
+      {value}
+    </p>
+  </div>
 );
 
 const UnitCard = ({ unit, data, projectId, config = {} }: UnitCardProps) => {
@@ -182,89 +192,84 @@ const UnitCard = ({ unit, data, projectId, config = {} }: UnitCardProps) => {
   const leftFieldsData = leftFields ? leftFields(unit) : defaultLeftFields;
   const rightFieldsData = rightFields ? rightFields(unit) : defaultRightFields;
 
+  const visibleFields = [
+    ...leftFieldsData.filter((field) => field.show !== false),
+    ...rightFieldsData.filter((field) => field.show !== false),
+  ];
+
+  const blockName =
+    typeof unit.block_id === "object" && unit.block_id
+      ? unit.block_id.name
+      : "";
+
   return (
-    <div
+    <article
       id={data?.length?.toString()}
       data-aos="fade-up"
       data-duration="500"
       key={unit.id}
-      className="relative p-3 pt-0 sm:p-4
-      rounded-xl mt-0 bg-[#EDEDED] shadow-md hover:shadow-xl transition-shadow duration-300"
+      className="group relative flex flex-col overflow-visible rounded-2xl border border-primary/12 bg-white shadow-[0_12px_28px_-18px_rgba(31,80,59,0.35)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-16px_rgba(31,80,59,0.4)]"
     >
-      {unit?.offer ? (
-        <button className="bg-[#C6392E] rounded-xl top-[21px] -left-2 text-sm cursor-default absolute p-2 z-10 swing text-white flex flex-col gap-0 font-semibold shadow-lg">
-          <Image
-            src="/assets/icons/star.png"
-            alt="star"
-            width={14}
-            height={14}
-            className="mx-auto"
-          />
-          عرض لفترة محدودة
-        </button>
+      {showRevenueBanner && unit.revenue ? (
+        <div className="bg-gradient-to-l from-[#498E56] to-[#1F503B] px-3 py-2.5 text-center rounded-t-2xl">
+          <p className="text-white text-sm sm:text-base font-bold">
+            العائد الإيجاري:{" "}
+            <span className="tabular-nums">{unit.revenue}</span> ج.م
+          </p>
+        </div>
       ) : null}
 
-      {showRevenueBanner && unit.revenue && (
-        <h3 className="absolute top-0 left-1/2 -translate-x-1/2 text-xl xl:text-2xl flex justify-center w-full h-[100px] items-center z-10">
-          <span className="bg-[linear-gradient(95.65deg,#6BAF6B_-.45%,#485C4C_95.86%)] text-white w-full m-4 sm:w-[285px] xl:w-[315px] h-[60px] flex items-center justify-center rounded-xl shadow-lg font-bold">
-            العائد الايجارى : {unit.revenue} ج.م
-          </span>
-        </h3>
-      )}
-
-      <div className={`relative ${showRevenueBanner ? "mt-20" : "my-0"}`}>
+      <div className="flex flex-col gap-3 p-3 sm:p-4 flex-1 overflow-visible">
         {showUnitNumber && (
-          <h3 className="unit-number text-center lg:text-2xl my-3 text-base text-primary font-extrabold">
-            وحدة رقم: {unit.number}{" "}
-            {typeof unit.block_id === "object" && unit.block_id
-              ? unit.block_id.name
-              : ""}
-          </h3>
+          <header className="border-b border-primary/10 pb-2.5">
+            <h3 className="text-center text-base sm:text-lg lg:text-xl font-extrabold text-primary leading-snug px-1">
+              وحدة رقم: {unit.number}
+              {blockName ? ` ${blockName}` : ""}
+            </h3>
+          </header>
         )}
 
-        <DisplayUnitImgs
-          images={typeof unit.images === "object" ? unit.images : undefined}
-          img={unit.img}
-          levelimg={unit.levelimg}
-          buttonLabels={imageButtonLabels}
-        />
+        <div className="relative overflow-visible">
+          {unit?.offer ? (
+            <div
+              className="swing pointer-events-none absolute -top-2 -left-3 z-20 flex w-[7.25rem] origin-top flex-col items-center rounded-sm bg-[#C6392E] px-2 py-2.5 text-center text-[11px] font-bold leading-snug text-white shadow-[3px_5px_12px_rgba(0,0,0,0.28)]"
+              aria-label="عرض لفترة محدودة"
+            >
+              <span className="mb-1 h-1.5 w-1.5 rounded-full bg-white/80 shadow-sm" />
+              عرض لفترة محدودة
+            </div>
+          ) : null}
+
+          <DisplayUnitImgs
+            images={typeof unit.images === "object" ? unit.images : undefined}
+            img={unit.img}
+            levelimg={unit.levelimg}
+            buttonLabels={imageButtonLabels}
+          />
+        </div>
+
+        <div className="grid grid-cols-2 gap-2 mt-auto">
+          {visibleFields.map((field, index) => (
+            <UnitInfoItem
+              key={`${field.label}-${index}`}
+              label={field.label}
+              value={field.value}
+            />
+          ))}
+        </div>
+
+        <div className="pt-1 [&_button]:!rounded-xl [&_button]:!font-bold">
+          {unit.contract ? (
+            <div className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-l from-red-500 to-red-600 py-3 text-base font-semibold text-white shadow-sm">
+              <span>تم التعاقد</span>
+              <TiLockClosed className="text-xl" />
+            </div>
+          ) : (
+            <ReserveUnitForm projectId={projectId} unitId={unit.id} />
+          )}
+        </div>
       </div>
-
-      <div className="flex flex-nowrap gap-1 mt-5 justify-between bg-white/50 backdrop-blur-sm rounded-lg p-2">
-        <div className="flex flex-col gap-4">
-          {leftFieldsData
-            .filter((field) => field.show !== false)
-            .map((field, index) => (
-              <UnitInfoItem
-                key={index}
-                label={field.label}
-                value={field.value}
-              />
-            ))}
-        </div>
-
-        <div className="flex flex-col gap-4 w-fit mr-auto">
-          {rightFieldsData
-            .filter((field) => field.show !== false)
-            .map((field, index) => (
-              <UnitInfoItem
-                key={index}
-                label={field.label}
-                value={field.value}
-              />
-            ))}
-        </div>
-      </div>
-
-      {unit.contract ? (
-        <div className="bg-linear-to-r from-red-500 to-red-600 text-center p-2 flex items-center justify-center gap-2 text-lg text-white rounded-lg w-full py-3 mt-4 mx-auto shadow-md font-semibold">
-          <span>تم التعاقد</span>
-          <TiLockClosed className="text-2xl" />
-        </div>
-      ) : (
-        <ReserveUnitForm projectId={projectId} unitId={unit.id} />
-      )}
-    </div>
+    </article>
   );
 };
 

@@ -35,6 +35,7 @@ export const RESIDENTIAL_OPTIONS: Record<string, AreaOption> = {
 };
 
 export const COMMERCIAL_OPTIONS: Record<string, AreaOption> = {
+  تجاري_0: { downPayment: "125000 - 250000" },
   تجاري_1: { downPayment: "350000 - 500000" },
   تجاري_2: { downPayment: "550000 - 750000" },
   تجاري_3: { downPayment: "800000 - 990000" },

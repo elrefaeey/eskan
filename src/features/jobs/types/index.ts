@@ -1,4 +1,3 @@
-
 export interface JobItem {
   id: number;
   name: string;
@@ -11,4 +10,9 @@ export interface JobsResponse {
   success: boolean;
   message: string;
   data: JobItem[];
+}
+
+export interface JobSpecialty {
+  id: number;
+  jobTitl: string;
 }

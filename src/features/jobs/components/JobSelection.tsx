@@ -1,7 +1,8 @@
 "use client";
 
-import { jobs } from "@/constants/jobs";
 import { motion } from "framer-motion";
+import { jobsActiveLineTransition } from "@/features/jobs/animations";
+import { JOBS } from "@/features/jobs/constants";
 
 interface JobsSelectionsProps {
   onChangeJob: (id: number) => void;
@@ -21,7 +22,7 @@ export default function JobsSelections({
           [scrollbar-width:none]
         "
       >
-        {jobs.map((job) => {
+        {JOBS.map((job) => {
           const active = selectedJob === job.id;
 
           return (
@@ -38,7 +39,7 @@ export default function JobsSelections({
                 <motion.div
                   layoutId="jobActiveLine"
                   className="absolute left-0 bottom-0 w-full h-[3px] bg-primary rounded-full"
-                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                  transition={jobsActiveLineTransition}
                 />
               )}
             </div>

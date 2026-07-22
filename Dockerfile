@@ -21,7 +21,7 @@ COPY package.json package-lock.json ./
 # Install ALL dependencies (dev + prod) — needed for the build step
 # --ignore-scripts  prevents arbitrary post-install scripts from running
 # --no-audit        skips network calls to npm audit (faster, no info leak)
-RUN npm ci --ignore-scripts --no-audit
+RUN npm install --frozen-lockfile
 
 # ---------------------------------------------------------------------------
 # Stage 2: Build the application

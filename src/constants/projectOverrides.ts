@@ -32,16 +32,16 @@ export interface ProjectOverride {
 
 /** رابط صفحة كل مشروع — مُعرَّف بالـ id */
 export const PROJECT_LINKS: Record<number, string> = {
-  1:  "/abrag-elbadry",
-  3:  "/city-center",
-  4:  "/elbadry-trade",
-  5:  "/abrag-elmadina",
-  7:  "/gallery-ground",
+  1: "/abrag-elbadry",
+  3: "/city-center",
+  4: "/elbadry-trade",
+  5: "/abrag-elmadina",
+  7: "/gallery-ground",
   12: "/medical-city-center",
 };
 
 /** المشاريع المُخفاة من الصفحة الرئيسية */
-export const EXCLUDED_PROJECT_IDS: number[] = [7, 4];
+export const EXCLUDED_PROJECT_IDS: number[] = [7, 4, 14]; // 14 = GPI (ظاهر كقسم داخل أبراج المدينة فقط)
 
 // ─── Per-project overrides ────────────────────────────────────────────────────
 
@@ -52,8 +52,8 @@ export const PROJECT_OVERRIDES: Record<number, ProjectOverride> = {
       "يعتبر مول البدري طفرة واضافة كبيرة للاسواق التجارية بالمنصورة. تنشئه حاليا مجموعة البدري للتجارة والمقاولات بالتعاون مع اسكان المنصورة المطور العقاري للمشروع. اكبر مركز تجاري متعدد الاسواق بالمنصورة وعلي مسطحات بنائية تتجاوز ٢١ الف متر ليكون المقصد الرئيسي لأكتر من ١٠ مليون من ابناء الدقهلية للشراء والتسوق.",
     type: "سكني تجاري",
     segments: [
-      { label: "أبراج البدري", tag: "سكني",  href: "/abrag-elbadry" },
-      { label: "مول البدري",   tag: "تجاري", href: "/elbadry-trade"  },
+      { label: "أبراج البدري", tag: "سكني", href: "/abrag-elbadry/towers" },
+      { label: "مول البدري", tag: "تجاري", href: "/elbadry-trade" },
     ],
   },
 
@@ -66,10 +66,14 @@ export const PROJECT_OVERRIDES: Record<number, ProjectOverride> = {
   // أبراج المدينة — id: 5
   5: {
     description:
-      "مجتمع عمراني متكامل على مساحة 15 ألف متر (سكني - تجاري - عيادات طبية - مجمع تعليمي - إداري). يتكون من عدد 14 عمارة مقسمة على 4 مراحل وعدد يزيد عن 200 وحدة سكنية تتميز بمساحات تناسب الأسرة المصرية تبدأ من 58 متر حتى 159 متر. يحقق المشروع المعادلة الصعبة التي تعطى مساحة وحدة سكنية صغيرة ومتوسطة بمقدم يبدأ من 25% وبالتقسيط على 6 سنوات وبدون فوايد.",
+      "مجتمع عمراني متكامل على مساحة 15 ألف متر (سكني - تجاري - عيادات طبية - مجمع تعليمي - إداري). يتكون من عدد 14 عمارة مقسمة على 4 مراحل وعدد يزيد عن 200 وحدة سكنية تتميز بمساحات تناسب الأسرة المصرية تبدأ من 85 متر حتى 159 متر. يحقق المشروع المعادلة الصعبة التي تعطى مساحة وحدة سكنية صغيرة ومتوسطة بمقدم يبدأ من 25% وبالتقسيط على 6 سنوات وبدون فوايد.",
     segments: [
-      { label: "أبراج المدينة",   tag: "سكني",  href: "/abrag-elmadina/residential" },
-      { label: "أرض المعارض",     tag: "تجاري", href: "/gallery-ground"             },
+      {
+        label: "أبراج المدينة",
+        tag: "سكني",
+        href: "/abrag-elmadina/residential",
+      },
+      { label: "أرض المعارض", tag: "تجاري", href: "/gallery-ground" },
       { label: "معهد إعداد الخريجين (GPI)", tag: "تدريبي استثماري", href: "/gpi"           },
     ],
   },

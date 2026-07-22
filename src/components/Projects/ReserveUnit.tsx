@@ -106,7 +106,7 @@ const ReserveUnitForm = ({ projectId, unitId }: ReserveUnitFormProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <button className="bg-linear-to-r cursor-pointer from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-base sm:text-lg text-white rounded-xl w-full py-2.5 sm:py-3 mt-4 block mx-auto transition-all duration-300 font-bold shadow-lg hover:shadow-xl hover:scale-[1.02]">
+        <button className="bg-primary hover:bg-primary/90 cursor-pointer text-base sm:text-lg text-primary-foreground rounded-xl w-full py-2.5 sm:py-3 mt-4 block mx-auto transition-all duration-300 font-bold shadow-md hover:shadow-lg">
           حجز الوحدة
         </button>
       </DialogTrigger>

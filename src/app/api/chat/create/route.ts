@@ -14,7 +14,6 @@ export async function POST() {
       }
     );
 
-    console.log("[Chat API] Response status:", response.status);
 
     if (!response.ok) {
       const errorText = await response.text();
@@ -25,7 +24,6 @@ export async function POST() {
     }
 
     const data = await response.json();
-    console.log("[Chat API] Success:", data);
     return NextResponse.json(data);
   } catch (error) {
     console.error("[Chat API] Exception:", error);
@@ -38,3 +36,6 @@ export async function POST() {
     );
   }
 }
+
+
+

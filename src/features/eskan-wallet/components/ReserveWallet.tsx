@@ -160,7 +160,7 @@ const ReserveWallet = ({
               >
                 {isPending ? (
                   <span className="flex items-center justify-center gap-2 !text-base ">
-                    <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                    <Loader2 className="h-5 w-5 animate-spin" />
                     جاري الإرسال...
                   </span>
                 ) : (

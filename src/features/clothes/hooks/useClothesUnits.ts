@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { compactFilterParams } from "@/features/city-center/utils/filterParams";
 import { fetchClothesUnits } from "@/services/clothes";
 
 interface UseClothesUnitsParams {
@@ -10,10 +11,19 @@ interface UseClothesUnitsParams {
 
 export const useClothesUnits = (params: UseClothesUnitsParams = {}) => {
   const [page, setPage] = useState(1);
+  const filters = compactFilterParams({
+    space: params.space?.trim(),
+    revenue: params.revenue?.trim(),
+    number: params.number?.trim(),
+  });
+
+  useEffect(() => {
+    setPage(1);
+  }, [filters.space, filters.revenue, filters.number]);
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["clothes-units", params, page],
-    queryFn: () => fetchClothesUnits({ ...params, page }),
+    queryKey: ["clothes-units", filters, page],
+    queryFn: () => fetchClothesUnits({ ...filters, page }),
   });
 
   const handlePaginate = () => {

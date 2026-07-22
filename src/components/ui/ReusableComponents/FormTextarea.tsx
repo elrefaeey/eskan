@@ -1,6 +1,8 @@
 "use client";
 
 import { useFormContext } from "react-hook-form";
+import { cn } from "@/lib/utils";
+import { FormFieldError } from "./FormFieldError";
 
 interface FormTextareaProps {
   name: string;
@@ -20,17 +22,17 @@ export function FormTextarea({ name, placeholder }: FormTextareaProps) {
       <textarea
         {...register(name)}
         placeholder={placeholder}
-        className="!bg-[#FCFCFC] text-[#585858] md:text-base text-sm
-                                     placeholder:text-[#585858] border border-gray-300 font-semibold
-                                      rounded-xl px-4 py-3 focus:ring-0 focus:border-black focus:outline-none
-                                      resize-none min-h-[100px]"
+        aria-invalid={!!error}
+        className={cn(
+          "!bg-[#FCFCFC] text-[#585858] md:text-base text-sm",
+          "placeholder:text-[#585858] border border-gray-300 font-semibold",
+          "rounded-xl px-4 py-3 focus:ring-0 focus:border-black focus:outline-none",
+          "resize-none min-h-[100px]",
+          error && "border-red-400 focus:border-red-500",
+        )}
         rows={3}
       />
-      {error && (
-        <p className="text-[#F9AEAE] mt-2 px-3 rounded-lg shadow-sm">
-          *{error}
-        </p>
-      )}
+      <FormFieldError message={error} />
     </div>
   );
 }

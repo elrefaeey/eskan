@@ -3,6 +3,7 @@
 import { useFormContext } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { FormFieldError } from "./FormFieldError";
 
 interface FormInputProps {
   name: string;
@@ -32,19 +33,17 @@ export function FormInput({
         {...register(name)}
         type={type}
         placeholder={placeholder}
+        aria-invalid={!!error}
         className={cn(
           "!bg-[#FCFCFC] text-[#585858] md:text-base text-sm text-right placeholder:text-right",
           "placeholder:text-[#585858] border border-gray-300 font-semibold",
           "rounded-xl h-14 focus:ring-0 focus:border-black",
+          error && "border-red-400 focus:border-red-500",
           className,
         )}
         dir={dir}
       />
-      {error && (
-        <p className="text-[#F9AEAE] mt-2 px-3 rounded-lg shadow-sm text-right text-sm">
-          *{error}
-        </p>
-      )}{" "}
+      <FormFieldError message={error} />
     </div>
   );
 }

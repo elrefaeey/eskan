@@ -5,15 +5,16 @@ import FooterContent from "./FooterContent";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1f503b] text-white" dir="rtl">
-      <div className="relative min-h-[220px] overflow-hidden sm:min-h-[260px] lg:min-h-[300px]">
+    <footer className="bg-[#1f503b] text-white">
+      <div className="relative overflow-hidden">
         <Image
           src="/assets/footer/footer_vl.png"
           alt=""
           width={960}
           height={600}
-          sizes="(max-width: 640px) 42vw, (max-width: 1024px) 34vw, 26vw"
-          className="pointer-events-none absolute bottom-0 left-0 z-0 h-auto w-[42%] max-w-[320px] translate-y-4 mix-blend-lighten opacity-80 sm:w-[34%] sm:max-w-[360px] lg:w-[26%] lg:max-w-none lg:translate-y-5"
+          quality={60}
+          sizes="26vw"
+          className="absolute bottom-0 left-0 z-0 hidden h-auto w-[26%] max-w-full translate-y-5 pointer-events-none opacity-30 lg:block"
           aria-hidden
         />
         <Image
@@ -21,8 +22,9 @@ export default function Footer() {
           alt=""
           width={960}
           height={600}
-          sizes="(max-width: 640px) 42vw, (max-width: 1024px) 34vw, 26vw"
-          className="pointer-events-none absolute bottom-0 right-0 z-0 h-auto w-[42%] max-w-[320px] translate-y-4 mix-blend-lighten opacity-80 sm:w-[34%] sm:max-w-[360px] lg:w-[26%] lg:max-w-none lg:translate-y-5"
+          quality={60}
+          sizes="26vw"
+          className="absolute bottom-0 right-0 z-0 hidden h-auto w-[26%] max-w-full translate-y-5 pointer-events-none opacity-30 lg:block"
           aria-hidden
         />
         <FooterContent />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { IoMdArrowDropdown } from "react-icons/io";
 
 interface SelectOption {
@@ -15,6 +15,8 @@ interface SelectInputProps {
   className?: string;
   disabled?: boolean;
   labelClass?: string;
+  /** URL params to clear when this filter changes (for cascading filters) */
+  clearParams?: string[];
 }
 
 const SelectInput = ({
@@ -24,8 +26,10 @@ const SelectInput = ({
   className = "",
   disabled = false,
   labelClass,
+  clearParams = [],
 }: SelectInputProps) => {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -38,7 +42,10 @@ const SelectInput = ({
       newSearchParams.set(name, value);
     }
 
-    router.push(`?${newSearchParams.toString()}`, { scroll: false });
+    clearParams.forEach((param) => newSearchParams.delete(param));
+
+    const query = newSearchParams.toString();
+    router.push(query ? `${pathname}?${query}` : pathname, { scroll: false });
   };
 
   const currentValue = searchParams.get(name) || "";

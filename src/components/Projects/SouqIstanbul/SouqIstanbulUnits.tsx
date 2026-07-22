@@ -7,7 +7,8 @@ import type { BaseUnit } from "../UnitCard";
 import { useSouqIstanbulUnits } from "@/features/souq-istanbul/hooks/useSouqIstanbulUnits";
 import { useSouqIstanbulUniqueNumbers } from "@/features/souq-istanbul/hooks/useSouqIstanbulUniqueNumbers";
 import { useSouqIstanbulUniqueSpaces } from "@/features/souq-istanbul/hooks/useSouqIstanbulUniqueSpaces";
-import { Loader2, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+import { BrandSpinner } from "@/components/common/BrandSpinner";
 import { ActionButton } from "@/components/ui/ReusableComponents/ActionButton";
 
 const SouqIstanbulUnits = () => {
@@ -127,13 +128,13 @@ const SouqIstanbulUnits = () => {
       <div className="grid gap-3 mt-0 units lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
         {isLoading && itemsToShow === 3 ? (
           <div className="col-span-full flex items-center justify-center py-12">
-            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+            <BrandSpinner size="md" />
           </div>
         ) : (
           units.map((unit) => (
             <UnitCard
               key={unit.id}
-              projectId={1}
+              projectId={4}
               config={elbadryTradeConfig}
               unit={unit}
               data={units}
@@ -156,7 +157,7 @@ const SouqIstanbulUnits = () => {
 
       {isLoading && itemsToShow > 3 && (
         <div className="flex justify-center mt-6">
-          <Loader2 className="w-6 h-6 animate-spin text-primary" />
+          <BrandSpinner size="sm" />
         </div>
       )}
     </>

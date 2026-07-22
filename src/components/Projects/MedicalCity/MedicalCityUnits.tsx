@@ -4,7 +4,7 @@ import { useState } from "react";
 import UnitCard from "../UnitCard";
 import { medicalCityConfig } from "../unitCardConfigs";
 import useMedicalUnits from "@/features/medical-city-center/hooks/useMedicalUnits";
-import { Loader2 } from "lucide-react";
+import { BrandSpinner } from "@/components/common/BrandSpinner";
 
 function MedicalCityUnits() {
   const [currentType, setCurrentType] = useState("طبى");
@@ -23,7 +23,7 @@ function MedicalCityUnits() {
 
       {isLoading ? (
         <div className="flex items-center justify-center py-8">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <BrandSpinner size="md" />
         </div>
       ) : (
         <>

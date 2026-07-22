@@ -4,6 +4,10 @@ import type { UnitCardConfig, BaseUnit } from "./UnitCard";
 export const elbadryTowersConfig: UnitCardConfig = {
   showSpecialOffer: false,
   showRevenueBanner: false,
+  imageButtonLabels: {
+    showUnit: "عرض صورة الوحدة",
+    showFloor: "عرض صورة البلوك",
+  },
   leftFields: (unit: BaseUnit) => [
     { label: "المساحة", value: `${parseInt(unit.space.toString())} متر` },
     { label: "مدة التسليم", value: unit.duration },

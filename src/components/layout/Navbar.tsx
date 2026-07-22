@@ -68,10 +68,8 @@ export default function ClientNavbar() {
               {/* Desktop Navigation */}
               <div className="hidden lg:flex items-center gap-6 xl:gap-10">
                 {links.map((link) => {
-                  const isActive =
-                    link.path.startsWith("/investment")
-                      ? pathname === "/investment"
-                      : pathname === link.path;
+                  const linkPath = link.path.split("?")[0];
+                  const isActive = pathname === linkPath;
                   return (
                     <Link
                       key={link.path}

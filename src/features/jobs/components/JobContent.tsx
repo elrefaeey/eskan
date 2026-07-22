@@ -1,5 +1,12 @@
 "use client";
+
 import { useJobsText } from "@/features/jobs/hooks/useJobsText";
+import {
+  JOBS_EMPTY_MESSAGE,
+  JOBS_REGISTER_HEADING,
+  JOBS_REQUIREMENTS_HEADING,
+  JOBS_REQUIREMENTS_SKELETON_ROWS,
+} from "@/features/jobs/constants";
 import JobForm from "./JobsForm";
 
 interface JobsContentProps {
@@ -21,14 +28,14 @@ export default function JobsContent({ jobTitle }: JobsContentProps) {
             <span className="w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full"></span>
           </div>
           <h3 className="text-sm sm:text-base md:text-lg font-semibold text-primary">
-            متطلبات الوظيفة
+            {JOBS_REQUIREMENTS_HEADING}
           </h3>
         </div>
 
         <div className="p-3 sm:p-4 text-gray-700 prose max-w-full rtl text-body-base md:text-base">
           {isLoading ? (
             <div className="space-y-2">
-              {[...Array(5)].map((_, i) => (
+              {[...Array(JOBS_REQUIREMENTS_SKELETON_ROWS)].map((_, i) => (
                 <div
                   key={i}
                   className="h-3 sm:h-4 md:h-5 w-full bg-gray-200 rounded animate-pulse"
@@ -40,7 +47,7 @@ export default function JobsContent({ jobTitle }: JobsContentProps) {
           ) : jobData ? (
             <div dangerouslySetInnerHTML={{ __html: jobData.description }} />
           ) : (
-            <p>لا توجد بيانات لهذه الوظيفة.</p>
+            <p>{JOBS_EMPTY_MESSAGE}</p>
           )}
         </div>
 
@@ -49,12 +56,10 @@ export default function JobsContent({ jobTitle }: JobsContentProps) {
             <span className="w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full"></span>
           </div>
           <h3 className="text-sm sm:text-base md:text-lg font-semibold text-primary">
-            تسجيل البيانات
+            {JOBS_REGISTER_HEADING}
           </h3>
         </div>
-        <JobForm
-          jobTitle={jobTitle}
-        />
+        <JobForm jobTitle={jobTitle} />
       </div>
     </div>
   );

@@ -181,6 +181,8 @@ main() {
     echo ""
 
     preflight_checks
+    log_info "Syncing latest code from GitHub..."
+    git fetch origin main && git reset --hard origin/main
     stop_container
     build_image
     start_container

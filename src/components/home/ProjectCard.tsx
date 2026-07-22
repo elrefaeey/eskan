@@ -1,13 +1,18 @@
 "use client";
-import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import type { MouseEvent } from "react";
 import AnimatedSection from "@/components/common/animations/AnimatedSection";
 import { MapPin, Building2 } from "lucide-react";
 import ProjectBulletList from "./ProjectCard/ProjectBulletList";
 import ProjectSegments from "./ProjectCard/ProjectSegments";
 import type { ProjectSegment } from "./ProjectCard/ProjectSegments";
-
+import {
+  PROJECT_CARD_VIEWPORT_AMOUNT,
+  projectCardVariant,
+  PROJECT_CARD_SHADOW_TRANSITION,
+  PROJECT_CARD_BUTTON_TRANSITION,
+} from "./ProjectCard/animations";
 export type { ProjectSegment };
 
 interface ProjectCardProps {
@@ -38,23 +43,31 @@ function ProjectCard({
   const router = useRouter();
   const handleNavigate = () => router.push(link);
 
+  const handleButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    handleNavigate();
+  };
   // تقسيم الوصف إلى نقاط — max 3
   const allSentences = description
     .split(/(?<=[.،])\s+/)
     .map((s) => s.trim())
     .filter((s) => s.length > 5);
-  const sentences = (allSentences.length > 0 ? allSentences : [description]).slice(0, 3);
+  const sentences = (
+    allSentences.length > 0 ? allSentences : [description]
+  ).slice(0, 3);
 
   return (
-    <AnimatedSection amount={0.15}>
+    <AnimatedSection
+      variant={projectCardVariant}
+      amount={PROJECT_CARD_VIEWPORT_AMOUNT}
+    >
       <div
         onClick={handleNavigate}
-        className={`cursor-pointer rounded-2xl overflow-hidden bg-white border border-gray-200 transition-shadow duration-300 flex flex-col md:flex-row ${
+        className={`cursor-pointer rounded-2xl overflow-hidden bg-white border border-gray-200 ${PROJECT_CARD_SHADOW_TRANSITION} flex flex-col md:flex-row ${
           reverse ? "md:flex-row-reverse" : ""
         }`}
-        dir="rtl"
       >
-        {/* ── الصورة ── */}
+        {/* ── الصورة ── */}{" "}
         <div className="relative w-full md:w-[45%] shrink-0 h-64 md:h-auto min-h-[280px]">
           <Image
             src={image}
@@ -71,7 +84,6 @@ function ProjectCard({
             {type}
           </div>
         </div>
-
         {/* ── المحتوى ── */}
         <div className="flex flex-col justify-between gap-4 p-5 md:p-7 flex-1">
           {/* العنوان والموقع */}
@@ -94,15 +106,14 @@ function ProjectCard({
           )}
 
           {/* زر التفاصيل */}
-          <div onClick={(e) => e.stopPropagation()}>
-            <button
-              onClick={handleNavigate}
-              className="w-full bg-primary text-white font-bold text-base rounded-xl px-5 py-3 hover:bg-primary/90 transition-colors duration-200"
-            >
-              عرض التفاصيل
-            </button>
-          </div>
-        </div>
+          <button
+            type="button"
+            onClick={handleButtonClick}
+            className={`w-full bg-primary text-white font-bold text-base rounded-xl px-5 py-3 hover:bg-primary/90 ${PROJECT_CARD_BUTTON_TRANSITION}`}
+          >
+            عرض التفاصيل
+          </button>
+        </div>{" "}
       </div>
     </AnimatedSection>
   );

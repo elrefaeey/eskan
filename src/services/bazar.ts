@@ -30,16 +30,35 @@ export const fetchBazarSpaces = async (): Promise<string[]> => {
   return response.data.data;
 };
 
-export const fetchBazarRevenues = async (): Promise<string[]> => {
+interface FetchBazarRevenuesParams {
+  space?: string;
+}
+
+export const fetchBazarRevenues = async (
+  params: FetchBazarRevenuesParams = {},
+): Promise<string[]> => {
   const response = await axios.get("/api/cityCenter/unique/revenue", {
-    params: { section: "بازار" },
+    params: {
+      section: "بازار",
+      ...params,
+    },
   });
   return response.data.data;
 };
 
-export const fetchBazarNumbers = async (): Promise<string[]> => {
+interface FetchBazarNumbersParams {
+  space?: string;
+  revenue?: string;
+}
+
+export const fetchBazarNumbers = async (
+  params: FetchBazarNumbersParams = {},
+): Promise<string[]> => {
   const response = await axios.get("/api/cityCenter/unique/numbers", {
-    params: { section: "بازار" },
+    params: {
+      section: "بازار",
+      ...params,
+    },
   });
   return response.data.data;
 };

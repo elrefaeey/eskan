@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createChatId } from "@/services/chat";
+import { logChatError } from "../utils/logChatError";
 
 export const useChatId = () => {
   const [chatId, setChatId] = useState<string | null>(
@@ -17,8 +18,8 @@ export const useChatId = () => {
           const newChatId = await createChatId();
           localStorage.setItem("chatId", newChatId);
           setChatId(newChatId);
-        } catch {
-          // Chat service unavailable — widget stays hidden until a valid id exists
+        } catch (error) {
+          logChatError("Failed to create chat ID", error);
         }
       } else {
         setChatId(existingChatId);

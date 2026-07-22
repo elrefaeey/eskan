@@ -16,7 +16,7 @@ export default function InvestRoad() {
               كيف تبدأ فى الاستثمار ؟
             </h2>
             <div className="lg:px-[40px] p-[30px] pt-2 rounded-2xl">
-              <p className="m-0 pb-3 text-body-lg lg:text-2xl flex items-center gap-3 relative inset-0 border-b-2 border-black border-dotted text-justify border-r-2">
+              <p className="m-0 pb-3 text-lg lg:text-2xl flex items-center gap-3 relative inset-0 border-b-2 border-black border-dotted text-justify border-r-2">
                 <span
                   className="absolute bg-[rgba(250,255,248)] top-0 -right-1 h-[50%] w-1 block"
                 ></span>
@@ -35,7 +35,7 @@ export default function InvestRoad() {
                 </span>
               </p>
 
-              <p className="m-0 pb-10  text-body-lg lg:text-2xl flex items-center gap-3 relative inset-0 pt-4 border-l-2 border-b-2  border-black border-dotted text-justify">
+              <p className="m-0 pb-10  text-lg lg:text-2xl flex items-center gap-3 relative inset-0 pt-4 border-l-2 border-b-2  border-black border-dotted text-justify">
                 <span className="flex-1 pl-10">
                   <strong> 2- بعد الاطلاع</strong> علي تفاصيل الحصص المعروضة اضف
                   الي محفظتك العقارية عدد الحصص التي قمت بتحديدها ثم استكمل
@@ -53,7 +53,7 @@ export default function InvestRoad() {
                 </span>
               </p>
 
-              <p className="m-0 pb-10  text-body-lg lg:text-2xl flex items-center gap-3 relative inset-0 pt-4 border-r-2  border-black border-b-2 border-dotted text-justify">
+              <p className="m-0 pb-10  text-lg lg:text-2xl flex items-center gap-3 relative inset-0 pt-4 border-r-2  border-black border-b-2 border-dotted text-justify">
                 <span className="flex-1 pr-10">
                   <strong> 3- توجة الي</strong> مقر الشركة لاتمام عملية التعاقد
                   الملزمة من الشركة باعادة بيع حصصك العقارية مضاف اليها عائدك
@@ -71,7 +71,7 @@ export default function InvestRoad() {
                 </span>
               </p>
 
-              <p className="m-0 pb-3  text-body-lg lg:text-2xl flex items-center gap-3 relative inset-0 pt-4 border-l-2  border-black border-dotted text-justify">
+              <p className="m-0 pb-3  text-lg lg:text-2xl flex items-center gap-3 relative inset-0 pt-4 border-l-2  border-black border-dotted text-justify">
                 <span className="flex-1 pl-10">
                   <strong>4- يمكنك تحصيل</strong> قيمة حصصك العقارية مع عوائد
                   ارباح البيع طبقا للمواعيد المتفق عليها اثناء تعاقدك

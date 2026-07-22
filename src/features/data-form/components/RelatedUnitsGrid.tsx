@@ -1,6 +1,6 @@
 "use client";
 
-import { Spinner } from "@/components/ui/Spinner";
+import { BrandSpinner } from "@/components/common/BrandSpinner";
 import type { RelatedUnit } from "../types";
 import RelatedUnitCard from "./RelatedUnitCard";
 
@@ -20,7 +20,7 @@ function RelatedUnitsGrid({
   if (isLoading) {
     return (
       <div className="flex justify-center py-10">
-        <Spinner className="w-8 h-8" />
+        <BrandSpinner size="md" />
       </div>
     );
   }

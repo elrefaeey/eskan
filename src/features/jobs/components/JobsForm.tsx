@@ -3,65 +3,30 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRef, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import z from "zod";
 import { motion, useInView } from "framer-motion";
 import { staggerContainer, fadeUp } from "@/lib/animations";
 import FormFileUpload from "@/components/ui/Form/FormFileUploadInput";
 import SubmitButton from "@/components/ui/Form/SubmitFormButton";
 import FormInput from "@/components/ui/Form/FormInput";
-import { useSubmitJob } from "../hooks/useSubmitJob";
 import SuccessModal from "@/components/ui/SuccessModal";
-
-const workWithUsSchema = z.object({
-  name: z.string().min(3, "الاسم مطلوب ويجب أن يكون أكثر من 3 حروف"),
-  phone: z
-    .string()
-    .min(8, "رقم الهاتف غير صالح")
-    .max(15, "رقم الهاتف غير صالح"),
-
-  facebookLink: z.string().url("لينك فيسبوك غير صالح").optional(),
-  project_info: z.string().optional(),
-
-  cv: z
-    .any()
-    .refine((file) => file instanceof File, "يرجى رفع ملف الـ CV")
-    .refine(
-      (file) =>
-        ["application/pdf", "image/jpeg", "image/jpg", "image/png"].includes(
-          file?.type
-        ),
-      "صيغة الملف يجب أن تكون PDF أو JPG أو PNG"
-    ),
-
-  last_project: z
-    .any()
-    .optional()
-    .refine(
-      (files) =>
-        !files ||
-        (Array.isArray(files) &&
-          (files as File[]).every((f: File) => f instanceof File)),
-      "اختر ملفات صحيحة"
-    )
-    .refine(
-      (files) =>
-        !files ||
-        (files as File[]).every((file: File) =>
-          ["image/jpeg", "image/png"].includes(file.type)
-        ),
-      "الصيغ المسموحة لآخر 3 تصاميم هي JPG و PNG فقط"
-    ),
-});
-
-type WorkWithUsSchema = z.infer<typeof workWithUsSchema>;
+import {
+  JOBS_FORM_IN_VIEW,
+  jobsFormFieldTransition,
+} from "@/features/jobs/animations";
+import {
+  DIGITAL_MARKETING_JOB_TITLE,
+  GRAPHIC_DESIGN_JOB_TITLE,
+} from "@/features/jobs/constants";
+import { jobFormSchema, type JobFormValues } from "@/features/jobs/schemas/jobFormSchema";
+import { useSubmitJob } from "../hooks/useSubmitJob";
 
 interface JobFormProps {
   jobTitle: string;
 }
 
 const JobForm = ({ jobTitle }: JobFormProps) => {
-  const methods = useForm<WorkWithUsSchema>({
-    resolver: zodResolver(workWithUsSchema),
+  const methods = useForm<JobFormValues>({
+    resolver: zodResolver(jobFormSchema),
   });
 
   const { handleSubmit, reset } = methods;
@@ -69,12 +34,12 @@ const JobForm = ({ jobTitle }: JobFormProps) => {
   const { mutate: submitJob, isPending } = useSubmitJob();
 
   const formRef = useRef<HTMLFormElement>(null);
-  const isInView = useInView(formRef, { once: true, margin: "-100px" });
+  const isInView = useInView(formRef, JOBS_FORM_IN_VIEW);
 
-  const submitHandler = async (data: WorkWithUsSchema) => {
+  const submitHandler = async (data: JobFormValues) => {
     if (!data.cv) return;
 
-    if (jobTitle === "جرافيك ديزاين" && !data.last_project) return;
+    if (jobTitle === GRAPHIC_DESIGN_JOB_TITLE && !data.last_project) return;
 
     const submitData = {
       job_title: jobTitle,
@@ -118,7 +83,7 @@ const JobForm = ({ jobTitle }: JobFormProps) => {
       >
         <motion.div
           variants={fadeUp}
-          transition={{ duration: 0.3 }}
+          transition={jobsFormFieldTransition}
           className="grid grid-cols-1 lg:grid-cols-2 gap-6"
         >
           <FormInput
@@ -135,8 +100,7 @@ const JobForm = ({ jobTitle }: JobFormProps) => {
             placeholder="أدخل رقم الهاتف"
           />
 
-          {/* Textarea only for Marketing job */}
-          {jobTitle === "التسويق الالكتروني" && (
+          {jobTitle === DIGITAL_MARKETING_JOB_TITLE && (
             <FormInput
               name="project_info"
               required
@@ -147,7 +111,6 @@ const JobForm = ({ jobTitle }: JobFormProps) => {
           )}
         </motion.div>
 
-        {/* File Uploads */}
         <FormFileUpload
           name="cv"
           label="سيرة ذاتية / CV"
@@ -155,7 +118,7 @@ const JobForm = ({ jobTitle }: JobFormProps) => {
           accept="application/pdf,image/jpeg,image/png"
         />
 
-        {jobTitle === "جرافيك ديزاين" && (
+        {jobTitle === GRAPHIC_DESIGN_JOB_TITLE && (
           <FormFileUpload
             name="last_project"
             label="آخر 3 تصاميم"

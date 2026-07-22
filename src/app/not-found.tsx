@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Home, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,47 +6,28 @@ export const metadata: Metadata = {
   description: "عذراً، الصفحة التي تبحث عنها غير موجودة.",
 };
 
-export default function NotFound() {
+/** Root fallback for unmatched URLs (no main chrome). */
+export default function RootNotFound() {
   return (
-    <div className="page flex items-center justify-center px-4">
-      <div className="text-center max-w-2xl mx-auto py-16">
-        <h1 className="text-[120px] md:text-[180px] font-extrabold text-primary/10 leading-none">
+    <div className="flex min-h-screen items-center justify-center px-4">
+      <div className="mx-auto max-w-2xl py-16 text-center">
+        <h1 className="text-[120px] font-extrabold leading-none text-primary/10 md:text-[180px]">
           404
         </h1>
-
-        <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4 -mt-8">
+        <h2 className="mb-4 -mt-8 text-3xl font-bold text-primary md:text-4xl">
           الصفحة غير موجودة
         </h2>
-
-        <p className="text-body-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
+        <p className="mb-8 text-lg leading-relaxed text-gray-600 md:text-xl">
           عذراً، الصفحة التي تبحث عنها غير موجودة أو تم نقلها إلى موقع آخر.
-          <br />
-          يمكنك العودة إلى الصفحة الرئيسية أو تصفح مشاريعنا.
         </p>
-
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Link
-            href="/"
-            className="group bg-primary hover:bg-primary/90 text-white px-8 py-3.5
-              rounded-xl font-semibold transition-all duration-300
-              flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105"
-          >
-            <Home className="w-5 h-5" />
-            <span>العودة للرئيسية</span>
-          </Link>
-
-          <Link
-            href="/#projects-section"
-            className="group bg-white hover:bg-gray-50 text-primary px-8 py-3.5
-              rounded-xl font-semibold transition-all duration-300
-              flex items-center gap-2 border-2 border-primary
-              hover:shadow-lg hover:scale-105"
-          >
-            <span>تصفح المشاريع</span>
-            <ArrowRight className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-          </Link>
-        </div>
+        <Link
+          href="/"
+          className="inline-flex items-center rounded-xl bg-primary px-8 py-3.5 font-semibold text-white shadow-lg transition hover:bg-primary/90"
+        >
+          العودة للرئيسية
+        </Link>
       </div>
     </div>
   );
 }
+

@@ -24,6 +24,15 @@ export function localizeDigits(s: string, locale: (typeof LOCALES)[number]): str
   return s.replace(/\d/g, (d) => map[Number(d)]);
 }
 
+export function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
 export function formatDuration(sec: number, options: TFormatDurationOptions) {
   const { omitHourIfZero = true, locale = 'en' } = options;
 

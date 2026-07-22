@@ -33,16 +33,35 @@ export const fetchElectronicsSpaces = async (): Promise<string[]> => {
   return response.data.data;
 };
 
-export const fetchElectronicsRevenues = async (): Promise<string[]> => {
+interface FetchElectronicsRevenuesParams {
+  space?: string;
+}
+
+export const fetchElectronicsRevenues = async (
+  params: FetchElectronicsRevenuesParams = {},
+): Promise<string[]> => {
   const response = await axios.get("/api/cityCenter/unique/revenue", {
-    params: { section: "الكترونيات" },
+    params: {
+      section: "الكترونيات",
+      ...params,
+    },
   });
   return response.data.data;
 };
 
-export const fetchElectronicsNumbers = async (): Promise<string[]> => {
+interface FetchElectronicsNumbersParams {
+  space?: string;
+  revenue?: string;
+}
+
+export const fetchElectronicsNumbers = async (
+  params: FetchElectronicsNumbersParams = {},
+): Promise<string[]> => {
   const response = await axios.get("/api/cityCenter/unique/numbers", {
-    params: { section: "الكترونيات" },
+    params: {
+      section: "الكترونيات",
+      ...params,
+    },
   });
   return response.data.data;
 };

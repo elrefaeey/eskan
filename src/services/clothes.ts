@@ -35,24 +35,39 @@ export const fetchClothesSpaces = async (): Promise<string[]> => {
   return response.data.data;
 };
 
-export const fetchClothesRevenues = async (): Promise<string[]> => {
+interface FetchClothesRevenuesParams {
+  space?: string;
+}
+
+export const fetchClothesRevenues = async (
+  params: FetchClothesRevenuesParams = {},
+): Promise<string[]> => {
   const response = await Api.get<{
     status: boolean;
     message: string;
     data: string[];
   }>("cityCenter/unique/revenue", {
     section: "ملابس",
+    ...params,
   });
   return response.data.data;
 };
 
-export const fetchClothesNumbers = async (): Promise<string[]> => {
+interface FetchClothesNumbersParams {
+  space?: string;
+  revenue?: string;
+}
+
+export const fetchClothesNumbers = async (
+  params: FetchClothesNumbersParams = {},
+): Promise<string[]> => {
   const response = await Api.get<{
     status: boolean;
     message: string;
     data: string[];
   }>("cityCenter/unique/numbers", {
     section: "ملابس",
+    ...params,
   });
   return response.data.data;
 };

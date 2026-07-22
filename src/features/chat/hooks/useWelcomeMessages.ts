@@ -16,8 +16,6 @@ const getDynamicMessage = (path: string): string => {
     "/elbadry-souq-istanbul": "تواصل معي للإستفسار عن سوق اسطنبول.",
     "/elbadry-cafe-restaurants":
       "تواصل معي للإستفسار عن دور المطاعم و الكافيهات في مول البدري.",
-    "/elbadry-chinese-market":
-      "تواصل معي للإستفسار عن سوق الصين العظيم في مول البدري.",
     "/work-with-us": "تواصل معي للإستفسار عن حق السعي.",
     "/eskan-wallet": "تواصل معي للإستفسار عن المحفظة العقارية.",
     "/project-wallet-details/3": "تواصل معي للإستفسار عن المحفظة العقارية.",

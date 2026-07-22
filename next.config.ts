@@ -85,11 +85,6 @@ const nextConfig: NextConfig = {
         destination: "/abrag-elmadina",
         permanent: true,
       },
-      {
-        source: "/vocational-center",
-        destination: "/gpi",
-        permanent: true,
-      },
     ];
   },
 };

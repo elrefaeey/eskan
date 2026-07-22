@@ -22,6 +22,30 @@ export interface InvestmentUnit {
   return_type: string;
   return_value: string;
   img: string;
+  /** Full image URL from list API */
+  path?: string;
+  project_name?: string;
+  share_advance?: string;
+  share_installment?: string;
+  installment_duration?: number;
+  rental_return_type?: string;
+  rental_return_value?: string;
+  created_at?: string;
+}
+
+export interface InvestmentUnitsPage {
+  current_page: number;
+  count: number;
+  data: InvestmentUnit[];
+  next_page_url: string | null;
+  prev_page_url: string | null;
+  total_pages: number;
+}
+
+export interface InvestmentUnitsListResponse {
+  success: boolean;
+  message: string;
+  data: InvestmentUnitsPage;
 }
 
 export interface InvestmentProject {
@@ -54,7 +78,51 @@ export interface InvestmentCreateResponse {
     en: string;
     ar: string;
   };
-  data: InvestmentResponseData;
+  data: InvestmentResponseData | null;
+}
+
+const INVESTMENT_NOT_FOUND_MESSAGE = "object was not found";
+
+export function isInvestmentSessionNotFound(
+  response?: Pick<InvestmentCreateResponse, "status" | "status_code" | "message"> | null,
+): boolean {
+  if (!response) return false;
+
+  return (
+    response.status_code === 400 ||
+    response.status === "bad request" ||
+    response.message?.en?.toLowerCase().includes(INVESTMENT_NOT_FOUND_MESSAGE) ||
+    response.message?.ar?.includes("غير موجود")
+  );
+}
+
+export function isInvestmentNotFoundError(error: unknown): boolean {
+  if (!error || typeof error !== "object" || !("response" in error)) {
+    return false;
+  }
+
+  const axiosError = error as {
+    response?: { data?: InvestmentCreateResponse; status?: number };
+  };
+
+  return (
+    axiosError.response?.status === 400 ||
+    isInvestmentSessionNotFound(axiosError.response?.data ?? null)
+  );
+}
+
+async function createSessionFromStoredData(): Promise<InvestmentResponseData | null> {
+  const storedFormData = getFormDataFromStorage();
+  if (!storedFormData) return null;
+
+  const response = await investmentService.create(storedFormData);
+
+  if (response.status === "ok" && response.data) {
+    saveFormIdToStorage(response.data.form_id);
+    return response.data;
+  }
+
+  return null;
 }
 
 export const investmentService = {
@@ -101,12 +169,15 @@ export const investmentService = {
     return response.data.data;
   },
 
-  getUnits: async (projectId?: number): Promise<InvestmentUnit[]> => {
-    const response = await Api.get<{ data: InvestmentUnit[] }>(
+  getUnits: async (params?: {
+    return_type?: string;
+  }): Promise<InvestmentUnit[]> => {
+    const response = await Api.get<InvestmentUnitsListResponse>(
       "investment-units",
-      projectId ? { investment_project_id: projectId } : undefined,
+      params,
     );
-    return response.data.data;
+
+    return response.data?.data?.data ?? [];
   },
 
   getProjectById: async (
@@ -117,6 +188,33 @@ export const investmentService = {
       `${INVESTMENT_API_URL}/investment/${formId}/show-details?project_id=${projectId}`,
     );
     return response.data.data;
+  },
+
+  restoreSession: async (): Promise<InvestmentResponseData | null> => {
+    const storedFormId = getFormIdFromStorage();
+    if (!storedFormId) return null;
+
+    try {
+      const response = await investmentService.getByFormId(storedFormId);
+
+      if (response.status === "ok" && response.data) {
+        return response.data;
+      }
+
+      if (isInvestmentSessionNotFound(response)) {
+        clearFormIdFromStorage();
+        return createSessionFromStoredData();
+      }
+
+      return null;
+    } catch (error) {
+      if (isInvestmentNotFoundError(error)) {
+        clearFormIdFromStorage();
+        return createSessionFromStoredData();
+      }
+
+      throw error;
+    }
   },
 };
 

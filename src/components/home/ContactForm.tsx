@@ -7,12 +7,11 @@ import { Button } from "../ui/button";
 import { FormInput } from "../ui/ReusableComponents/FormInput";
 import { FormTextarea } from "../ui/ReusableComponents/FormTextarea";
 import { FormSelect } from "../ui/ReusableComponents/FormSelect";
-import { Phone, MapPin, MessageCircle } from "lucide-react";
-import { fadeInLeft, fadeInRight } from "@/lib/animations";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 const formSchema = z.object({
-  type: z.string().min(1, "نوع العقار مطلوب"),
+  type: z.string().min(1, " نوع العقار مطلوب"),
   name: z.string().min(2, "الاسم مطلوب"),
   phone: z.string().min(5, "رقم الهاتف مطلوب"),
   brief: z.string().min(2, "الوصف مطلوب"),
@@ -20,125 +19,106 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-const contactInfo = [
-  { icon: Phone, label: "اتصل بنا", value: "01000000000" },
-  { icon: MessageCircle, label: "واتساب", value: "01000000000" },
-  { icon: MapPin, label: "العنوان", value: "المنصورة، الدقهلية، مصر" },
-];
-
 export default function ContactForm() {
   const methods = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: { type: "", name: "", phone: "", brief: "" },
+    defaultValues: {
+      type: "",
+      name: "",
+      phone: "",
+      brief: "",
+    },
   });
 
-  const { handleSubmit, formState: { isSubmitting }, reset } = methods;
-  const onSubmit = () => { reset(); };
+  const {
+    handleSubmit,
+    formState: { isSubmitting },
+    reset,
+  } = methods;
+
+  const onSubmit = () => {
+    reset();
+  };
 
   return (
-    <section id="contact-form" className="py-16 bg-white" dir="rtl">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <section
+      id="contact-form"
+      className="relative py-10 sm:py-14 mb-12 overflow-hidden"
+    >
+      <Image
+        src={"/assets/home/contactImage.jpg"}
+        alt={"Contact Image"}
+        fill
+        className="z-[-1] object-cover"
+        priority={false}
+        quality={40}
+        sizes="100vw"
+      />
+      <div className="absolute w-full top-0 left-0 h-full bg-[#22342CB2] z-1" />
 
-        {/* Header */}
-        <motion.div
-          variants={fadeInLeft}
-          initial="hidden"
-          whileInView="visible"
+      <div className="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-white text-center text-3xl sm:text-4xl lg:text-5xl font-extrabold"
         >
-          <span className="inline-block bg-primary/10 text-primary font-bold text-sm px-4 py-1.5 rounded-full mb-3">
-            نحن هنا لمساعدتك
-          </span>
-          <h2 className="text-primary text-3xl md:text-4xl font-extrabold mb-3">تواصل معنا</h2>
-          <p className="text-gray-500 text-body-base md:text-lg max-w-xl mx-auto leading-relaxed">
-            سجل بياناتك وخلي فريقنا يساعدك تختار العقار اللي يناسب احتياجك وميزانيتك
-          </p>
-        </motion.div>
+          تواصل معنا{" "}
+        </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        <motion.p
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="text-white text-center md:mt-4 text-lg sm:text-xl
+           lg:text-[28px] font-medium leading-relaxed max-w-[1100px] mx-auto px-2"
+        >
+          سجل بياناتك دلوقتي وخلي فريقنا يساعدك تختار العقار اللي يناسب احتياجك
+          وميزانيتك.  هنقدملك استشارة مجانية ونرشحلك أفضل الخيارات المتاحة حسب
+          رغبتك{" "}
+        </motion.p>
 
-          {/* Left - contact info */}
-          <motion.div
-            variants={fadeInRight}
-            initial="hidden"
-            whileInView="visible"
+        <FormProvider {...methods}>
+          <motion.form
+            onSubmit={handleSubmit(onSubmit)}
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
             viewport={{ once: true }}
-            className="flex flex-col gap-5"
+            className="max-w-[1100px] mx-auto gap-4 sm:gap-6 p-4 sm:p-6
+             mt-4 md:mt-10  rounded-2xl flex flex-col justify-center"
           >
-            <div className="bg-primary rounded-2xl p-8 text-white">
-              <h3 className="text-2xl font-extrabold mb-2">استشارة مجانية</h3>
-              <p className="text-white/80 text-body-base leading-relaxed mb-6">
-                هنقدملك استشارة مجانية ونرشحلك أفضل الخيارات المتاحة حسب رغبتك
-              </p>
-              <div className="flex flex-col gap-4">
-                {contactInfo.map((item) => (
-                  <div key={item.label} className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
-                      <item.icon className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-white/60 text-xs">{item.label}</p>
-                      <p className="text-white font-bold text-sm">{item.value}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-x-14 sm:gap-y-7">
+              <FormInput name="name" placeholder="الاسم" />
+              <FormSelect
+                name="type"
+                placeholder="اختر نوع المشروع"
+                options={[
+                  { value: "customer", label: "سكنى" },
+                  { value: "contractor", label: "تجارى" },
+                  { value: "A", label: "إداري" },
+                  { value: "B", label: "طبي" },
+                  { value: "C", label: "اخر" },
+                ]}
+              />
+              <FormInput name="phone" placeholder="رقم الهاتف" />
+              <FormTextarea name="brief" placeholder="الوصف" />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { num: "17+", label: "سنة خبرة" },
-                { num: "+500", label: "عميل سعيد" },
-                { num: "5", label: "مشاريع ناجحة" },
-                { num: "100%", label: "استشارة مجانية" },
-              ].map((s) => (
-                <div key={s.label} className="bg-primary/5 border border-primary/15 rounded-2xl p-4 text-center">
-                  <p className="text-primary font-extrabold text-2xl">{s.num}</p>
-                  <p className="text-gray-500 text-sm mt-1">{s.label}</p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="mt-4 h-14 text-white font-semibold w-full lg:w-[900px]
 
-          {/* Right - form */}
-          <motion.div
-            variants={fadeInLeft}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 md:p-8"
-          >
-            <FormProvider {...methods}>
-              <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <FormInput name="name" placeholder="الاسم" />
-                  <FormInput name="phone" placeholder="رقم الهاتف" />
-                </div>
-                <FormSelect
-                  name="type"
-                  placeholder="اختر نوع المشروع"
-                  options={[
-                    { value: "customer", label: "سكنى" },
-                    { value: "contractor", label: "تجارى" },
-                    { value: "A", label: "إداري" },
-                    { value: "B", label: "طبي" },
-                    { value: "C", label: "اخر" },
-                  ]}
-                />
-                <FormTextarea name="brief" placeholder="الوصف" />
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="h-12 text-white font-bold w-full bg-primary hover:bg-primary/90 rounded-xl transition-all duration-300 text-base"
-                >
-                  {isSubmitting ? "جاري الإرسال..." : "إرسال الطلب"}
-                </Button>
-              </form>
-            </FormProvider>
-          </motion.div>
-
-        </div>
+               cursor-pointer bg-[#1F503B]  mx-auto hover:bg-[#21845b]
+                rounded-xl transition-all duration-300 text-lg sm:text-2xl"
+            >
+              {isSubmitting ? "جاري الإرسال..." : "تسجيل"}
+            </Button>
+          </motion.form>
+        </FormProvider>
       </div>
     </section>
   );

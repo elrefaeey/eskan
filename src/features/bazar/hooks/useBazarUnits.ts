@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { compactFilterParams } from "@/features/city-center/utils/filterParams";
 import { fetchBazarUnits } from "@/services/bazar";
 
 interface UseBazarUnitsParams {
@@ -10,10 +11,19 @@ interface UseBazarUnitsParams {
 
 export const useBazarUnits = (params: UseBazarUnitsParams = {}) => {
   const [page, setPage] = useState(1);
+  const filters = compactFilterParams({
+    space: params.space?.trim(),
+    revenue: params.revenue?.trim(),
+    number: params.number?.trim(),
+  });
+
+  useEffect(() => {
+    setPage(1);
+  }, [filters.space, filters.revenue, filters.number]);
 
   const { data, isLoading, error } = useQuery({
-    queryKey: ["bazar-units", params, page],
-    queryFn: () => fetchBazarUnits({ ...params, page }),
+    queryKey: ["bazar-units", filters, page],
+    queryFn: () => fetchBazarUnits({ ...filters, page }),
   });
 
   const handlePaginate = () => {

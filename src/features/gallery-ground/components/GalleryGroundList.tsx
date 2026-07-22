@@ -4,7 +4,7 @@ import UnitCard from "@/components/Projects/UnitCard";
 import { galleryGroundConfig } from "@/components/Projects/unitCardConfigs";
 import useGalleryGroundUnits from "../hooks/useGalleryGroundUnits";
 import { useSearchParams } from "next/navigation";
-import { Loader2 } from "lucide-react";
+import { BrandSpinner } from "@/components/common/BrandSpinner";
 import { GalleryGroundUnit } from "../types";
 
 const GalleryGroundList = () => {
@@ -22,7 +22,7 @@ const GalleryGroundList = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-8">
-        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+        <BrandSpinner size="md" />
       </div>
     );
   }

@@ -1,52 +1,18 @@
 import ProjectCard from "./ProjectCard";
-import type { Project } from "@/features/projects/types/index";
+import EmptyList from "@/components/common/EmptyList";
 import {
   PROJECT_LINKS,
   PROJECT_OVERRIDES,
   EXCLUDED_PROJECT_IDS,
 } from "@/constants/projectOverrides";
-
-function shuffleArray<T>(array: T[]): T[] {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-}
-
-async function getProjects(): Promise<Project[]> {
-  try {
-    const apiUrl =
-      process.env.NEXT_PUBLIC_BACKEND_URL ||
-      "https://back.mansoura-eco-build.com";
-
-    const res = await fetch(`${apiUrl}/api/projects`, {
-      next: { revalidate: 3600 },
-      headers: { Accept: "application/json" },
-    });
-
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-
-    const data = await res.json();
-    if (!data?.data) throw new Error("Invalid data structure");
-
-    return data.data;
-  } catch (error) {
-    console.error("Error fetching projects:", error);
-    return [];
-  }
-}
+import { getProjects } from "@/services/getProjects";
+import { shuffleArray } from "@/lib/utils";
 
 export async function ProjectsList() {
   const projects = await getProjects();
 
   if (!projects || projects.length === 0) {
-    return (
-      <div className="text-center py-12">
-        <p className="text-gray-600 text-body-lg">لا توجد مشاريع حالياً</p>
-      </div>
-    );
+    return <EmptyList message="لا توجد مشاريع حالياً" />;
   }
 
   const visibleProjects = shuffleArray(projects).filter(
